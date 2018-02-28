@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/bluegrams/MiniAppManager/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/bluegrams/miniappmanager</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <copyright>Copyright © Bluegrams 2018</copyright>
+    <tags>wpf application settings aboutbox</tags>
+  </metadata>
+  <files>
+    <file src="bin\$configuration$\de\**" target="lib\net451\de" />
+    <file src="bin\$configuration$\$id$.dll.config" target="lib\net451" />
+    <file src="bin\$configuration$\$id$.xml" target="lib\net451" />
+    <file src="bin\$configuration$\MiniAppManager.Shared.xml" target="lib\net451" />
+  </files>
+</package>

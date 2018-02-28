@@ -1,3 +1,7 @@
+# Used for GitHub language detection
+MiniAppManager.WinForms/InfoWindow.Designer.vb linguist-vendored
+MiniAppManager.WinForms/InfoWindow.resx linguist-vendored
+
 ###############################################################################
 # Set default behavior to automatically normalize line endings.
 ###############################################################################

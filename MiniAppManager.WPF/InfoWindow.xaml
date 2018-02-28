@@ -1,0 +1,76 @@
+﻿<Window x:Class="Bluegrams.Application.WPF.InfoWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:Bluegrams.Application;assembly=MiniAppManager.Shared"
+        xmlns:sp="clr-namespace:Bluegrams.Application.Properties;assembly=MiniAppManager.Shared"
+             mc:Ignorable="d" 
+        Width="300" SizeToContent="Height" ResizeMode="NoResize" Icon="{Binding Path=ProductImage}" Title="{Binding Source={x:Static local:AppInfo.ProductName}}"
+        Loaded="Window_Loaded" KeyDown="Window_KeyDown" ShowInTaskbar="False" x:ClassModifier="internal" UseLayoutRounding="True">
+    <Window.Resources>
+        <SolidColorBrush x:Key="productBrush" Color="{Binding Path=ProductColor}"/>
+    </Window.Resources>
+    <DockPanel Margin="5,0,5,7">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="47">
+            <StackPanel.Resources>
+                <Style x:Key="basic">
+                    <Setter Property="Control.VerticalAlignment" Value="Center"/>
+                </Style>
+            </StackPanel.Resources>
+            <Border x:Name="brdIcon" Margin="5,0" Style="{StaticResource basic}" Background="{StaticResource productBrush}" Width="32" Height="32">
+                <Image x:Name="imgIcon"/>
+            </Border>
+            <Label Foreground="{StaticResource productBrush}" Style="{StaticResource basic}" Content="{Binding Source={x:Static local:AppInfo.ProductName}}" 
+                   FontFamily="Arial" FontWeight="Bold" FontSize="22"/>
+        </StackPanel>
+        <StackPanel x:Name="stackLang" Height="55" DockPanel.Dock="Bottom">
+            <GroupBox Header="{Binding Source={x:Static sp:Resources.grpLanguage_Header}}">
+                <DockPanel>
+                    <Button x:Name="butRestart" Click="butRestart_Click" Margin="5" Padding="15,0" DockPanel.Dock="Right">
+                        <Binding Source="{x:Static sp:Resources.butRestart_Content}"/>
+                    </Button>
+                    <ComboBox x:Name="comLanguages" Margin="5"/>
+                </DockPanel>
+            </GroupBox>
+        </StackPanel>
+        <Line DockPanel.Dock="Top" X1="0" X2="300" Margin="5,0" Stroke="{StaticResource productBrush}" StrokeThickness="2"/>
+        <Grid Height="145" Margin="0,5">
+            <Grid.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="Padding" Value="5,0"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Source={x:Static local:AppInfo.Title}}"/>
+            <Label Grid.Row="1" Grid.Column="0">Version</Label>
+            <Label Grid.Row="1" Grid.Column="1" Content="{Binding Source={x:Static local:AppInfo.Version}}"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="{Binding Source={x:Static sp:Resources.lblDeveloper_Content}}"/>
+            <Label Grid.Row="2" Grid.Column="1" Content="{Binding Source={x:Static local:AppInfo.Company}}"/>
+            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Source={x:Static local:AppInfo.Copyright}}"/>
+            <Label Grid.Row="4" Grid.Column="0" Content="{Binding Source={x:Static sp:Resources.lblLicense_Content}}"/>
+            <Label Grid.Row="4" Grid.Column="1">
+                <Hyperlink NavigateUri="{Binding Path=ProductLicense.Url}" RequestNavigate="Hyperlink_RequestNavigate">
+                    <TextBlock Text="{Binding Path=ProductLicense.Description}"/>
+                </Hyperlink>
+            </Label>
+            <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+                <Hyperlink NavigateUri="{Binding Path=ProductWebsite.Url}" RequestNavigate="Hyperlink_RequestNavigate">
+                    <TextBlock Text="{Binding Path=ProductWebsite.Description}"/>
+                </Hyperlink>
+            </Label>
+        </Grid>
+    </DockPanel>
+</Window>
