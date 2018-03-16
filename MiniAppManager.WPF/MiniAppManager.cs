@@ -15,7 +15,7 @@ namespace Bluegrams.Application.WPF
     /// <summary>
     /// A class managing settings such as size and location for a WPF application. Also includes an 'About' form for applications.
     /// </summary>
-    public class MiniAppManager : IMiniAppManager
+    public class MiniAppManager : MiniAppManagerBase
     {
         private bool sizeable;
         private double savedWidth, savedHeight;
@@ -24,33 +24,13 @@ namespace Bluegrams.Application.WPF
 
         public Window Parent { get; private set; }
         /// <summary>
-        /// The project's website shown in the 'About' box.
-        /// </summary>
-        public Link ProductWebsite { get; set; }
-        /// <summary>
-        /// A link to the license, under which the project is published.
-        /// </summary>
-        public Link ProductLicense { get; set; }
-        /// <summary>
-        /// A color object of the respective technology that is used for the title of the 'About' box.
-        /// </summary>
-        public object ProductColorObject => ProductColor;
-        /// <summary>
         /// The color used for the title of the 'About' box.
         /// </summary>
         public Color ProductColor { get; set; }
         /// <summary>
-        /// An icon object of the respective technology that is displayed in the 'About' box.
-        /// </summary>
-        public object ProductImageObject => ProductImage;
-        /// <summary>
         /// The icon of the project used for the 'About' box.
         /// </summary>
         public BitmapSource ProductImage { get; set; }
-        /// <summary>
-        /// A list containing cultures supported by the application.
-        /// </summary>
-        public CultureInfo[] SupportedCultures { get; set; }
 
         /// <summary>
         /// Creates a new instance of MiniAppManager
@@ -94,7 +74,7 @@ namespace Bluegrams.Application.WPF
         /// <summary>
         /// Initializes the app manager. (This method should be called before the window is initialized.)
         /// </summary>
-        public void Initialize()
+        public override void Initialize()
         {
             if (!Properties.Settings.Default.Updated)
             {
@@ -138,6 +118,15 @@ namespace Bluegrams.Application.WPF
                 }
             }
             checkOutOfBorders();
+            if (UpdateAvailable)
+            {
+                if (MessageBox.Show(Parent, 
+                    String.Format(Application.Properties.Resources.strNewUpdate, AppInfo.ProductName, LatestUpdate.Version),
+                    Application.Properties.Resources.strNewUpdateTitle, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes) 
+                {
+                    Process.Start(LatestUpdate.DownloadLink);
+                }
+            }
         }
 
         private void checkOutOfBorders()
@@ -198,7 +187,7 @@ namespace Bluegrams.Application.WPF
         /// <summary>
         /// Shows an 'About' box with application information.
         /// </summary>
-        public void ShowAboutBox()
+        public override void ShowAboutBox()
         {
             InfoWindow info = new InfoWindow(this);
             info.ShowDialog();
@@ -208,7 +197,7 @@ namespace Bluegrams.Application.WPF
         /// Changes the application culture to the given culture.
         /// </summary>
         /// <param name="culture">The new culture to be set.</param>
-        public void ChangeCulture(CultureInfo culture)
+        public override void ChangeCulture(CultureInfo culture)
         {
             Properties.Settings.Default.Culture = culture.Name;
             Parent_Closing(null, null);

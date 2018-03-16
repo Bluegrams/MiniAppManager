@@ -138,4 +138,11 @@
   <data name="grpLanguage_Header" xml:space="preserve">
     <value>Application Language</value>
   </data>
+  <data name="strNewUpdate" xml:space="preserve">
+    <value>A new version of {0} is available: v.{1}.
+Would you like to download it now?</value>
+  </data>
+  <data name="strNewUpdateTitle" xml:space="preserve">
+    <value>Update Available</value>
+  </data>
 </root>

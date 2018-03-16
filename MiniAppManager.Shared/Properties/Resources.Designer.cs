@@ -106,6 +106,25 @@ namespace Bluegrams.Application.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A new version of {0} is available: v.{1}.
+        ///Would you like to download it now?.
+        /// </summary>
+        public static string strNewUpdate {
+            get {
+                return ResourceManager.GetString("strNewUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Available.
+        /// </summary>
+        public static string strNewUpdateTitle {
+            get {
+                return ResourceManager.GetString("strNewUpdateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All unsaved changed will be lost after restart. Continue?.
         /// </summary>
         public static string strRestartNewLang {

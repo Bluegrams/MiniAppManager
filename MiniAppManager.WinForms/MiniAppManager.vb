@@ -7,46 +7,12 @@ Imports System.Globalization
 ''' A class managing settings such as size and location for a WinForms application. Also includes an 'About' form for applications.
 ''' </summary>
 Public Class MiniAppManager
-    Implements IMiniAppManager
+    Inherits MiniAppManagerBase
     Private parent As Form
     Private sizeable As Boolean
     Private savedSize As Size
     Private savedLocation As Point
     Private savedWindowState As FormWindowState
-
-    ''' <summary>
-    ''' The project's website shown in the 'About' box.
-    ''' </summary>
-    ''' <returns></returns>
-    Public Property ProductWebsite As Link Implements IMiniAppManager.ProductWebsite
-    ''' <summary>
-    ''' A link to the license, under which the project is published.
-    ''' </summary>
-    ''' <returns></returns>
-    Public Property ProductLicense As Link Implements IMiniAppManager.ProductLicense
-    ''' <summary>
-    ''' A color object of the respective technology that is used for the title of the 'About' box.
-    ''' </summary>
-    ''' <returns></returns>
-    Public ReadOnly Property ProductColorObject As Object Implements IMiniAppManager.ProductColorObject
-        Get
-            Return ProductColor
-        End Get
-    End Property
-    ''' <summary>
-    ''' An icon object of the respective technology that is displayed in the 'About' box.
-    ''' </summary>
-    ''' <returns></returns>
-    Public ReadOnly Property ProductImageObject As Object Implements IMiniAppManager.ProductImageObject
-        Get
-            Return ProductImage
-        End Get
-    End Property
-    ''' <summary>
-    ''' A list containing cultures supported by the application.
-    ''' </summary>
-    ''' <returns></returns>
-    Public Property SupportedCultures As CultureInfo() Implements IMiniAppManager.SupportedCultures
 
     ''' <summary>
     ''' The color used for the title of the 'About' box.
@@ -106,7 +72,7 @@ Public Class MiniAppManager
     ''' <summary>
     ''' Initializes the app manager. (This method should be called before the window is initialized.)
     ''' </summary>
-    Public Sub Initialize() Implements IMiniAppManager.Initialize
+    Public Overrides Sub Initialize()
         If Not My.Settings.Updated Then
             My.Settings.Upgrade()
             My.Settings.Updated = True
@@ -134,6 +100,13 @@ Public Class MiniAppManager
             parent.WindowState = My.Settings.WindowState
         End If
         checkOutOfBorders()
+        If (UpdateAvailable) Then
+            If (MessageBox.Show(parent,
+                    String.Format(Application.Properties.Resources.strNewUpdate, AppInfo.ProductName, LatestUpdate.Version),
+                    Application.Properties.Resources.strNewUpdateTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes) Then
+                Process.Start(LatestUpdate.DownloadLink)
+            End If
+        End If
     End Sub
 
     Private Sub checkOutOfBorders()
@@ -180,7 +153,7 @@ Public Class MiniAppManager
     ''' Changes the application culture to the given culture.
     ''' </summary>
     ''' <param name="culture">The new culture to be set.</param>
-    Public Sub ChangeCulture(culture As System.Globalization.CultureInfo) Implements IMiniAppManager.ChangeCulture
+    Public Overrides Sub ChangeCulture(culture As System.Globalization.CultureInfo)
         My.Settings.Culture = culture.Name
         parent_FormClosing(Nothing, Nothing)
         Process.Start(Windows.Forms.Application.ExecutablePath)
@@ -190,7 +163,7 @@ Public Class MiniAppManager
     ''' <summary>
     ''' Shows an 'About' box with application information.
     ''' </summary>
-    Public Sub ShowAboutBox() Implements IMiniAppManager.ShowAboutBox
+    Public Overrides Sub ShowAboutBox()
         Dim info = New InfoWindow(Me)
         info.ShowDialog()
     End Sub

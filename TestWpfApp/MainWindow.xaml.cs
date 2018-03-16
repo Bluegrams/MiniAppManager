@@ -29,8 +29,12 @@ namespace TestWpfApp
             // If this property is not specified, the combo box won't be visible on the 'About' box.
             man.SupportedCultures = new CultureInfo[] { new CultureInfo("en"), new CultureInfo("de") };
 
-            //Initialize the manager. Please make sure this method is called BEFORE you initialize your window.
+            // Initialize the manager. Please make sure this method is called BEFORE you initialize your window.
             man.Initialize();
+
+            // Tells the manager to check for updates at the given URL. An XML file containing a serialized AppUpdate object is expected
+            // at that location. This method should also be called before the initialization of the window.
+            man.CheckForUpdates("http://example.org/updates/TestWpfApp.xml");
 
             //Initialize the window.
             InitializeComponent();

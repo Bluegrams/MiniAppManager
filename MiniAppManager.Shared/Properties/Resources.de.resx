@@ -138,4 +138,8 @@
   <data name="grpLanguage_Header" xml:space="preserve">
     <value>Applikationssprache</value>
   </data>
+  <data name="strNewUpdate" xml:space="preserve">
+    <value>Eine neue Version von {0} ist verfügbar: v.{1}.
+Möchten Sie diese jetzt installieren?</value>
+  </data>
 </root>
