@@ -1,9 +1,6 @@
 ﻿Imports System.Drawing
-Imports System.Reflection
 Imports System.Resources
-Imports System.Threading
 Imports System.Windows.Forms
-Imports Bluegrams.Application
 Imports System.Globalization
 
 Friend Class InfoWindow
@@ -37,6 +34,9 @@ Friend Class InfoWindow
             grpLanguages.Visible = False
             Me.Height -= 50
         End If
+        If manager.UpdateAvailable Then
+            butUpdate.Visible = True
+        End If
     End Sub
 
     Private Sub butChangeLang_Click(sender As Object, e As EventArgs) Handles butChangeLang.Click
@@ -61,12 +61,17 @@ Friend Class InfoWindow
         lnkWebsite.Links.Add(0, lnkWebsite.Text.Length, manager.ProductWebsite.Url)
         butChangeLang.Text = Properties.Resources.butRestart_Content
         grpLanguages.Text = Properties.Resources.grpLanguage_Header
+        butUpdate.Text = Application.Properties.Resources.strNewUpdateTitle
     End Sub
 
     Private Sub InfoWindow_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
             Me.Close()
         End If
+    End Sub
+
+    Private Sub butUpdate_Click(sender As Object, e As EventArgs) Handles butUpdate.Click
+        Process.Start(manager.LatestUpdate.DownloadLink)
     End Sub
 
     Private Sub lnkWebsite_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebsite.LinkClicked, lnkLicense.LinkClicked

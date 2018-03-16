@@ -133,17 +133,17 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="lnkWebsite.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 95</value>
+    <value>3, 110</value>
   </data>
   <data name="lnkWebsite.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 19</value>
+    <value>254, 26</value>
   </data>
   <data name="lnkWebsite.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
   </data>
   <data name="lnkWebsite.Text" xml:space="preserve">
     <value>LinkLabel1</value>
-  <comment>@Invariant</comment></data>
+  </data>
   <data name="lnkWebsite.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
@@ -159,39 +159,6 @@
   <data name="&gt;&gt;lnkWebsite.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="lblVersion.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblVersion.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="lblVersion.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblVersion.Location" type="System.Drawing.Point, System.Drawing">
-    <value>88, 19</value>
-  </data>
-  <data name="lblVersion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 19</value>
-  </data>
-  <data name="lblVersion.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="lblVersion.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;lblVersion.Name" xml:space="preserve">
-    <value>lblVersion</value>
-  </data>
-  <data name="&gt;&gt;lblVersion.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblVersion.Parent" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;lblVersion.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="lblCompany.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -202,10 +169,10 @@
     <value>NoControl</value>
   </data>
   <data name="lblCompany.Location" type="System.Drawing.Point, System.Drawing">
-    <value>88, 38</value>
+    <value>88, 44</value>
   </data>
   <data name="lblCompany.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 19</value>
+    <value>169, 22</value>
   </data>
   <data name="lblCompany.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -223,7 +190,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;lblCompany.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="lblLicenseText.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -235,10 +202,10 @@
     <value>NoControl</value>
   </data>
   <data name="lblLicenseText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 76</value>
+    <value>3, 88</value>
   </data>
   <data name="lblLicenseText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 19</value>
+    <value>79, 22</value>
   </data>
   <data name="lblLicenseText.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -256,7 +223,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;lblLicenseText.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="lblCopyright.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -265,10 +232,10 @@
     <value>Fill</value>
   </data>
   <data name="lblCopyright.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 57</value>
+    <value>3, 66</value>
   </data>
   <data name="lblCopyright.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 19</value>
+    <value>254, 22</value>
   </data>
   <data name="lblCopyright.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -286,7 +253,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;lblCopyright.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="lblName.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -298,7 +265,7 @@
     <value>3, 0</value>
   </data>
   <data name="lblName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 19</value>
+    <value>254, 22</value>
   </data>
   <data name="lblName.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -316,7 +283,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;lblName.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="lblCompanyText.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -325,10 +292,10 @@
     <value>Fill</value>
   </data>
   <data name="lblCompanyText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 38</value>
+    <value>3, 44</value>
   </data>
   <data name="lblCompanyText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 19</value>
+    <value>79, 22</value>
   </data>
   <data name="lblCompanyText.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -346,7 +313,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;lblCompanyText.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="lblVersionText.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -355,10 +322,10 @@
     <value>Fill</value>
   </data>
   <data name="lblVersionText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 19</value>
+    <value>3, 22</value>
   </data>
   <data name="lblVersionText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 19</value>
+    <value>79, 22</value>
   </data>
   <data name="lblVersionText.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -376,7 +343,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;lblVersionText.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="lnkLicense.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -385,10 +352,10 @@
     <value>Fill</value>
   </data>
   <data name="lnkLicense.Location" type="System.Drawing.Point, System.Drawing">
-    <value>88, 76</value>
+    <value>88, 88</value>
   </data>
   <data name="lnkLicense.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 19</value>
+    <value>169, 22</value>
   </data>
   <data name="lnkLicense.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -409,6 +376,96 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;lnkLicense.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="butUpdate.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="butUpdate.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="butUpdate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>100, 0</value>
+  </data>
+  <data name="butUpdate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 22</value>
+  </data>
+  <data name="butUpdate.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="butUpdate.Text" xml:space="preserve">
+    <value>Button1</value>
+  </data>
+  <data name="butUpdate.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;butUpdate.Name" xml:space="preserve">
+    <value>butUpdate</value>
+  </data>
+  <data name="&gt;&gt;butUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;butUpdate.Parent" xml:space="preserve">
+    <value>Panel1</value>
+  </data>
+  <data name="&gt;&gt;butUpdate.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblVersion.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="lblVersion.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="lblVersion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 22</value>
+  </data>
+  <data name="lblVersion.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lblVersion.Text" xml:space="preserve">
+    <value>Label1</value>
+  </data>
+  <data name="lblVersion.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;lblVersion.Name" xml:space="preserve">
+    <value>lblVersion</value>
+  </data>
+  <data name="&gt;&gt;lblVersion.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblVersion.Parent" xml:space="preserve">
+    <value>Panel1</value>
+  </data>
+  <data name="&gt;&gt;lblVersion.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="Panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="Panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>85, 22</value>
+  </data>
+  <data name="Panel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="Panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>175, 22</value>
+  </data>
+  <data name="Panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;Panel1.Name" xml:space="preserve">
+    <value>Panel1</value>
+  </data>
+  <data name="&gt;&gt;Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Panel1.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;Panel1.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
   <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
@@ -436,7 +493,7 @@
     <value>1</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="lnkWebsite" Row="5" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="lblVersion" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblCompany" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblLicenseText" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lblCopyright" Row="3" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="lblName" Row="0" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="lblCompanyText" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lblVersionText" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lnkLicense" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33,Percent,67" /&gt;&lt;Rows Styles="Percent,16,66667,Percent,16,66667,Percent,16,66667,Percent,16,66667,Percent,16,66667,Percent,16,66667" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="lnkWebsite" Row="5" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="lblCompany" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblLicenseText" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lblCopyright" Row="3" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="lblName" Row="0" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="lblCompanyText" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lblVersionText" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lnkLicense" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="Panel1" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33,Percent,67" /&gt;&lt;Rows Styles="Percent,16,66667,Percent,16,66667,Percent,16,66667,Percent,16,66667,Percent,16,66667,Percent,16,66667" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="splitter.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -485,7 +542,7 @@
   </data>
   <data name="lblTitle.Text" xml:space="preserve">
     <value>Product Name</value>
-  <comment>@Invariant</comment></data>
+  </data>
   <data name="&gt;&gt;lblTitle.Name" xml:space="preserve">
     <value>lblTitle</value>
   </data>

@@ -56,7 +56,10 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Source={x:Static local:AppInfo.Title}}"/>
             <Label Grid.Row="1" Grid.Column="0">Version</Label>
-            <Label Grid.Row="1" Grid.Column="1" Content="{Binding Source={x:Static local:AppInfo.Version}}"/>
+            <DockPanel Grid.Row="1" Grid.Column="1">
+                <Button DockPanel.Dock="Right" x:Name="butUpdate" Content="Update available" Padding="3" Margin="5,0" Visibility="Hidden" Click="butUpdate_Click"/>
+                <Label Content="{Binding Source={x:Static local:AppInfo.Version}}"/>
+            </DockPanel>
             <Label Grid.Row="2" Grid.Column="0" Content="{Binding Source={x:Static sp:Resources.lblDeveloper_Content}}"/>
             <Label Grid.Row="2" Grid.Column="1" Content="{Binding Source={x:Static local:AppInfo.Company}}"/>
             <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Source={x:Static local:AppInfo.Copyright}}"/>

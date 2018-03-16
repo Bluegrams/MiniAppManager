@@ -142,4 +142,7 @@
     <value>Eine neue Version von {0} ist verfügbar: v.{1}.
 Möchten Sie diese jetzt installieren?</value>
   </data>
+  <data name="strNewUpdateTitle" xml:space="preserve">
+    <value>Update verfügbar</value>
+  </data>
 </root>

@@ -1,6 +1,5 @@
 ﻿Imports System.Windows.Forms
 Imports System.Drawing
-Imports Bluegrams.Application
 Imports System.Globalization
 
 ''' <summary>
@@ -67,6 +66,7 @@ Public Class MiniAppManager
         ProductColor = color
         ProductImage = image
         SupportedCultures = New CultureInfo() {}
+        AddHandler Me.CheckForUpdatesCompleted, AddressOf MiniAppManager_CheckForUpdatesCompleted
     End Sub
 
     ''' <summary>
@@ -100,12 +100,18 @@ Public Class MiniAppManager
             parent.WindowState = My.Settings.WindowState
         End If
         checkOutOfBorders()
-        If (UpdateAvailable) Then
+    End Sub
+
+    Private Sub MiniAppManager_CheckForUpdatesCompleted(sender As Object, e As EventArgs)
+        Dim newerVersion = New Version(LatestUpdate.Version) > New Version(My.Settings.CheckedUpdate)
+        If (UpdateAvailable And (UpdateNotifyEveryStartup Or newerVersion)) Then
             If (MessageBox.Show(parent,
                     String.Format(Application.Properties.Resources.strNewUpdate, AppInfo.ProductName, LatestUpdate.Version),
                     Application.Properties.Resources.strNewUpdateTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes) Then
                 Process.Start(LatestUpdate.DownloadLink)
             End If
+            My.Settings.CheckedUpdate = LatestUpdate.Version
+            My.Settings.Save()
         End If
     End Sub
 

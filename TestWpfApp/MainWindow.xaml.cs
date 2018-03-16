@@ -36,6 +36,10 @@ namespace TestWpfApp
             // at that location. This method should also be called before the initialization of the window.
             man.CheckForUpdates("http://example.org/updates/TestWpfApp.xml");
 
+            // Set this property to true to show an update notification every time the application is started. On default, a notification
+            // is shown only every time a newer version is detected.
+            man.UpdateNotifyEveryStartup = true;
+
             //Initialize the window.
             InitializeComponent();
             lblLang.Content = Properties.Resources.Text;

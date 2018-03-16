@@ -25,7 +25,6 @@ Partial Class InfoWindow
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(InfoWindow))
         Me.tableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.lnkWebsite = New System.Windows.Forms.LinkLabel()
-        Me.lblVersion = New System.Windows.Forms.Label()
         Me.lblCompany = New System.Windows.Forms.Label()
         Me.lblLicenseText = New System.Windows.Forms.Label()
         Me.lblCopyright = New System.Windows.Forms.Label()
@@ -33,6 +32,9 @@ Partial Class InfoWindow
         Me.lblCompanyText = New System.Windows.Forms.Label()
         Me.lblVersionText = New System.Windows.Forms.Label()
         Me.lnkLicense = New System.Windows.Forms.LinkLabel()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.butUpdate = New System.Windows.Forms.Button()
+        Me.lblVersion = New System.Windows.Forms.Label()
         Me.splitter = New System.Windows.Forms.Label()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.picIcon = New System.Windows.Forms.PictureBox()
@@ -40,6 +42,7 @@ Partial Class InfoWindow
         Me.butChangeLang = New System.Windows.Forms.Button()
         Me.comLang = New System.Windows.Forms.ComboBox()
         Me.tableLayoutPanel1.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         CType(Me.picIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpLanguages.SuspendLayout()
         Me.SuspendLayout()
@@ -48,7 +51,6 @@ Partial Class InfoWindow
         '
         resources.ApplyResources(Me.tableLayoutPanel1, "tableLayoutPanel1")
         Me.tableLayoutPanel1.Controls.Add(Me.lnkWebsite, 0, 5)
-        Me.tableLayoutPanel1.Controls.Add(Me.lblVersion, 1, 1)
         Me.tableLayoutPanel1.Controls.Add(Me.lblCompany, 1, 2)
         Me.tableLayoutPanel1.Controls.Add(Me.lblLicenseText, 0, 4)
         Me.tableLayoutPanel1.Controls.Add(Me.lblCopyright, 0, 3)
@@ -56,6 +58,7 @@ Partial Class InfoWindow
         Me.tableLayoutPanel1.Controls.Add(Me.lblCompanyText, 0, 2)
         Me.tableLayoutPanel1.Controls.Add(Me.lblVersionText, 0, 1)
         Me.tableLayoutPanel1.Controls.Add(Me.lnkLicense, 1, 4)
+        Me.tableLayoutPanel1.Controls.Add(Me.Panel1, 1, 1)
         Me.tableLayoutPanel1.Name = "tableLayoutPanel1"
         '
         'lnkWebsite
@@ -64,11 +67,6 @@ Partial Class InfoWindow
         Me.tableLayoutPanel1.SetColumnSpan(Me.lnkWebsite, 2)
         Me.lnkWebsite.Name = "lnkWebsite"
         Me.lnkWebsite.TabStop = True
-        '
-        'lblVersion
-        '
-        resources.ApplyResources(Me.lblVersion, "lblVersion")
-        Me.lblVersion.Name = "lblVersion"
         '
         'lblCompany
         '
@@ -108,6 +106,24 @@ Partial Class InfoWindow
         resources.ApplyResources(Me.lnkLicense, "lnkLicense")
         Me.lnkLicense.Name = "lnkLicense"
         Me.lnkLicense.TabStop = True
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.butUpdate)
+        Me.Panel1.Controls.Add(Me.lblVersion)
+        resources.ApplyResources(Me.Panel1, "Panel1")
+        Me.Panel1.Name = "Panel1"
+        '
+        'butUpdate
+        '
+        resources.ApplyResources(Me.butUpdate, "butUpdate")
+        Me.butUpdate.Name = "butUpdate"
+        Me.butUpdate.UseVisualStyleBackColor = True
+        '
+        'lblVersion
+        '
+        resources.ApplyResources(Me.lblVersion, "lblVersion")
+        Me.lblVersion.Name = "lblVersion"
         '
         'splitter
         '
@@ -165,6 +181,8 @@ Partial Class InfoWindow
         Me.ShowInTaskbar = False
         Me.tableLayoutPanel1.ResumeLayout(False)
         Me.tableLayoutPanel1.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         CType(Me.picIcon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpLanguages.ResumeLayout(False)
         Me.ResumeLayout(False)
@@ -185,7 +203,9 @@ Partial Class InfoWindow
     Friend WithEvents comLang As Windows.Forms.ComboBox
     Friend WithEvents lblLicenseText As Windows.Forms.Label
     Friend WithEvents lnkLicense As Windows.Forms.LinkLabel
-    Friend WithEvents lblVersion As Windows.Forms.Label
     Friend WithEvents lblCompany As Windows.Forms.Label
     Friend WithEvents lnkWebsite As Windows.Forms.LinkLabel
+    Friend WithEvents Panel1 As Windows.Forms.Panel
+    Friend WithEvents butUpdate As Windows.Forms.Button
+    Friend WithEvents lblVersion As Windows.Forms.Label
 End Class

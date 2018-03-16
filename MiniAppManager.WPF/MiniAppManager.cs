@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Bluegrams.Application;
 
 namespace Bluegrams.Application.WPF
 {
@@ -69,6 +64,7 @@ namespace Bluegrams.Application.WPF
             ProductImage = image;
             ProductColor = color;
             SupportedCultures = new CultureInfo[0];
+            this.CheckForUpdatesCompleted += MiniAppManager_CheckForUpdatesCompleted;
         }
 
         /// <summary>
@@ -118,14 +114,21 @@ namespace Bluegrams.Application.WPF
                 }
             }
             checkOutOfBorders();
-            if (UpdateAvailable)
+        }
+
+        private void MiniAppManager_CheckForUpdatesCompleted(object sender, EventArgs e)
+        {
+            bool newerVersion = new Version(LatestUpdate.Version) > new Version(Properties.Settings.Default.CheckedUpdate);
+            if (UpdateAvailable && (UpdateNotifyEveryStartup || newerVersion))
             {
-                if (MessageBox.Show(Parent, 
+                if (MessageBox.Show(Parent,
                     String.Format(Application.Properties.Resources.strNewUpdate, AppInfo.ProductName, LatestUpdate.Version),
-                    Application.Properties.Resources.strNewUpdateTitle, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes) 
+                    Application.Properties.Resources.strNewUpdateTitle, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                 {
                     Process.Start(LatestUpdate.DownloadLink);
                 }
+                Properties.Settings.Default.CheckedUpdate = LatestUpdate.Version;
+                Properties.Settings.Default.Save();
             }
         }
 

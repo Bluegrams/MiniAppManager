@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
 using System.Globalization;
 using System.Net;
 using System.IO;
@@ -24,6 +19,15 @@ namespace Bluegrams.Application
         /// Indicates whether a check for new updates took place.
         /// </summary>
         public bool UpdateCheckSuccessful { get; private set; }
+        /// <summary>
+        /// Indicates whether the user should be notified about a new update on every startup.
+        /// </summary>
+        public bool UpdateNotifyEveryStartup { get; set; }
+
+        /// <summary>
+        /// Occurs when a made check for updates is completed.
+        /// </summary>
+        public event EventHandler CheckForUpdatesCompleted;
 
         /// <summary>
         /// The project's website shown in the 'About' box.
@@ -70,18 +74,29 @@ namespace Bluegrams.Application
         /// <param name="url">The URL to check.</param>
         public void CheckForUpdates(string url)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             WebClient client = new WebClient();
-            /*try
-            {*/
+            try
+            {
+                client.OpenReadAsync(new Uri(url));
+                client.OpenReadCompleted += Client_OpenReadCompleted;       
+            } catch { }
+        }
+
+        private void Client_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
+        {
+            try
+            {
                 XmlSerializer serializer = new XmlSerializer(typeof(AppUpdate));
-                using (Stream str = client.OpenRead(url))
+                using (Stream str = e.Result)
                 {
                     this.LatestUpdate = (AppUpdate)serializer.Deserialize(str);
                 }
                 UpdateAvailable = new Version(LatestUpdate.Version) > new Version(AppInfo.Version);
                 UpdateCheckSuccessful = true;
-            /*}
-            catch { }*/
+                if (CheckForUpdatesCompleted != null)
+                    CheckForUpdatesCompleted(this, new EventArgs());
+            } catch { }
         }
     }
 }
