@@ -2,7 +2,7 @@
 [![NuGet](https://img.shields.io/nuget/v/MiniAppManager.WPF.svg?label=nuget+for+WPF)](https://www.nuget.org/packages/MiniAppManager.WPF/)
 [![NuGet](https://img.shields.io/nuget/v/MiniAppManager.WinForms.svg?label=nuget+for+WinForms)](https://www.nuget.org/packages/MiniAppManager.WinForms/)
 
-Automatically saves an application's location, size and window state and adds a simple 'About' box 
+Automatically saves an application's location, size and window state, checks for updates and adds a simple 'About' box 
 to your WinForms or WPF application.
 
 ## What it is
@@ -14,6 +14,7 @@ closed before.
 * Automatically stores app's location, size and window state
 * Simple 'About' box showing assembly information, project's website and icon...
 * 'About' box supports switching of app's language
+* (new in v.0.2) automatically check for new updates
 
 ## How it works
 1. Add the nuget package for [WPF](https://www.nuget.org/packages/MiniAppManager.WPF) or [WinForms](https://www.nuget.org/packages/MiniAppManager.WinForms/) to your project.
@@ -49,14 +50,23 @@ public MainWindow()
     InitializeComponent();
 }
 ```
-4. (Optional) Open the 'About' box:
+4. (Optional) Tell the manager to check for updates at a given URL which provides an XML file containing update
+    information (see [here](TestWpfApp/AppUpdateExample.xml)).
+```csharp
+public MainWindow()
+{
+    ...
+    man.CheckForUpdates("http://example.org/updates/TestWpfApp.xml");
+}
+```
+5. (Optional) Open the 'About' box:
 ```csharp
 private void butAbout_Click(object sender, RoutedEventArgs e)
 {
     man.ShowAboutBox();
 }
 ```
-5. That's it.
+6. That's it.
 
 ## License
 This project is licensed under the [BSD-2-Clause](LICENSE) license.
