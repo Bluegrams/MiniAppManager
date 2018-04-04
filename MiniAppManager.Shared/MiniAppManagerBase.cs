@@ -23,6 +23,15 @@ namespace Bluegrams.Application
         /// Indicates whether the user should be notified about a new update on every startup.
         /// </summary>
         public bool UpdateNotifyEveryStartup { get; set; }
+        /// <summary>
+        /// If set to true, the manager checks for '/portable' or '--portable' option on startup to run in portable mode.
+        /// </summary>
+        public bool PortableModeArgEnabled { get; set; }
+
+        /// <summary>
+        /// Static property indicating whether the app manager instance is in portable mode.
+        /// </summary>
+        public static bool PortableMode { get; private set; }
 
         /// <summary>
         /// Occurs when a made check for updates is completed.
@@ -55,9 +64,34 @@ namespace Bluegrams.Application
         public AppUpdate LatestUpdate { get; private set; }
 
         /// <summary>
+        /// Initializes a new instance of MiniAppManagerBase.
+        /// </summary>
+        public MiniAppManagerBase() { PortableMode = false; }
+
+        /// <summary>
+        /// Initializes a new instance of MiniAppManagerBase.
+        /// </summary>
+        /// <param name="portable">true if app manager should run in portable mode; otherwise false.</param>
+        public MiniAppManagerBase(bool portable)
+        {
+            PortableMode = portable;
+        }
+
+        /// <summary>
         /// Initializes the app manager. (This method should be called before the window is initialized.)
         /// </summary>
-        public abstract void Initialize();
+        public virtual void Initialize()
+        {
+            if (PortableModeArgEnabled)
+            {
+                string[] args = Environment.GetCommandLineArgs();
+                if (Array.IndexOf(args, "/portable") >= 0 || Array.IndexOf(args, "--portable") >= 0)
+                {
+                    PortableMode = true;
+                }
+            }
+        }
+
         /// <summary>
         /// Shows an 'About' box with application information.
         /// </summary>

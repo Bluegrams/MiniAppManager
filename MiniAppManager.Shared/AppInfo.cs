@@ -77,5 +77,16 @@ namespace Bluegrams.Application
                 return ((AssemblyDescriptionAttribute)Assembly.GetEntryAssembly().GetCustomAttribute(typeof(AssemblyDescriptionAttribute))).Description;
             }
         }
+
+        /// <summary>
+        /// The path to the main executable of the assembly.
+        /// </summary>
+        public static string Location
+        {
+            get
+            {
+                return Assembly.GetEntryAssembly().Location;
+            }
+        }
     }
 }

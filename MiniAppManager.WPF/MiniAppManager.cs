@@ -56,7 +56,36 @@ namespace Bluegrams.Application.WPF
         /// <param name="image">The icon of the project used for the 'About' box.</param>
         /// <param name="website">The project's website shown in the 'About' box.</param>
         /// <param name="license">A link to the license, under which the project is published.</param>
-        public MiniAppManager(Window parent, Color color, BitmapSource image, Link website, Link license)
+        public MiniAppManager(Window parent, Color color, BitmapSource image, Link website, Link license) : this(parent, false, color, image, website, license)
+        { }
+
+        /// <summary>
+        /// Creates a new instance of MiniAppManager
+        /// </summary>
+        /// <param name="parent">The parent window of the manager. (Project's main window.)</param>
+        /// <param name="portable">Indicates whether the manager should be run in portable mode.</param>
+        public MiniAppManager(Window parent, bool portable) : this(parent, portable, Colors.Gray, null) { }
+
+        /// <summary>
+        /// Creates a new instance of MiniAppManager
+        /// </summary>
+        /// <param name="parent">The parent window of the manager. (Project's main window.)</param>
+        /// <param name="portable">Indicates whether the manager should be run in portable mode.</param>
+        /// <param name="color">The color used for the title of the 'About' box.</param>
+        /// <param name="image">The icon of the project used for the 'About' box.</param>
+        public MiniAppManager(Window parent, bool portable, Color color, BitmapSource image) : this(parent, portable, color, image, new Link(""), new Link(""))
+        { }
+
+        /// <summary>
+        /// Creates a new instance of MiniAppManager
+        /// </summary>
+        /// <param name="parent">The parent window of the manager. (Project's main window.)</param>
+        /// <param name="portable">Indicates whether the manager should be run in portable mode.</param>
+        /// <param name="color">The color used for the title of the 'About' box.</param>
+        /// <param name="image">The icon of the project used for the 'About' box.</param>
+        /// <param name="website">The project's website shown in the 'About' box.</param>
+        /// <param name="license">A link to the license, under which the project is published.</param>
+        public MiniAppManager(Window parent, bool portable, Color color, BitmapSource image, Link website, Link license) : base(portable)
         {
             Parent = parent;
             ProductLicense = license;
@@ -72,6 +101,7 @@ namespace Bluegrams.Application.WPF
         /// </summary>
         public override void Initialize()
         {
+            base.Initialize();
             if (!Properties.Settings.Default.Updated)
             {
                 Properties.Settings.Default.Upgrade();

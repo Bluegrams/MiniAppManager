@@ -60,6 +60,40 @@ Public Class MiniAppManager
     ''' <param name="website">The project's website shown in the 'About' box.</param>
     ''' <param name="license">A link to the license, under which the project Is published.</param>
     Sub New(parent As Form, color As Color, image As Image, website As Link, license As Link)
+        Me.New(parent, False, color, image, website, license)
+    End Sub
+
+    ''' <summary>
+    ''' Creates a New instance of MiniAppManager
+    ''' </summary>
+    ''' <param name="parent">The parent window of the manager. (Project's main window.)</param>
+    ''' <param name="portable">Indicates whether the manager should be run in portable mode.</param>
+    Sub New(parent As Form, portable As Boolean)
+        Me.New(parent, portable, Color.Gray, Nothing)
+    End Sub
+
+    ''' <summary>
+    ''' Creates a New instance of MiniAppManager
+    ''' </summary>
+    ''' <param name="parent">The parent window of the manager. (Project's main window.)</param>
+    ''' <param name="portable">Indicates whether the manager should be run in portable mode.</param>
+    ''' <param name="color">The color used for the title of the 'About' box.</param>
+    ''' <param name="image">The icon of the project used for the 'About' box.</param>
+    Sub New(parent As Form, portable As Boolean, color As Color, image As Image)
+        Me.New(parent, portable, color, image, New Link(""), New Link(""))
+    End Sub
+
+    ''' <summary>
+    ''' Creates a New instance of MiniAppManager
+    ''' </summary>
+    ''' <param name="parent">The parent window of the manager. (Project's main window.)</param>
+    ''' <param name="portable">Indicates whether the manager should be run in portable mode.</param>
+    ''' <param name="color">The color used for the title of the 'About' box.</param>
+    ''' <param name="image">The icon of the project used for the 'About' box.</param>
+    ''' <param name="website">The project's website shown in the 'About' box.</param>
+    ''' <param name="license">A link to the license, under which the project Is published.</param>
+    Sub New(parent As Form, portable As Boolean, color As Color, image As Image, website As Link, license As Link)
+        MyBase.New(portable)
         Me.parent = parent
         ProductWebsite = website
         ProductLicense = license
@@ -73,6 +107,7 @@ Public Class MiniAppManager
     ''' Initializes the app manager. (This method should be called before the window is initialized.)
     ''' </summary>
     Public Overrides Sub Initialize()
+        MyBase.Initialize()
         If Not My.Settings.Updated Then
             My.Settings.Upgrade()
             My.Settings.Updated = True
