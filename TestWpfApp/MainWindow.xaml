@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded" Closing="Window_Closing">
     <StackPanel>
         <Label Content="{Binding Path=Left}" ContentStringFormat="Saved Left: {0}"/>
         <Label Content="{Binding Path=Top}" ContentStringFormat="Saved Top: {0}"/>
@@ -12,6 +12,14 @@
         <Label Content="{Binding Path=Height}" ContentStringFormat="Saved Height: {0}"/>
         <Label Content="{Binding Path=WindowState}" ContentStringFormat="Saved Window State: {0}"/>
         <Label x:Name="lblLang" ContentStringFormat="Current Culture: {0}"/>
-        <Button x:Name="butAbout" Click="butAbout_Click" Content="Show About Form" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <WrapPanel>
+            <Label Content="A local setting: "/>
+            <TextBox x:Name="txtLocal" Width="150" VerticalContentAlignment="Center"/>
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="A roamed setting: "/>
+            <TextBox x:Name="txtRoamed" Width="150" VerticalContentAlignment="Center"/>
+        </WrapPanel>
+        <Button x:Name="butAbout" Click="butAbout_Click" Content="Show 'About' Box" VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </StackPanel>
 </Window>

@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\MiniAppManager.WPF.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -81,7 +84,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <PostBuildEvent>cd $(ProjectDir)
 nuget pack $(ProjectFileName) -properties Configuration=Release -IncludeReferencedProjects</PostBuildEvent>
   </PropertyGroup>

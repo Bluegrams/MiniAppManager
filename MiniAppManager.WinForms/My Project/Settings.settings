@@ -2,22 +2,22 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
   <Profiles />
   <Settings>
-    <Setting Name="Size" Type="System.Drawing.Size" Scope="User">
+    <Setting Name="Size" Provider="Bluegrams.Application.SettingsProviders.VariableSettingsProvider" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">640, 480</Value>
     </Setting>
-    <Setting Name="Location" Type="System.Drawing.Point" Scope="User">
+    <Setting Name="Location" Provider="Bluegrams.Application.SettingsProviders.VariableSettingsProvider" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">100, 100</Value>
     </Setting>
-    <Setting Name="WindowState" Type="System.Windows.Forms.FormWindowState" Scope="User">
+    <Setting Name="WindowState" Provider="Bluegrams.Application.SettingsProviders.VariableSettingsProvider" Type="System.Windows.Forms.FormWindowState" Scope="User">
       <Value Profile="(Default)">Normal</Value>
     </Setting>
-    <Setting Name="Culture" Type="System.String" Scope="User">
+    <Setting Name="Culture" Provider="Bluegrams.Application.SettingsProviders.VariableSettingsProvider" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Updated" Type="System.Boolean" Scope="User">
+    <Setting Name="Updated" Provider="Bluegrams.Application.SettingsProviders.VariableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="CheckedUpdate" Type="System.String" Scope="User">
+    <Setting Name="CheckedUpdate" Provider="Bluegrams.Application.SettingsProviders.VariableSettingsProvider" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)">0.0</Value>
     </Setting>
   </Settings>

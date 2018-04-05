@@ -59,4 +59,4 @@ private void butAbout_Click(object sender, RoutedEventArgs e)
 5. That's it.
 
 ## License
-This project is licensed under the [BSD-2-Clause](LICENSE) license.
+This project is licensed under the [BSD-3-Clause](LICENSE) license.

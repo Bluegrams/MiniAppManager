@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MiniAppManager.WPF")]
-[assembly: AssemblyDescription("Automatically save application state in WPF; simple About Form with app infos.")]
+[assembly: AssemblyDescription("Automatically save application state in WPF; simple 'About' box with app infos; make settings portable.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Bluegrams")]
 [assembly: AssemblyProduct("MiniAppManager.WPF")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.2.0.18094")]
-[assembly: AssemblyFileVersion("0.2.0.18094")]
+[assembly: AssemblyVersion("0.3.0.18095")]
+[assembly: AssemblyFileVersion("0.3.0.18095")]

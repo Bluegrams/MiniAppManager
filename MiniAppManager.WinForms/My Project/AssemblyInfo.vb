@@ -9,7 +9,7 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("MiniAppManager.WinForms")>
-<Assembly: AssemblyDescription("Automatically save application state in WinForms; simple About Form with app infos.")>
+<Assembly: AssemblyDescription("Automatically save application state in WinForms; simple 'About' box with app infos; make settings portable.")>
 <Assembly: AssemblyCompany("Bluegrams")>
 <Assembly: AssemblyProduct("MiniAppManager.WinForms")>
 <Assembly: AssemblyCopyright("Copyright ©  2018")>
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("0.2.0.18094")>
-<Assembly: AssemblyFileVersion("0.2.0.18094")>
+<Assembly: AssemblyVersion("0.3.0.18095")>
+<Assembly: AssemblyFileVersion("0.3.0.18095")>

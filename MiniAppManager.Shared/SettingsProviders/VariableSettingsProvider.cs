@@ -4,6 +4,9 @@ using System.Configuration;
 
 namespace Bluegrams.Application.SettingsProviders
 {
+    /// <summary>
+    /// Provides application settings either from a local or a portable source.
+    /// </summary>
     public class VariableSettingsProvider : SettingsProvider, IApplicationSettingsProvider
     {
         SettingsProvider provider;
