@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MiniAppManager.WPF")]
-[assembly: AssemblyDescription("Automatically save application state in WPF; simple 'About' box with app infos; make settings portable.")]
+[assembly: AssemblyDescription("Automatically save application state in WPF, simple 'About' box with app infos, make app settings portable.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Bluegrams")]
 [assembly: AssemblyProduct("MiniAppManager.WPF")]

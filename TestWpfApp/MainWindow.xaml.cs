@@ -29,9 +29,10 @@ namespace TestWpfApp
             man.ProductColor = Color.FromRgb(51, 85, 119);
             man.ProductImage = img;
             man.ProductWebsite = new Link("http://example.org", "Example.org");
-            man.ProductLicense = new Link("https://opensource.org/licenses/MIT", "MIT License");
+            man.ProductLicense = new Link("https://opensource.org/licenses/BSD-3-Clause", "BSD-3-Clause License");
 
-            // (Optional) 
+            // (Optional) If set to true (false by default), the manager checks for '/portable' or
+            // '--portable' options given at startup. If it finds one of these it runs in portable mode.
             man.PortableModeArgEnabled = true;
 
             // (Optional) Specifiy a list of cultures your application supports to fill a combo box 
