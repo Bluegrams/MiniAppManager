@@ -1,6 +1,7 @@
 # MiniAppManager
-[![NuGet](https://img.shields.io/nuget/v/MiniAppManager.WPF.svg?label=nuget+for+WPF)](https://www.nuget.org/packages/MiniAppManager.WPF/)
-[![NuGet](https://img.shields.io/nuget/v/MiniAppManager.WinForms.svg?label=nuget+for+WinForms)](https://www.nuget.org/packages/MiniAppManager.WinForms/)
+[![NuGet](https://img.shields.io/nuget/v/MiniAppManager.WPF.svg?label=nuget+for+WPF&colorB=004880)](https://www.nuget.org/packages/MiniAppManager.WPF/)
+[![NuGet](https://img.shields.io/nuget/v/MiniAppManager.WinForms.svg?label=nuget+for+WinForms&colorB=004880)](https://www.nuget.org/packages/MiniAppManager.WinForms/)
+[![On SourceForge](https://img.shields.io/badge/sourceforge-download-orange.svg)](https://sourceforge.net/projects/miniappmanager/)
 
 Automatically saves an application's location, size and window state, makes these settings portable, checks for updates
 and adds a simple 'About' box to your WinForms or WPF application.
@@ -14,8 +15,8 @@ closed before.
 * Automatically stores app's location, size and window state
 * Simple 'About' box showing assembly information, project's website and icon...
 * 'About' box supports switching of app's language
-* (new in v.0.2) automatically check for new updates
-* (new in v.0.3) portable mode for application settings
+* (new in v.0.2) Automatically check for new updates
+* (new in v.0.3) Portable mode for application settings
 
 ## How it works
 1. Add the nuget package for [WPF](https://www.nuget.org/packages/MiniAppManager.WPF) or [WinForms](https://www.nuget.org/packages/MiniAppManager.WinForms/) to your project.
@@ -57,7 +58,7 @@ public MainWindow()
 ```
 4. (Optional) Make the manager's (and your app's) settings portable: If this property is set to true (false by default),
     the manager checks for '/portable' or '--portable' options given at startup. If it finds
-    one of these it runs in portable mode.
+    one of these it runs in portable mode. [Learn more](https://github.com/bluegrams/MiniAppManager/wiki/Portable-Mode)
 ```csharp
 public MainWindow()
 {
