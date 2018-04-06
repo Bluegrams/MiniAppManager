@@ -34,6 +34,7 @@ namespace TestWpfApp
             // (Optional) If set to true (false by default), the manager checks for '/portable' or
             // '--portable' options given at startup. If it finds one of these it runs in portable mode.
             man.PortableModeArgEnabled = true;
+            man.MakePortable(Properties.Settings.Default);
 
             // (Optional) Specifiy a list of cultures your application supports to fill a combo box 
             // that allows switching between these. If this property is not specified, 

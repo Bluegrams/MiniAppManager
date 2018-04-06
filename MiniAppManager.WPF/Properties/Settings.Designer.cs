@@ -24,7 +24,7 @@ namespace Bluegrams.Application.WPF.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Bluegrams.Application.SettingsProviders.VariableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Bluegrams.Application.VariableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("640")]
         public double Width {
@@ -37,7 +37,7 @@ namespace Bluegrams.Application.WPF.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Bluegrams.Application.SettingsProviders.VariableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Bluegrams.Application.VariableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("100")]
         public double Left {
@@ -50,7 +50,7 @@ namespace Bluegrams.Application.WPF.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Bluegrams.Application.SettingsProviders.VariableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Bluegrams.Application.VariableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
         public global::System.Windows.WindowState WindowState {
@@ -63,7 +63,7 @@ namespace Bluegrams.Application.WPF.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Bluegrams.Application.SettingsProviders.VariableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Bluegrams.Application.VariableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
@@ -77,7 +77,7 @@ namespace Bluegrams.Application.WPF.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Bluegrams.Application.SettingsProviders.VariableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Bluegrams.Application.VariableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("480")]
         public double Height {
@@ -90,7 +90,7 @@ namespace Bluegrams.Application.WPF.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Bluegrams.Application.SettingsProviders.VariableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Bluegrams.Application.VariableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("100")]
         public double Top {
@@ -103,7 +103,7 @@ namespace Bluegrams.Application.WPF.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Bluegrams.Application.SettingsProviders.VariableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Bluegrams.Application.VariableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool Updated {
@@ -116,7 +116,7 @@ namespace Bluegrams.Application.WPF.Properties {
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Configuration.SettingsProviderAttribute(typeof(Bluegrams.Application.SettingsProviders.VariableSettingsProvider))]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Bluegrams.Application.VariableSettingsProvider))]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.0")]
         [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]

@@ -7,7 +7,7 @@ using System.IO;
 using System.Reflection;
 using System.Xml;
 
-namespace Bluegrams.Application.SettingsProviders
+namespace Bluegrams.Application
 {
     /// <summary>
     /// Provides portable, persistent application settings.
@@ -44,9 +44,28 @@ namespace Bluegrams.Application.SettingsProviders
 
         public override string ApplicationName { get => AppInfo.ProductName; set { } }
 
+        public override string Name => "PortableSettingsProvider";
+
         public override void Initialize(string name, NameValueCollection config)
         {
-            base.Initialize(this.ApplicationName, config);
+            if (String.IsNullOrEmpty(name)) name = "PortableSettingsProvider";
+            base.Initialize(name, config);
+        }
+
+        /// <summary>
+        /// Applies this settings provider to each property of the given settings.
+        /// </summary>
+        /// <param name="settingsList">An array of settings.</param>
+        public static void ApplyProvider(params ApplicationSettingsBase[] settingsList)
+        {
+            foreach (var settings in settingsList)
+            {
+                var provider = new PortableSettingsProvider();
+                settings.Providers.Add(provider);
+                foreach (SettingsProperty prop in settings.Properties)
+                    prop.Provider = provider;
+                settings.Reload();
+            }
         }
 
         public SettingsPropertyValue GetPreviousVersion(SettingsContext context, SettingsProperty property)

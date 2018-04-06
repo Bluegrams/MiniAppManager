@@ -99,6 +99,7 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MiniAppManager.Shared\MiniAppManager.Shared.csproj">
@@ -108,8 +109,14 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <PostBuildEvent>cd $(ProjectDir)
-nuget pack $(ProjectFileName) -properties Configuration=Release -IncludeReferencedProjects</PostBuildEvent>
+    <PostBuildEvent>
+      mkdir Merged
+      "$(SolutionDir)packages\ILMerge.2.14.1208\tools\ILMerge.exe" /out:Merged/MiniAppManager.WinForms.dll MiniAppManager.WinForms.dll MiniAppManager.Shared.dll /xmldocs
+      cd $(ProjectDir)
+      nuget pack $(ProjectFileName) -properties Configuration=Release -IncludeReferencedProjects
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

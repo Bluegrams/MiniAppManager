@@ -197,9 +197,13 @@ Public Class MiniAppManager
     Public Overrides Sub ChangeCulture(culture As System.Globalization.CultureInfo)
         My.Settings.Culture = culture.Name
         parent_FormClosing(Nothing, Nothing)
-        Dim args(Environment.GetCommandLineArgs().Length) As String
-        Array.Copy(Environment.GetCommandLineArgs(), 1, args, 0, args.Length)
-        Process.Start(Windows.Forms.Application.ExecutablePath, String.Join(" ", args))
+        If Environment.GetCommandLineArgs().Length > 1 Then
+            Dim args(Environment.GetCommandLineArgs().Length - 1) As String
+            Array.Copy(Environment.GetCommandLineArgs(), 1, args, 0, args.Length)
+            Process.Start(Windows.Forms.Application.ExecutablePath, String.Join(" ", args))
+        Else
+            Process.Start(Windows.Forms.Application.ExecutablePath)
+        End If
         Windows.Forms.Application.Exit()
     End Sub
 

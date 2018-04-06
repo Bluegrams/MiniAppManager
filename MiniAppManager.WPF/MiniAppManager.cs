@@ -234,9 +234,13 @@ namespace Bluegrams.Application.WPF
         {
             Properties.Settings.Default.Culture = culture.Name;
             Parent_Closing(null, null);
-            string[] args = new string[Environment.GetCommandLineArgs().Length - 1];
-            Array.Copy(Environment.GetCommandLineArgs(), 1, args, 0, args.Length);
-            Process.Start(System.Reflection.Assembly.GetEntryAssembly().Location, String.Join(" ", args));
+            if (Environment.GetCommandLineArgs().Length > 1)
+            {
+                string[] args = new string[Environment.GetCommandLineArgs().Length - 1];
+                Array.Copy(Environment.GetCommandLineArgs(), 1, args, 0, args.Length);
+                Process.Start(System.Reflection.Assembly.GetEntryAssembly().Location, String.Join(" ", args));
+            }
+            else Process.Start(System.Reflection.Assembly.GetEntryAssembly().Location);
             System.Windows.Application.Current.Shutdown();
         }
         #endregion

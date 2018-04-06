@@ -64,6 +64,7 @@ public MainWindow()
 {
     // ...
     man.PortableModeArgEnabled = true;
+	man.MakePortable(Properties.Settings.Default);
     // ...
     man.Initialize();
 }

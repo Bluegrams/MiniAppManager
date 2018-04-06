@@ -53,11 +53,11 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Configuration.SettingsProviderAttribute(GetType(Bluegrams.Application.SettingsProviders.VariableSettingsProvider)),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("640, 480")>  _
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),
+         Global.System.Configuration.SettingsProviderAttribute(GetType(Bluegrams.Application.VariableSettingsProvider)),
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
+         Global.System.Configuration.DefaultSettingValueAttribute("640, 480")>
         Public Property Size() As Global.System.Drawing.Size
             Get
                 Return CType(Me("Size"),Global.System.Drawing.Size)
@@ -66,11 +66,11 @@ Namespace My
                 Me("Size") = value
             End Set
         End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Configuration.SettingsProviderAttribute(GetType(Bluegrams.Application.SettingsProviders.VariableSettingsProvider)),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("100, 100")>  _
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),
+         Global.System.Configuration.SettingsProviderAttribute(GetType(Bluegrams.Application.VariableSettingsProvider)),
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
+         Global.System.Configuration.DefaultSettingValueAttribute("100, 100")>
         Public Property Location() As Global.System.Drawing.Point
             Get
                 Return CType(Me("Location"),Global.System.Drawing.Point)
@@ -79,11 +79,11 @@ Namespace My
                 Me("Location") = value
             End Set
         End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Configuration.SettingsProviderAttribute(GetType(Bluegrams.Application.SettingsProviders.VariableSettingsProvider)),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Normal")>  _
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),
+         Global.System.Configuration.SettingsProviderAttribute(GetType(Bluegrams.Application.VariableSettingsProvider)),
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
+         Global.System.Configuration.DefaultSettingValueAttribute("Normal")>
         Public Property WindowState() As Global.System.Windows.Forms.FormWindowState
             Get
                 Return CType(Me("WindowState"),Global.System.Windows.Forms.FormWindowState)
@@ -92,12 +92,12 @@ Namespace My
                 Me("WindowState") = value
             End Set
         End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Configuration.SettingsProviderAttribute(GetType(Bluegrams.Application.SettingsProviders.VariableSettingsProvider)),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute(""),  _
-         Global.System.Configuration.SettingsManageabilityAttribute(Global.System.Configuration.SettingsManageability.Roaming)>  _
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),
+         Global.System.Configuration.SettingsProviderAttribute(GetType(Bluegrams.Application.VariableSettingsProvider)),
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
+         Global.System.Configuration.DefaultSettingValueAttribute(""),
+         Global.System.Configuration.SettingsManageabilityAttribute(Global.System.Configuration.SettingsManageability.Roaming)>
         Public Property Culture() As String
             Get
                 Return CType(Me("Culture"),String)
@@ -106,11 +106,11 @@ Namespace My
                 Me("Culture") = value
             End Set
         End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Configuration.SettingsProviderAttribute(GetType(Bluegrams.Application.SettingsProviders.VariableSettingsProvider)),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),
+         Global.System.Configuration.SettingsProviderAttribute(GetType(Bluegrams.Application.VariableSettingsProvider)),
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>
         Public Property Updated() As Boolean
             Get
                 Return CType(Me("Updated"),Boolean)
@@ -119,12 +119,12 @@ Namespace My
                 Me("Updated") = value
             End Set
         End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Configuration.SettingsProviderAttribute(GetType(Bluegrams.Application.SettingsProviders.VariableSettingsProvider)),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0.0"),  _
-         Global.System.Configuration.SettingsManageabilityAttribute(Global.System.Configuration.SettingsManageability.Roaming)>  _
+
+        <Global.System.Configuration.UserScopedSettingAttribute(),
+         Global.System.Configuration.SettingsProviderAttribute(GetType(Bluegrams.Application.VariableSettingsProvider)),
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
+         Global.System.Configuration.DefaultSettingValueAttribute("0.0"),
+         Global.System.Configuration.SettingsManageabilityAttribute(Global.System.Configuration.SettingsManageability.Roaming)>
         Public Property CheckedUpdate() As String
             Get
                 Return CType(Me("CheckedUpdate"),String)

@@ -2,7 +2,7 @@
 using System.Collections.Specialized;
 using System.Configuration;
 
-namespace Bluegrams.Application.SettingsProviders
+namespace Bluegrams.Application
 {
     /// <summary>
     /// Provides application settings either from a local or a portable source.
@@ -19,10 +19,12 @@ namespace Bluegrams.Application.SettingsProviders
 
         public override string ApplicationName { get => provider.ApplicationName; set { } }
 
-        public override string Name => provider.Name;
+        public override string Name => "VariableSettingsProvider";
 
         public override void Initialize(string name, NameValueCollection config)
         {
+            if (String.IsNullOrEmpty(name)) name = "VariableSettingsProvider";
+            base.Initialize(name, config);
             provider.Initialize(name, config);
         }
 
@@ -53,6 +55,21 @@ namespace Bluegrams.Application.SettingsProviders
         {
             if (provider is IApplicationSettingsProvider)
                 (provider as IApplicationSettingsProvider).Upgrade(context, properties);
+        }
+
+        /// <summary>
+        /// Applies this settings provider to each property of the given settings.
+        /// </summary>
+        /// <param name="settingsList">An array of settings.</param>
+        public static void ApplyProvider(params ApplicationSettingsBase[] settingsList)
+        {
+            foreach (var settings in settingsList) {
+                var provider = new VariableSettingsProvider();
+                settings.Providers.Add(provider);
+                foreach (SettingsProperty prop in settings.Properties)
+                    prop.Provider = provider;
+                settings.Reload();
+            }
         }
     }
 }

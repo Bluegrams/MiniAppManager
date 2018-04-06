@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Net;
 using System.IO;
 using System.Xml.Serialization;
+using System.Configuration;
 
 namespace Bluegrams.Application
 {
@@ -101,6 +102,15 @@ namespace Bluegrams.Application
         /// </summary>
         /// <param name="culture">The new culture to be set.</param>
         public abstract void ChangeCulture(CultureInfo culture);
+
+        /// <summary>
+        /// Makes the given array of settings portable together with the manager.
+        /// </summary>
+        /// <param name="settings">An array of custom settings.</param>
+        public void MakePortable(params ApplicationSettingsBase[] settings)
+        {
+            VariableSettingsProvider.ApplyProvider(settings);
+        }
 
         /// <summary>
         /// Checks for update information at the given URL (which should provide a serialized AppUpdate object).

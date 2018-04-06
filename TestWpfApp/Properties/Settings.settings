@@ -2,10 +2,10 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TestWpfApp.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="LocalSetting" Provider="Bluegrams.Application.SettingsProviders.VariableSettingsProvider" Type="System.String" Scope="User">
+    <Setting Name="LocalSetting" Type="System.String" Scope="User">
       <Value Profile="(Default)">Default text</Value>
     </Setting>
-    <Setting Name="RoamedSetting" Provider="Bluegrams.Application.SettingsProviders.VariableSettingsProvider" Roaming="true" Type="System.String" Scope="User">
+    <Setting Name="RoamedSetting" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)">Default text</Value>
     </Setting>
   </Settings>
