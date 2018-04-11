@@ -17,7 +17,7 @@ namespace Bluegrams.Application
             else provider = new LocalFileSettingsProvider();
         }
 
-        public override string ApplicationName { get => provider.ApplicationName; set { } }
+        public override string ApplicationName { get { return provider.ApplicationName; } set { } }
 
         public override string Name => "VariableSettingsProvider";
 

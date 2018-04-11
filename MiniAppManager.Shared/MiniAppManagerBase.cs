@@ -65,6 +65,11 @@ namespace Bluegrams.Application
         public AppUpdate LatestUpdate { get; private set; }
 
         /// <summary>
+        /// The settings of the manager.
+        /// </summary>
+        public abstract ApplicationSettingsBase Settings { get; }
+
+        /// <summary>
         /// Initializes a new instance of MiniAppManagerBase.
         /// </summary>
         public MiniAppManagerBase() { PortableMode = false; }

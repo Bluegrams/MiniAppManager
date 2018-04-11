@@ -40,9 +40,9 @@ namespace Bluegrams.Application
             return xmlDoc;
         }
 
-        private string ApplicationSettingsFile { get => Path.Combine(Path.GetDirectoryName(AppInfo.Location), "portable.config"); }
+        private string ApplicationSettingsFile { get { return Path.Combine(Path.GetDirectoryName(AppInfo.Location), "portable.config"); } }
 
-        public override string ApplicationName { get => AppInfo.ProductName; set { } }
+        public override string ApplicationName { get { return AppInfo.ProductName; } set { } }
 
         public override string Name => "PortableSettingsProvider";
 

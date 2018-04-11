@@ -52,11 +52,16 @@ Friend Class InfoWindow
         lblCompanyText.Text = Properties.Resources.lblDeveloper_Content
         lblCompany.Text = AppInfo.Company
         lblVersionText.Text = "Version"
-        lblVersion.Text = AppInfo.Version
+        lblVersion.Text = " " & AppInfo.Version
         lblCopyright.Text = AppInfo.Copyright
         lblLicenseText.Text = Properties.Resources.lblLicense_Content
-        lnkLicense.Text = manager.ProductLicense.Description
-        lnkLicense.Links.Add(0, lnkLicense.Text.Length, manager.ProductLicense.Url)
+        If Not String.IsNullOrEmpty(manager.ProductLicense.Description) Then
+            lnkLicense.Text = manager.ProductLicense.Description
+            lnkLicense.Links.Add(0, lnkLicense.Text.Length, manager.ProductLicense.Url)
+        Else
+            lblLicenseText.Visible = False
+            lnkLicense.Visible = False
+        End If
         lnkWebsite.Text = manager.ProductWebsite.Description
         lnkWebsite.Links.Add(0, lnkWebsite.Text.Length, manager.ProductWebsite.Url)
         butChangeLang.Text = Properties.Resources.butRestart_Content

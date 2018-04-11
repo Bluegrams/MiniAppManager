@@ -2,28 +2,28 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Bluegrams.Application.WPF.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Width" Provider="Bluegrams.Application.SettingsProviders.VariableSettingsProvider" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">640</Value>
+    <Setting Name="Width" Provider="Bluegrams.Application.VariableSettingsProvider" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-1</Value>
     </Setting>
-    <Setting Name="Left" Provider="Bluegrams.Application.SettingsProviders.VariableSettingsProvider" Type="System.Double" Scope="User">
+    <Setting Name="Left" Provider="Bluegrams.Application.VariableSettingsProvider" Type="System.Double" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
-    <Setting Name="WindowState" Provider="Bluegrams.Application.SettingsProviders.VariableSettingsProvider" Type="System.Windows.WindowState" Scope="User">
+    <Setting Name="WindowState" Provider="Bluegrams.Application.VariableSettingsProvider" Type="System.Windows.WindowState" Scope="User">
       <Value Profile="(Default)">Normal</Value>
     </Setting>
-    <Setting Name="Culture" Provider="Bluegrams.Application.SettingsProviders.VariableSettingsProvider" Roaming="true" Type="System.String" Scope="User">
+    <Setting Name="Culture" Provider="Bluegrams.Application.VariableSettingsProvider" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Height" Provider="Bluegrams.Application.SettingsProviders.VariableSettingsProvider" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">480</Value>
+    <Setting Name="Height" Provider="Bluegrams.Application.VariableSettingsProvider" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-1</Value>
     </Setting>
-    <Setting Name="Top" Provider="Bluegrams.Application.SettingsProviders.VariableSettingsProvider" Type="System.Double" Scope="User">
+    <Setting Name="Top" Provider="Bluegrams.Application.VariableSettingsProvider" Type="System.Double" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
-    <Setting Name="Updated" Provider="Bluegrams.Application.SettingsProviders.VariableSettingsProvider" Type="System.Boolean" Scope="User">
+    <Setting Name="Updated" Provider="Bluegrams.Application.VariableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="CheckedUpdate" Provider="Bluegrams.Application.SettingsProviders.VariableSettingsProvider" Roaming="true" Type="System.String" Scope="User">
+    <Setting Name="CheckedUpdate" Provider="Bluegrams.Application.VariableSettingsProvider" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)">0.0</Value>
     </Setting>
   </Settings>

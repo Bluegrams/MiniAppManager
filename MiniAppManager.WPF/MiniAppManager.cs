@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
@@ -26,6 +27,11 @@ namespace Bluegrams.Application.WPF
         /// The icon of the project used for the 'About' box.
         /// </summary>
         public BitmapSource ProductImage { get; set; }
+
+        /// <summary>
+        /// The settings of the manager.
+        /// </summary>
+        public override ApplicationSettingsBase Settings => Properties.Settings.Default;
 
         /// <summary>
         /// Creates a new instance of MiniAppManager
@@ -131,15 +137,15 @@ namespace Bluegrams.Application.WPF
             {
                 try
                 {
-                    Parent.Width = Properties.Settings.Default.Width;
-                    Parent.Height = Properties.Settings.Default.Height;
+                    if ((int)Properties.Settings.Default.Width != -1)
+                        Parent.Width = Properties.Settings.Default.Width;
+                    if ((int)Properties.Settings.Default.Height != -1)
+                        Parent.Height = Properties.Settings.Default.Height;
                     Parent.WindowState = Properties.Settings.Default.WindowState;
                 }
                 catch
                 {
                     Properties.Settings.Default.Reset();
-                    Parent.Width = Properties.Settings.Default.Width;
-                    Parent.Height = Properties.Settings.Default.Height;
                     Parent.WindowState = Properties.Settings.Default.WindowState;
                 }
             }

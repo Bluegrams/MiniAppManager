@@ -57,7 +57,7 @@ namespace TestWpfApp
             InitializeComponent();
 
             // The saved settings of the manager can be accessed.
-            this.DataContext = Bluegrams.Application.WPF.Properties.Settings.Default;
+            this.DataContext = man.Settings;
         }
 
 

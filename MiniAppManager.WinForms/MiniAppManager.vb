@@ -1,6 +1,7 @@
 ﻿Imports System.Windows.Forms
 Imports System.Drawing
 Imports System.Globalization
+Imports System.Configuration
 
 ''' <summary>
 ''' A class managing settings such as size and location for a WinForms application. Also includes an 'About' form for applications.
@@ -23,6 +24,16 @@ Public Class MiniAppManager
     ''' </summary>
     ''' <returns></returns>
     Public Property ProductImage As Bitmap
+
+    ''' <summary>
+    ''' The settings of the manager.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Overrides ReadOnly Property Settings As ApplicationSettingsBase
+        Get
+            Return My.Settings
+        End Get
+    End Property
 
     ''' <summary>
     ''' Creates a New instance of MiniAppManager
@@ -131,8 +142,13 @@ Public Class MiniAppManager
     Private Sub parent_Load(sender As Object, e As EventArgs)
         parent.Location = My.Settings.Location
         If sizeable Then
-            parent.Size = My.Settings.Size
-            parent.WindowState = My.Settings.WindowState
+            Try
+                If My.Settings.Size.Width <> -1 Then parent.Size = My.Settings.Size
+                parent.WindowState = My.Settings.WindowState
+            Catch
+                My.Settings.Reset()
+                parent.WindowState = My.Settings.WindowState
+            End Try
         End If
         checkOutOfBorders()
     End Sub

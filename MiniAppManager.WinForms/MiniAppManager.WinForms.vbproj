@@ -95,7 +95,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="My Project\Settings.settings">
-      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
