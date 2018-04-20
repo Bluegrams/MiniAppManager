@@ -147,6 +147,8 @@ namespace Bluegrams.Application
             if (value.SerializedValue == null) serialized = new XText("");
             else if (value.Property.SerializeAs == SettingsSerializeAs.Xml)
                 serialized = XElement.Parse((string)value.SerializedValue);
+            else if (value.Property.SerializeAs == SettingsSerializeAs.Binary)
+                serialized = new XText(Convert.ToBase64String((byte[])value.SerializedValue));
             else serialized = new XText((string)value.SerializedValue);
             // check if setting already exists, otherwise create new
             if (xmlSettingsLoc == null)

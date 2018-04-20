@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
 using System.IO;
 using System.Xml.Serialization;
 using System.Configuration;
+using System.Collections;
 
 namespace Bluegrams.Application
 {
@@ -12,6 +14,7 @@ namespace Bluegrams.Application
     /// </summary>
     public abstract class MiniAppManagerBase
     {
+        private List<string> managedSettings;
         /// <summary>
         /// Indicates that a new update is available.
         /// </summary>
@@ -72,7 +75,7 @@ namespace Bluegrams.Application
         /// <summary>
         /// Initializes a new instance of MiniAppManagerBase.
         /// </summary>
-        public MiniAppManagerBase() { PortableMode = false; }
+        public MiniAppManagerBase() : this(false) { }
 
         /// <summary>
         /// Initializes a new instance of MiniAppManagerBase.
@@ -81,6 +84,7 @@ namespace Bluegrams.Application
         public MiniAppManagerBase(bool portable)
         {
             PortableMode = portable;
+            managedSettings = new List<string>();
         }
 
         /// <summary>
@@ -118,6 +122,15 @@ namespace Bluegrams.Application
         }
 
         /// <summary>
+        /// Adds a public property of the managed window to the managed properties.
+        /// </summary>
+        /// <param name="propertyName">The name of the property to add.</param>
+        public void AddManagedProperty(string propertyName)
+        {
+            managedSettings.Add(propertyName);
+        }
+
+        /// <summary>
         /// Checks for update information at the given URL (which should provide a serialized AppUpdate object).
         /// </summary>
         /// <param name="url">The URL to check.</param>
@@ -146,6 +159,31 @@ namespace Bluegrams.Application
                 if (CheckForUpdatesCompleted != null)
                     CheckForUpdatesCompleted(this, new EventArgs());
             } catch { }
+        }
+
+        protected void Parent_Loaded(object parent)
+        {
+            foreach (string s in managedSettings)
+            {
+                Hashtable customSettings = Properties.SharedSettings.Default.CustomSettings;
+                if (customSettings == null) return;
+                if (customSettings.ContainsKey(s))
+                {
+                    parent.GetType().GetProperty(s).SetValue(parent, customSettings[s]);
+                }
+            }
+        }
+
+        protected void Parent_Closing(object parent)
+        {
+            if (managedSettings.Count < 1) return;
+            Hashtable customSettings = new Hashtable(managedSettings.Count);
+            foreach(string s in managedSettings)
+            {
+                customSettings.Add(s, parent.GetType().GetProperty(s).GetValue(parent));
+            }
+            Properties.SharedSettings.Default.CustomSettings = customSettings;
+            Properties.SharedSettings.Default.Save();
         }
     }
 }

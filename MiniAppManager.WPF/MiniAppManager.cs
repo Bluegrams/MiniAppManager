@@ -131,6 +131,7 @@ namespace Bluegrams.Application.WPF
         #region "Parent Events"
         private void Parent_Loaded(object sender, RoutedEventArgs e)
         {
+            base.Parent_Loaded(Parent);
             Parent.Left = Properties.Settings.Default.Left;
             Parent.Top = Properties.Settings.Default.Top;
             if (sizeable)
@@ -210,6 +211,7 @@ namespace Bluegrams.Application.WPF
 
         private void Parent_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            base.Parent_Closing(Parent);
             Properties.Settings.Default.Left = savedLeft;
             Properties.Settings.Default.Top = savedTop;
             if (sizeable)

@@ -8,14 +8,14 @@ and adds a simple 'About' box to your WinForms or WPF application.
 
 ## What it is
 MiniAppManager is a small library that handles saving some basic application settings, such as location
-and size, for a WinForms or WPF app. This makes sure the app will be started in the same state it was 
-closed before.
+and size, as well as custom properties for a WinForms or WPF app. This makes sure the app will be started
+in the same state it was closed before.
 
 #### Overview:
-* Automatically stores app's location, size and window state
+* Automatically stores an app's location, size, window state and any custom property
 * Simple 'About' box showing assembly information, project's website and icon...
 * 'About' box supports switching of app's language
-* (new in v.0.2) Automatically check for new updates
+* Automatically check for new updates
 * (new in v.0.3) Portable mode for application settings
 
 ## How it works
@@ -36,13 +36,17 @@ public MainWindow()
     // The second parameter specifies if the manager should be run in portable mode.
     man = new MiniAppManager(this, false);
 
-    // Fill some data used in the 'About' box.
+    // (Optional) Fill some data used in the 'About' box.
     var baseUri = BaseUriHelper.GetBaseUri(this);
     BitmapSource img = new BitmapImage(new Uri(baseUri, @"/bluelogo.png"));
     man.ProductColor = Color.FromRgb(51, 85, 119);
     man.ProductImage = img;
     man.ProductWebsite = new Link("http://example.org", "Example.org");
     man.ProductLicense = new Link("https://opensource.org/licenses/BSD-3-Clause", "BSD-3-Clause License");
+
+	// Add any public property of your window with this method to let its state
+    // be saved when the application is closed and loaded when it starts.
+    man.AddManagedProperty(nameof(this.OpenCount));
 
     // (Optional) Specifiy a list of cultures your application supports to fill a combo box 
     // that allows switching between these. If this property is not specified, 
@@ -85,7 +89,6 @@ private void butAbout_Click(object sender, RoutedEventArgs e)
     man.ShowAboutBox();
 }
 ```
-7. That's it.
 
 ## License
 This project is licensed under the [BSD-3-Clause](LICENSE) license.

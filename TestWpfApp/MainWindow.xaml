@@ -20,6 +20,7 @@
             <Label Content="A roamed setting: "/>
             <TextBox x:Name="txtRoamed" Width="150" VerticalContentAlignment="Center"/>
         </WrapPanel>
+        <Label x:Name="lblCount"/>
         <Button x:Name="butAbout" Click="butAbout_Click" Content="Show 'About' Box" VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </StackPanel>
 </Window>

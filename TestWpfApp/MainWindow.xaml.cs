@@ -17,13 +17,15 @@ namespace TestWpfApp
         // Define a new variable for the manager of this app.
         MiniAppManager man;
 
+        public int OpenCount { get; set; }
+
         public MainWindow()
         {
             // Create a new instance of MiniAppManager for WPF. 
             // The second parameter specifies if the manager should be run in portable mode.
             man = new MiniAppManager(this, false);
 
-            // Fill some data used in the 'About' box.
+            // (Optional) Fill some data used in the 'About' box.
             var baseUri = BaseUriHelper.GetBaseUri(this);
             BitmapSource img = new BitmapImage(new Uri(baseUri, @"/bluelogo.png"));
             man.ProductColor = Color.FromRgb(51, 85, 119);
@@ -35,6 +37,10 @@ namespace TestWpfApp
             // '--portable' options given at startup. If it finds one of these it runs in portable mode.
             man.PortableModeArgEnabled = true;
             man.MakePortable(Properties.Settings.Default);
+
+            // Add any public property of your window with this method to let its state
+            // be saved when the application is closed and loaded when it starts.
+            man.AddManagedProperty(nameof(this.OpenCount));
 
             // (Optional) Specifiy a list of cultures your application supports to fill a combo box 
             // that allows switching between these. If this property is not specified, 
@@ -65,6 +71,8 @@ namespace TestWpfApp
         {
             // Show the 'About' box.
             man.ShowAboutBox();
+
+            OpenCount++;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -72,6 +80,7 @@ namespace TestWpfApp
             lblLang.Content = Properties.Resources.Text;
             txtLocal.Text = Properties.Settings.Default.LocalSetting;
             txtRoamed.Text = Properties.Settings.Default.RoamedSetting;
+            lblCount.Content = OpenCount;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

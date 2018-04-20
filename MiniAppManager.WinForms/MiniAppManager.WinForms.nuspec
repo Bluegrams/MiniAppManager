@@ -12,7 +12,7 @@
     <description>$description$</description>
     <copyright>Copyright © Bluegrams 2018</copyright>
     <tags>winforms application settings aboutbox portable</tags>
-    <releaseNotes>Version 0.3 adds support for portable application settings with a custom settings provider.</releaseNotes>
+    <releaseNotes>V.0.3.1 adds support for custom properties.</releaseNotes>
   </metadata>
   <files>
     <file src="bin\$configuration$\de\**" target="lib\net451\de" />

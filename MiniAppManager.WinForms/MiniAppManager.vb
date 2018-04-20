@@ -140,6 +140,7 @@ Public Class MiniAppManager
 
 #Region "Parent Events"
     Private Sub parent_Load(sender As Object, e As EventArgs)
+        MyBase.Parent_Loaded(parent)
         parent.Location = My.Settings.Location
         If sizeable Then
             Try
@@ -196,6 +197,7 @@ Public Class MiniAppManager
     End Sub
 
     Private Sub parent_FormClosing(sender As Object, e As EventArgs)
+        MyBase.Parent_Closing(parent)
         My.Settings.Location = savedLocation
         If sizeable Then
             My.Settings.Size = savedSize
