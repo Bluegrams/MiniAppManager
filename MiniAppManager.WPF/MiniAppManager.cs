@@ -18,14 +18,19 @@ namespace Bluegrams.Application.WPF
         private double savedLeft, savedTop;
         private WindowState savedWindowState;
 
+        /// <summary>
+        /// The managed parent window.
+        /// </summary>
         public Window Parent { get; private set; }
         /// <summary>
         /// The color used for the title of the 'About' box.
         /// </summary>
+        [Obsolete("Please use assembly attributes instead.")]
         public Color ProductColor { get; set; }
         /// <summary>
         /// The icon of the project used for the 'About' box.
         /// </summary>
+        [Obsolete("Please specify icon when showing About box instead.")]
         public BitmapSource ProductImage { get; set; }
 
         /// <summary>
@@ -37,13 +42,14 @@ namespace Bluegrams.Application.WPF
         /// Creates a new instance of MiniAppManager
         /// </summary>
         /// <param name="parent">The parent window of the manager. (Project's main window.)</param>
-        public MiniAppManager(Window parent) : this(parent, Colors.Gray, null) { }
+        public MiniAppManager(Window parent) : this(parent, false) { }
 
         /// <summary>
         /// Creates a new instance of MiniAppManager
         /// </summary>
         /// <param name="parent">The parent window of the manager. (Project's main window.)</param>
         /// <param name="color">The color used for the title of the 'About' box.</param>
+        [Obsolete]
         public MiniAppManager(Window parent, Color color) : this(parent, color, null) { }
 
         /// <summary>
@@ -52,6 +58,7 @@ namespace Bluegrams.Application.WPF
         /// <param name="parent">The parent window of the manager. (Project's main window.)</param>
         /// <param name="color">The color used for the title of the 'About' box.</param>
         /// <param name="image">The icon of the project used for the 'About' box.</param>
+        [Obsolete]
         public MiniAppManager(Window parent, Color color, BitmapSource image) : this(parent, color, image, new Link(""), new Link("")) { }
 
         /// <summary>
@@ -62,6 +69,7 @@ namespace Bluegrams.Application.WPF
         /// <param name="image">The icon of the project used for the 'About' box.</param>
         /// <param name="website">The project's website shown in the 'About' box.</param>
         /// <param name="license">A link to the license, under which the project is published.</param>
+        [Obsolete]
         public MiniAppManager(Window parent, Color color, BitmapSource image, Link website, Link license) : this(parent, false, color, image, website, license)
         { }
 
@@ -70,7 +78,12 @@ namespace Bluegrams.Application.WPF
         /// </summary>
         /// <param name="parent">The parent window of the manager. (Project's main window.)</param>
         /// <param name="portable">Indicates whether the manager should be run in portable mode.</param>
-        public MiniAppManager(Window parent, bool portable) : this(parent, portable, Colors.Gray, null) { }
+        public MiniAppManager(Window parent, bool portable) : base(parent, portable)
+        {
+            Parent = parent;
+            SupportedCultures = new CultureInfo[0];
+            this.CheckForUpdatesCompleted += MiniAppManager_CheckForUpdatesCompleted;
+        }
 
         /// <summary>
         /// Creates a new instance of MiniAppManager
@@ -79,6 +92,7 @@ namespace Bluegrams.Application.WPF
         /// <param name="portable">Indicates whether the manager should be run in portable mode.</param>
         /// <param name="color">The color used for the title of the 'About' box.</param>
         /// <param name="image">The icon of the project used for the 'About' box.</param>
+        [Obsolete]
         public MiniAppManager(Window parent, bool portable, Color color, BitmapSource image) : this(parent, portable, color, image, new Link(""), new Link(""))
         { }
 
@@ -91,7 +105,8 @@ namespace Bluegrams.Application.WPF
         /// <param name="image">The icon of the project used for the 'About' box.</param>
         /// <param name="website">The project's website shown in the 'About' box.</param>
         /// <param name="license">A link to the license, under which the project is published.</param>
-        public MiniAppManager(Window parent, bool portable, Color color, BitmapSource image, Link website, Link license) : base(portable)
+        [Obsolete]
+        public MiniAppManager(Window parent, bool portable, Color color, BitmapSource image, Link website, Link license) : base(parent, portable)
         {
             Parent = parent;
             ProductLicense = license;
@@ -111,6 +126,7 @@ namespace Bluegrams.Application.WPF
             if (!Properties.Settings.Default.Updated)
             {
                 Properties.Settings.Default.Upgrade();
+                base.Upgrade();
                 Properties.Settings.Default.Updated = true;
                 Properties.Settings.Default.Save();
             }
@@ -131,9 +147,10 @@ namespace Bluegrams.Application.WPF
         #region "Parent Events"
         private void Parent_Loaded(object sender, RoutedEventArgs e)
         {
-            base.Parent_Loaded(Parent);
+            base.Parent_Loaded();
             Parent.Left = Properties.Settings.Default.Left;
             Parent.Top = Properties.Settings.Default.Top;
+            Parent.Topmost = Properties.Settings.Default.Topmost;
             if (sizeable)
             {
                 try
@@ -155,8 +172,9 @@ namespace Bluegrams.Application.WPF
 
         private void MiniAppManager_CheckForUpdatesCompleted(object sender, EventArgs e)
         {
+            if (UpdateNotifyMode == UpdateNotifyMode.Never) return;
             bool newerVersion = new Version(LatestUpdate.Version) > new Version(Properties.Settings.Default.CheckedUpdate);
-            if (UpdateAvailable && (UpdateNotifyEveryStartup || newerVersion))
+            if (UpdateAvailable && (UpdateNotifyMode == UpdateNotifyMode.Always || newerVersion))
             {
                 if (MessageBox.Show(Parent,
                     String.Format(Application.Properties.Resources.strNewUpdate, AppInfo.ProductName, LatestUpdate.Version),
@@ -171,21 +189,30 @@ namespace Bluegrams.Application.WPF
 
         private void checkOutOfBorders()
         {
-            Rect windowRect = new Rect(Parent.Left, Parent.Top, Parent.Width, Parent.Height);
-            Rect screenRect = new Rect(SystemParameters.VirtualScreenLeft, SystemParameters.VirtualScreenTop,
-                SystemParameters.VirtualScreenWidth, SystemParameters.VirtualScreenHeight);
+            Rect windowRect = new Rect(Parent.Left, Parent.Top, 
+                                       Parent.Left + Parent.Width, Parent.Top + Parent.Height);
+            Rect screenRect = 
+                new Rect(fromPhysical(SystemParameters.VirtualScreenLeft, SystemParameters.VirtualScreenTop),
+                                       fromPhysical(SystemParameters.VirtualScreenLeft + SystemParameters.VirtualScreenWidth, 
+                                                    SystemParameters.VirtualScreenTop + SystemParameters.VirtualScreenHeight));
             if (!screenRect.IntersectsWith(windowRect))
             {
-                if (Parent.Left < screenRect.Left)
+                if (windowRect.Left < screenRect.Left)
                     Parent.Left = screenRect.Left;
-                else if (Parent.Left > screenRect.Right)
+                else if (windowRect.Left > screenRect.Right)
                     Parent.Left = screenRect.Right - Parent.Width;
-                if (Parent.Top < screenRect.Top)
+                if (windowRect.Top < screenRect.Top)
                     Parent.Top = screenRect.Top;
-                else if (Parent.Top > screenRect.Bottom)
+                else if (windowRect.Top > screenRect.Bottom)
                     Parent.Top = screenRect.Bottom - Parent.Height;
             }
+        }
 
+        // transforms physical coordinates to a scaled point.
+        private Point fromPhysical(double x, double y)
+        {
+            Matrix transform = PresentationSource.FromVisual(Parent).CompositionTarget.TransformFromDevice;
+            return transform.Transform(new Point(x, y));
         }
 
         private void Parent_LocationChanged(object sender, EventArgs e)
@@ -211,9 +238,10 @@ namespace Bluegrams.Application.WPF
 
         private void Parent_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            base.Parent_Closing(Parent);
+            base.Parent_Closing();
             Properties.Settings.Default.Left = savedLeft;
             Properties.Settings.Default.Top = savedTop;
+            Properties.Settings.Default.Topmost = Parent.Topmost;
             if (sizeable)
             {
                 Properties.Settings.Default.Width = savedWidth;
@@ -230,7 +258,17 @@ namespace Bluegrams.Application.WPF
         /// </summary>
         public override void ShowAboutBox()
         {
-            InfoWindow info = new InfoWindow(this);
+            InfoWindow info = new InfoWindow(this, ProductImage);
+            info.ShowDialog();
+        }
+
+        /// <summary>
+        /// Shows an 'About' box with application information.
+        /// </summary>
+        /// <param name="icon">The product icon of the application.</param>
+        public void ShowAboutBox(ImageSource icon)
+        {
+            InfoWindow info = new InfoWindow(this, icon);
             info.ShowDialog();
         }
 

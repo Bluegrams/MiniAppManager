@@ -142,7 +142,8 @@
     <value>17</value>
   </data>
   <data name="lnkWebsite.Text" xml:space="preserve">
-    <value>LinkLabel1</value>
+    <value></value>
+    <comment>@Invariant</comment>
   </data>
   <data name="lnkWebsite.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
@@ -361,7 +362,8 @@
     <value>11</value>
   </data>
   <data name="lnkLicense.Text" xml:space="preserve">
-    <value>LinkLabel1</value>
+    <value></value>
+    <comment>@Invariant</comment>
   </data>
   <data name="lnkLicense.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
@@ -394,7 +396,8 @@
     <value>1</value>
   </data>
   <data name="butUpdate.Text" xml:space="preserve">
-    <value>Button1</value>
+    <value></value>
+    <comment>@Invariant</comment>
   </data>
   <data name="butUpdate.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -424,7 +427,8 @@
     <value>0</value>
   </data>
   <data name="lblVersion.Text" xml:space="preserve">
-    <value>Label1</value>
+    <value></value>
+    <comment>@Invariant</comment>
   </data>
   <data name="lblVersion.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
@@ -508,7 +512,8 @@
     <value>13</value>
   </data>
   <data name="splitter.Text" xml:space="preserve">
-    <value>label1</value>
+    <value></value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;splitter.Name" xml:space="preserve">
     <value>splitter</value>
@@ -542,6 +547,7 @@
   </data>
   <data name="lblTitle.Text" xml:space="preserve">
     <value>Product Name</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;lblTitle.Name" xml:space="preserve">
     <value>lblTitle</value>

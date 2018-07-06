@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>$version$</version>
+    <version>0.4.0-beta</version>
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
@@ -12,11 +12,11 @@
     <description>$description$</description>
     <copyright>Copyright © Bluegrams 2018</copyright>
     <tags>wpf application settings aboutbox portable</tags>
-    <releaseNotes>V.0.3.1 adds support for custom properties.</releaseNotes>
+    <releaseNotes></releaseNotes>
   </metadata>
   <files>
-    <file src="bin\$configuration$\de\**" target="lib\net451\de" />
-    <file src="bin\$configuration$\$id$.xml" target="lib\net451" />
-    <file src="bin\$configuration$\MiniAppManager.Shared.xml" target="lib\net451" />
+    <file src="bin\$configuration$\de\**" target="lib\net45\de" />
+    <file src="bin\$configuration$\$id$.xml" target="lib\net45" />
+    <file src="bin\$configuration$\MiniAppManager.Shared.xml" target="lib\net45" />
   </files>
 </package>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Bluegrams.Application;assembly=MiniAppManager.Shared"
         xmlns:sp="clr-namespace:Bluegrams.Application.Properties;assembly=MiniAppManager.Shared"
              mc:Ignorable="d" 
-        Width="300" SizeToContent="Height" ResizeMode="NoResize" Icon="{Binding Path=ProductImage}" Title="{Binding Source={x:Static local:AppInfo.ProductName}}"
+        Width="300" SizeToContent="Height" ResizeMode="NoResize" Title="{Binding Source={x:Static local:AppInfo.ProductName}}"
         Loaded="Window_Loaded" KeyDown="Window_KeyDown" ShowInTaskbar="False" x:ClassModifier="internal" UseLayoutRounding="True">
     <Window.Resources>
         <SolidColorBrush x:Key="productBrush" Color="{Binding Path=ProductColor}"/>
@@ -24,8 +24,11 @@
             <Label Foreground="{StaticResource productBrush}" Style="{StaticResource basic}" Content="{Binding Source={x:Static local:AppInfo.ProductName}}" 
                    FontFamily="Arial" FontWeight="Bold" FontSize="22"/>
         </StackPanel>
-        <StackPanel x:Name="stackLang" Height="55" DockPanel.Dock="Bottom">
-            <GroupBox Header="{Binding Source={x:Static sp:Resources.grpLanguage_Header}}">
+        <StackPanel x:Name="stackLang" Height="57" DockPanel.Dock="Bottom">
+            <GroupBox>
+                <GroupBox.Header>
+                    <TextBlock Height="18" Text="{x:Static sp:Resources.grpLanguage_Header}"/>
+                </GroupBox.Header>
                 <DockPanel>
                     <Button x:Name="butRestart" Click="butRestart_Click" Margin="5" Padding="15,0" DockPanel.Dock="Right">
                         <Binding Source="{x:Static sp:Resources.butRestart_Content}"/>
@@ -51,13 +54,14 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="5*"></ColumnDefinition>
+                <ColumnDefinition Width="9*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Source={x:Static local:AppInfo.Title}}"/>
             <Label Grid.Row="1" Grid.Column="0">Version</Label>
             <DockPanel Grid.Row="1" Grid.Column="1">
-                <Button DockPanel.Dock="Right" x:Name="butUpdate" Content="Update available" Padding="3" Margin="5,0" Visibility="Hidden" Click="butUpdate_Click"/>
+                <Button DockPanel.Dock="Right" x:Name="butUpdate" Content="{Binding Source={x:Static sp:Resources.strNewUpdateTitle}}" 
+                        Padding="6,3" Margin="5,0" Visibility="Hidden" Click="butUpdate_Click"/>
                 <Label Content="{Binding Source={x:Static local:AppInfo.Version}}"/>
             </DockPanel>
             <Label Grid.Row="2" Grid.Column="0" Content="{Binding Source={x:Static sp:Resources.lblDeveloper_Content}}"/>

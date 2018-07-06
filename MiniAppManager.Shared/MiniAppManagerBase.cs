@@ -14,6 +14,7 @@ namespace Bluegrams.Application
     /// </summary>
     public abstract class MiniAppManagerBase
     {
+        private object parent;
         private List<string> managedSettings;
         /// <summary>
         /// Indicates that a new update is available.
@@ -22,11 +23,12 @@ namespace Bluegrams.Application
         /// <summary>
         /// Indicates whether a check for new updates took place.
         /// </summary>
+        [Obsolete]
         public bool UpdateCheckSuccessful { get; private set; }
         /// <summary>
-        /// Indicates whether the user should be notified about a new update on every startup.
+        /// Sets how the standard update notification should be shown after checking for updates.
         /// </summary>
-        public bool UpdateNotifyEveryStartup { get; set; }
+        public UpdateNotifyMode UpdateNotifyMode { get; set; }
         /// <summary>
         /// If set to true, the manager checks for '/portable' or '--portable' option on startup to run in portable mode.
         /// </summary>
@@ -40,27 +42,22 @@ namespace Bluegrams.Application
         /// <summary>
         /// Occurs when a made check for updates is completed.
         /// </summary>
-        public event EventHandler CheckForUpdatesCompleted;
+        public event EventHandler<UpdateCheckEventArgs> CheckForUpdatesCompleted;
 
         /// <summary>
         /// The project's website shown in the 'About' box.
         /// </summary>
+        [Obsolete("Please use assembly attributes instead.")]
         public Link ProductWebsite { get; set; }
         /// <summary>
         /// A link to the license, under which the project is published.
         /// </summary>
+        [Obsolete("Please use assembly attributes instead.")]
         public Link ProductLicense { get; set; }
-        /// <summary>
-        /// A color object of the respective technology that is used for the title of the 'About' box.
-        /// </summary>
-        public object ProductColorObject { get; }
-        /// <summary>
-        /// An icon object of the respective technology that is displayed in the 'About' box.
-        /// </summary>
-        public object ProductImageObject { get; }
         /// <summary>
         /// A list containing cultures supported by the application.
         /// </summary>
+        [Obsolete("Please use assembly attributes instead.")]
         public CultureInfo[] SupportedCultures { get; set; }
         /// <summary>
         /// Information about the latest update of the application.
@@ -75,15 +72,18 @@ namespace Bluegrams.Application
         /// <summary>
         /// Initializes a new instance of MiniAppManagerBase.
         /// </summary>
-        public MiniAppManagerBase() : this(false) { }
+        public MiniAppManagerBase(object parent) : this(parent, false) { }
 
         /// <summary>
         /// Initializes a new instance of MiniAppManagerBase.
         /// </summary>
+        /// <param name="parent">The parent window.</param>
         /// <param name="portable">true if app manager should run in portable mode; otherwise false.</param>
-        public MiniAppManagerBase(bool portable)
+        public MiniAppManagerBase(object parent, bool portable)
         {
+            this.parent = parent;
             PortableMode = portable;
+            UpdateNotifyMode = UpdateNotifyMode.IfNewer;
             managedSettings = new List<string>();
         }
 
@@ -128,6 +128,40 @@ namespace Bluegrams.Application
         public void AddManagedProperty(string propertyName)
         {
             managedSettings.Add(propertyName);
+            CustomSettings.Default.AddSetting(parent.GetType().GetProperty(propertyName));
+        }
+
+        /// <summary>
+        /// Adds a public property of the managed window to the managed properties.
+        /// </summary>
+        /// <param name="propertyName">The name of the property to add.</param>
+        /// <param name="serializeAs">Specifically sets how the property should be serialized.</param>
+        public void AddManagedProperty(string propertyName, SettingsSerializeAs serializeAs)
+        {
+            managedSettings.Add(propertyName);
+            CustomSettings.Default.AddSetting(parent.GetType().GetProperty(propertyName), serializeAs, null);
+        }
+
+        /// <summary>
+        /// Adds a public property of the managed window to the managed properties.
+        /// </summary>
+        /// <param name="propertyName">The name of the property to add.</param>
+        /// <param name="serializeAs">Specifically sets how the property should be serialized.</param>
+        /// <param name="defaultValue">The default value to use if no saved value is found.</param>
+        public void AddManagedProperty(string propertyName, SettingsSerializeAs serializeAs, object defaultValue)
+        {
+            managedSettings.Add(propertyName);
+            CustomSettings.Default.AddSetting(parent.GetType().GetProperty(propertyName), serializeAs, defaultValue);
+        }
+
+        /// <summary>
+        /// Adds public properties of the managed window to the managed properties.
+        /// </summary>
+        /// <param name="propertyNames">The names of the properties to add.</param>
+        public void AddManagedProperties(params string[] propertyNames)
+        {
+            foreach (string prop in propertyNames)
+                AddManagedProperty(prop);
         }
 
         /// <summary>
@@ -157,33 +191,59 @@ namespace Bluegrams.Application
                 UpdateAvailable = new Version(LatestUpdate.Version) > new Version(AppInfo.Version);
                 UpdateCheckSuccessful = true;
                 if (CheckForUpdatesCompleted != null)
-                    CheckForUpdatesCompleted(this, new EventArgs());
+                    CheckForUpdatesCompleted(this, new UpdateCheckEventArgs());
             } catch { }
         }
 
-        protected void Parent_Loaded(object parent)
+        protected void Upgrade()
         {
+            Properties.SharedSettings.Default.Upgrade();
+            CustomSettings.Default.Upgrade();
+        }
+
+        /// <summary>
+        /// This method has to be called during the loading event of the parent window.
+        /// </summary>
+        protected void Parent_Loaded()
+        {
+            if (legacySettingsUpgrade(parent)) return;
             foreach (string s in managedSettings)
             {
-                Hashtable customSettings = Properties.SharedSettings.Default.CustomSettings;
-                if (customSettings == null) return;
+                object setting = CustomSettings.Default[s];
+                if (setting == null) continue;
+                var prop = parent.GetType().GetProperty(s);
+                prop.SetValue(parent, setting);
+            }
+        }
+
+        // one-way upgrade old settings stored in the format used prior to v.0.4.
+        private bool legacySettingsUpgrade(object parent)
+        {
+            Hashtable customSettings = Properties.SharedSettings.Default.CustomSettings;
+            if (customSettings == null || customSettings.Count < 1) return false;
+            foreach (string s in managedSettings)
+            {
                 if (customSettings.ContainsKey(s))
                 {
                     parent.GetType().GetProperty(s).SetValue(parent, customSettings[s]);
                 }
             }
+            Properties.SharedSettings.Default.CustomSettings = null;
+            Properties.SharedSettings.Default.Save();
+            return true;
         }
 
-        protected void Parent_Closing(object parent)
+        /// <summary>
+        /// This method has to be called during the closing event of the parent window.
+        /// </summary>
+        protected void Parent_Closing()
         {
             if (managedSettings.Count < 1) return;
-            Hashtable customSettings = new Hashtable(managedSettings.Count);
-            foreach(string s in managedSettings)
+            foreach (string s in managedSettings)
             {
-                customSettings.Add(s, parent.GetType().GetProperty(s).GetValue(parent));
+                CustomSettings.Default[s] = parent.GetType().GetProperty(s).GetValue(parent);
             }
-            Properties.SharedSettings.Default.CustomSettings = customSettings;
-            Properties.SharedSettings.Default.Save();
+            CustomSettings.Default.Save();
         }
     }
 }

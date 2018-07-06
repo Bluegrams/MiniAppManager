@@ -7,6 +7,8 @@ using System.IO;
 using System.Reflection;
 using System.Xml;
 
+#pragma warning disable 1591
+
 namespace Bluegrams.Application
 {
     /// <summary>

@@ -2,6 +2,8 @@
 using System.Collections.Specialized;
 using System.Configuration;
 
+#pragma warning disable 1591
+
 namespace Bluegrams.Application
 {
     /// <summary>

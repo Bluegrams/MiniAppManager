@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Globalization;
 using Bluegrams.Application;
 using Bluegrams.Application.WPF;
 
@@ -15,7 +13,7 @@ namespace TestWpfApp
     public partial class MainWindow : Window
     {
         // Define a new variable for the manager of this app.
-        MiniAppManager man;
+        MiniAppManager manager;
 
         public int OpenCount { get; set; }
 
@@ -23,59 +21,60 @@ namespace TestWpfApp
         {
             // Create a new instance of MiniAppManager for WPF. 
             // The second parameter specifies if the manager should be run in portable mode.
-            man = new MiniAppManager(this, false);
+            manager = new MiniAppManager(this, true);
 
-            // (Optional) Fill some data used in the 'About' box.
-            var baseUri = BaseUriHelper.GetBaseUri(this);
-            BitmapSource img = new BitmapImage(new Uri(baseUri, @"/bluelogo.png"));
-            man.ProductColor = Color.FromRgb(51, 85, 119);
-            man.ProductImage = img;
-            man.ProductWebsite = new Link("http://example.org", "Example.org");
-            man.ProductLicense = new Link("https://opensource.org/licenses/BSD-3-Clause", "BSD-3-Clause License");
-
-            // (Optional) If set to true (false by default), the manager checks for '/portable' or
+            // --- EXAMPLE 2: Make Settings Portable ---
+            // If set to true (false by default), the manager checks for '/portable' or
             // '--portable' options given at startup. If it finds one of these it runs in portable mode.
-            man.PortableModeArgEnabled = true;
-            man.MakePortable(Properties.Settings.Default);
+            manager.PortableModeArgEnabled = true;
+            // Make additional application settings portable.
+            manager.MakePortable(Properties.Settings.Default);
 
-            // Add any public property of your window with this method to let its state
+            // Add any public property of the window with this method to let its value
             // be saved when the application is closed and loaded when it starts.
-            man.AddManagedProperty(nameof(this.OpenCount));
+            manager.AddManagedProperty(nameof(this.OpenCount), System.Configuration.SettingsSerializeAs.String, -1);
 
-            // (Optional) Specifiy a list of cultures your application supports to fill a combo box 
-            // that allows switching between these. If this property is not specified, 
-            // the combo box won't be visible on the 'About' box.
-            man.SupportedCultures = new CultureInfo[] { new CultureInfo("en"), new CultureInfo("de") };
-
-            // Initialize the manager. Please make sure this method is called BEFORE you initialize your window.
-            man.Initialize();
-
-            // (Optional) Tells the manager to check for updates at the given URL. An XML file 
-            // containing a serialized AppUpdate object is expected at that location.
-            // This method should also be called before the initialization of the window.
-            man.CheckForUpdates("http://example.org/updates/TestWpfApp.xml");
-
-            // (Together with update checking) Set this property to true to show an update notification every time 
-            // the application is started. On default, a notification is shown only every time a newer version is detected.
-            man.UpdateNotifyEveryStartup = true;
+            // Initialize the manager. Please make sure this method is called BEFORE the window is initialized.
+            manager.Initialize();
 
             //Initialize the window.
             InitializeComponent();
 
             // The saved settings of the manager can be accessed.
-            this.DataContext = man.Settings;
+            this.DataContext = manager.Settings;
         }
 
 
         private void butAbout_Click(object sender, RoutedEventArgs e)
         {
+            // --- EXAMPLE 3: Application 'About' Box ---
+            // Load the icon used in the 'About' box.
+            var baseUri = BaseUriHelper.GetBaseUri(this);
+            BitmapSource icon = new BitmapImage(new Uri(baseUri, @"/bluelogo.png"));
             // Show the 'About' box.
-            man.ShowAboutBox();
-
+            // The shown data is specified as assembly attributes in AssemblyInfo.cs.
+            manager.ShowAboutBox(icon);
             OpenCount++;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            loadSettings();
+            // --- EXAMPLE 4: Check for App Updates ---
+            // Specify if an informational message box should be shown if an update is available.
+            manager.UpdateNotifyMode = UpdateNotifyMode.Always;
+            // This event is fired when update checking has finished.
+            manager.CheckForUpdatesCompleted += delegate (object s, UpdateCheckEventArgs args)
+            {
+                System.Diagnostics.Debug.WriteLine("Update check completed.");
+            };
+            // Tell the manager to check for updates at the given URL. An XML file 
+            // containing a serialized AppUpdate object is expected at that location.
+            // This method should also be called before the initialization of the window.
+            manager.CheckForUpdates("https://raw.githubusercontent.com/bluegrams/MiniAppManager/master/TestWpfApp/AppUpdateExample.xml");
+        }
+
+        private void loadSettings()
         {
             lblLang.Content = Properties.Resources.Text;
             txtLocal.Text = Properties.Settings.Default.LocalSetting;

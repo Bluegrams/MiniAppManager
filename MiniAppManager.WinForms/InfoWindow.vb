@@ -8,23 +8,51 @@ Friend Class InfoWindow
     Private manager As MiniAppManager
     Private resources, main_resources As ResourceManager
 
-    Friend Sub New(manager As MiniAppManager)
+    Private ReadOnly Property ProductWebsite As Link
+        Get
+            Return If(AppInfo.ProductWebsite, manager.ProductWebsite)
+        End Get
+    End Property
+
+    Private ReadOnly Property ProductLicense As Link
+        Get
+            Return If(AppInfo.ProductLicense, manager.ProductLicense)
+        End Get
+    End Property
+
+    Private ReadOnly Property ProductColor As Color
+        Get
+            If IsNothing(AppInfo.ProductColor) Then
+                Return manager.ProductColor
+            Else
+                Return CType(AppInfo.ProductColor, Color)
+            End If
+        End Get
+    End Property
+
+    Private ReadOnly Property SupportedCultures As CultureInfo()
+        Get
+            Return If(AppInfo.SupportedCultures, manager.SupportedCultures)
+        End Get
+    End Property
+
+    Friend Sub New(manager As MiniAppManager, productIcon As Bitmap)
         Me.manager = manager
         Me.KeyPreview = True
         InitializeComponent()
-        Me.lblTitle.ForeColor = manager.ProductColor
-        Me.picIcon.BackColor = manager.ProductColor
+        Me.lblTitle.ForeColor = ProductColor
+        Me.picIcon.BackColor = ProductColor
         InitializeText()
-        If Not manager.ProductImage Is Nothing Then
-            Me.picIcon.Image = manager.ProductImage
+        If Not productIcon Is Nothing Then
+            Me.picIcon.Image = productIcon
             Me.picIcon.BackColor = Color.Transparent
-            Me.Icon = Icon.FromHandle(manager.ProductImage.GetHicon())
+            Me.Icon = Icon.FromHandle(productIcon.GetHicon())
         End If
     End Sub
 
     Private Sub BlueInfoWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If manager.SupportedCultures.Length > 0 Then
-            For Each cu As CultureInfo In manager.SupportedCultures
+        If SupportedCultures.Length > 0 Then
+            For Each cu As CultureInfo In SupportedCultures
                 comLang.Items.Add(cu.DisplayName)
                 If cu.TwoLetterISOLanguageName = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName Then
                     comLang.SelectedIndex = comLang.Items.Count - 1
@@ -41,7 +69,7 @@ Friend Class InfoWindow
 
     Private Sub butChangeLang_Click(sender As Object, e As EventArgs) Handles butChangeLang.Click
         If MessageBox.Show(Properties.Resources.strRestartNewLang, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) = DialogResult.OK Then
-            manager.ChangeCulture(manager.SupportedCultures(comLang.SelectedIndex))
+            manager.ChangeCulture(SupportedCultures(comLang.SelectedIndex))
         End If
     End Sub
 
@@ -55,15 +83,15 @@ Friend Class InfoWindow
         lblVersion.Text = " " & AppInfo.Version
         lblCopyright.Text = AppInfo.Copyright
         lblLicenseText.Text = Properties.Resources.lblLicense_Content
-        If Not String.IsNullOrEmpty(manager.ProductLicense.Description) Then
-            lnkLicense.Text = manager.ProductLicense.Description
-            lnkLicense.Links.Add(0, lnkLicense.Text.Length, manager.ProductLicense.Url)
+        If Not String.IsNullOrEmpty(ProductLicense.Description) Then
+            lnkLicense.Text = ProductLicense.Description
+            lnkLicense.Links.Add(0, lnkLicense.Text.Length, ProductLicense.Url)
         Else
             lblLicenseText.Visible = False
             lnkLicense.Visible = False
         End If
-        lnkWebsite.Text = manager.ProductWebsite.Description
-        lnkWebsite.Links.Add(0, lnkWebsite.Text.Length, manager.ProductWebsite.Url)
+        lnkWebsite.Text = ProductWebsite.Description
+        lnkWebsite.Links.Add(0, lnkWebsite.Text.Length, ProductWebsite.Url)
         butChangeLang.Text = Properties.Resources.butRestart_Content
         grpLanguages.Text = Properties.Resources.grpLanguage_Header
         butUpdate.Text = Application.Properties.Resources.strNewUpdateTitle

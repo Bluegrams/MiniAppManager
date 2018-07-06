@@ -18,11 +18,13 @@ Public Class MiniAppManager
     ''' The color used for the title of the 'About' box.
     ''' </summary>
     ''' <returns></returns>
+    <Obsolete("Please use assembly attributes instead.")>
     Public Property ProductColor As Color
     ''' <summary>
     ''' The icon of the project used for the 'About' box.
     ''' </summary>
     ''' <returns></returns>
+    <Obsolete("Please specify icon when showing About box instead.")>
     Public Property ProductImage As Bitmap
 
     ''' <summary>
@@ -40,7 +42,7 @@ Public Class MiniAppManager
     ''' </summary>
     ''' <param name="parent">The parent window of the manager. (Project's main window.)</param>
     Sub New(parent As Form)
-        Me.New(parent, Color.Gray, Nothing)
+        Me.New(parent, False)
     End Sub
 
     ''' <summary>
@@ -48,6 +50,7 @@ Public Class MiniAppManager
     ''' </summary>
     ''' <param name="parent">The parent window of the manager. (Project's main window.)</param>
     ''' <param name="color">The color used for the title of the 'About' box.</param>
+    <Obsolete>
     Sub New(parent As Form, color As Color)
         Me.New(parent, color, Nothing)
     End Sub
@@ -58,6 +61,7 @@ Public Class MiniAppManager
     ''' <param name="parent">The parent window of the manager. (Project's main window.)</param>
     ''' <param name="color">The color used for the title of the 'About' box.</param>
     ''' <param name="image">The icon of the project used for the 'About' box.</param>
+    <Obsolete>
     Sub New(parent As Form, color As Color, image As Image)
         Me.New(parent, color, image, New Link(""), New Link(""))
     End Sub
@@ -70,6 +74,7 @@ Public Class MiniAppManager
     ''' <param name="image">The icon of the project used for the 'About' box.</param>
     ''' <param name="website">The project's website shown in the 'About' box.</param>
     ''' <param name="license">A link to the license, under which the project Is published.</param>
+    <Obsolete>
     Sub New(parent As Form, color As Color, image As Image, website As Link, license As Link)
         Me.New(parent, False, color, image, website, license)
     End Sub
@@ -80,7 +85,10 @@ Public Class MiniAppManager
     ''' <param name="parent">The parent window of the manager. (Project's main window.)</param>
     ''' <param name="portable">Indicates whether the manager should be run in portable mode.</param>
     Sub New(parent As Form, portable As Boolean)
-        Me.New(parent, portable, Color.Gray, Nothing)
+        MyBase.New(parent, portable)
+        Me.parent = parent
+        SupportedCultures = New CultureInfo() {}
+        AddHandler Me.CheckForUpdatesCompleted, AddressOf MiniAppManager_CheckForUpdatesCompleted
     End Sub
 
     ''' <summary>
@@ -90,6 +98,7 @@ Public Class MiniAppManager
     ''' <param name="portable">Indicates whether the manager should be run in portable mode.</param>
     ''' <param name="color">The color used for the title of the 'About' box.</param>
     ''' <param name="image">The icon of the project used for the 'About' box.</param>
+    <Obsolete>
     Sub New(parent As Form, portable As Boolean, color As Color, image As Image)
         Me.New(parent, portable, color, image, New Link(""), New Link(""))
     End Sub
@@ -103,8 +112,9 @@ Public Class MiniAppManager
     ''' <param name="image">The icon of the project used for the 'About' box.</param>
     ''' <param name="website">The project's website shown in the 'About' box.</param>
     ''' <param name="license">A link to the license, under which the project Is published.</param>
+    <Obsolete>
     Sub New(parent As Form, portable As Boolean, color As Color, image As Image, website As Link, license As Link)
-        MyBase.New(portable)
+        MyBase.New(parent, portable)
         Me.parent = parent
         ProductWebsite = website
         ProductLicense = license
@@ -121,6 +131,7 @@ Public Class MiniAppManager
         MyBase.Initialize()
         If Not My.Settings.Updated Then
             My.Settings.Upgrade()
+            MyBase.Upgrade()
             My.Settings.Updated = True
             My.Settings.Save()
         End If
@@ -140,8 +151,9 @@ Public Class MiniAppManager
 
 #Region "Parent Events"
     Private Sub parent_Load(sender As Object, e As EventArgs)
-        MyBase.Parent_Loaded(parent)
+        MyBase.Parent_Loaded()
         parent.Location = My.Settings.Location
+        parent.TopMost = My.Settings.Topmost
         If sizeable Then
             Try
                 If My.Settings.Size.Width <> -1 Then parent.Size = My.Settings.Size
@@ -155,8 +167,9 @@ Public Class MiniAppManager
     End Sub
 
     Private Sub MiniAppManager_CheckForUpdatesCompleted(sender As Object, e As EventArgs)
+        If UpdateNotifyMode = UpdateNotifyMode.Never Then Return
         Dim newerVersion = New Version(LatestUpdate.Version) > New Version(My.Settings.CheckedUpdate)
-        If (UpdateAvailable And (UpdateNotifyEveryStartup Or newerVersion)) Then
+        If (UpdateAvailable And (UpdateNotifyMode = UpdateNotifyMode.Always Or newerVersion)) Then
             If (MessageBox.Show(parent,
                     String.Format(Application.Properties.Resources.strNewUpdate, AppInfo.ProductName, LatestUpdate.Version),
                     Application.Properties.Resources.strNewUpdateTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes) Then
@@ -197,8 +210,9 @@ Public Class MiniAppManager
     End Sub
 
     Private Sub parent_FormClosing(sender As Object, e As EventArgs)
-        MyBase.Parent_Closing(parent)
+        MyBase.Parent_Closing()
         My.Settings.Location = savedLocation
+        My.Settings.Topmost = parent.TopMost
         If sizeable Then
             My.Settings.Size = savedSize
             My.Settings.WindowState = savedWindowState
@@ -229,7 +243,16 @@ Public Class MiniAppManager
     ''' Shows an 'About' box with application information.
     ''' </summary>
     Public Overrides Sub ShowAboutBox()
-        Dim info = New InfoWindow(Me)
+        Dim info = New InfoWindow(Me, ProductImage)
+        info.ShowDialog()
+    End Sub
+
+    ''' <summary>
+    ''' Shows an 'About' box with application information.
+    ''' </summary>
+    ''' <param name="icon">The product icon of the application.</param>
+    Public Overloads Sub ShowAboutBox(icon As Bitmap)
+        Dim info = New InfoWindow(Me, icon)
         info.ShowDialog()
     End Sub
 #End Region

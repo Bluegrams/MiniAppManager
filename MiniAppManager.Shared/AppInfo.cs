@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using Bluegrams.Application.Attributes;
 
 namespace Bluegrams.Application
 {
@@ -86,6 +84,50 @@ namespace Bluegrams.Application
             get
             {
                 return Assembly.GetEntryAssembly().Location;
+            }
+        }
+
+        /// <summary>
+        /// The product website of the assembly.
+        /// </summary>
+        public static Link ProductWebsite
+        {
+            get
+            {
+                return ((ProductWebsiteAttribute)Assembly.GetEntryAssembly().GetCustomAttribute(typeof(ProductWebsiteAttribute)))?.WebsiteLink;
+            }
+        }
+
+        /// <summary>
+        /// The license under which the product is published.
+        /// </summary>
+        public static Link ProductLicense
+        {
+            get
+            {
+                return ((ProductLicenseAttribute)Assembly.GetEntryAssembly().GetCustomAttribute(typeof(ProductLicenseAttribute)))?.LicenseLink;
+            }
+        }
+
+        /// <summary>
+        /// The product color.
+        /// </summary>
+        public static RGBColor ProductColor
+        {
+            get
+            {
+                return ((ProductColorAttribute)Assembly.GetEntryAssembly().GetCustomAttribute(typeof(ProductColorAttribute)))?.ProductColor;
+            }
+        }
+
+        /// <summary>
+        /// The explicitly supported cultures of the assembly.
+        /// </summary>
+        public static CultureInfo[] SupportedCultures
+        {
+            get
+            {
+                return ((SupportedCulturesAttribute)Assembly.GetEntryAssembly().GetCustomAttribute(typeof(SupportedCulturesAttribute)))?.SupportedCultures;
             }
         }
     }

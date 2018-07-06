@@ -12,17 +12,41 @@ namespace Bluegrams.Application.WPF
     {
         private MiniAppManager manager;
 
-        internal InfoWindow(MiniAppManager manager)
+        public Link ProductWebsite
+        {
+            get { return AppInfo.ProductWebsite ?? manager.ProductWebsite; }
+        }
+
+        public Link ProductLicense
+        {
+            get { return AppInfo.ProductLicense ?? manager.ProductLicense; }
+        }
+
+        public Color ProductColor
+        {
+            get
+            {
+                if (AppInfo.ProductColor == null) return manager.ProductColor;
+                else return (Color)AppInfo.ProductColor;
+            }
+        }
+
+        public CultureInfo[] SupportedCultures
+        {
+            get { return AppInfo.SupportedCultures ?? manager.SupportedCultures; }
+        }
+
+        internal InfoWindow(MiniAppManager manager, ImageSource icon)
         {
             this.Owner = manager.Parent;
             this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             this.manager = manager;
-            this.DataContext = manager;
+            this.DataContext = this;
             InitializeComponent();
-            if (manager.ProductImage != null)
+            if (icon != null)
             {
-                this.imgIcon.Source = manager.ProductImage;
-                this.Icon = manager.ProductImage;
+                this.imgIcon.Source = icon;
+                this.Icon = icon;
                 brdIcon.Background = new SolidColorBrush(Colors.Transparent);
             }
             this.Title = Bluegrams.Application.Properties.Resources.strTitle + " " + Title;
@@ -30,9 +54,9 @@ namespace Bluegrams.Application.WPF
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (manager.SupportedCultures.Length > 0)
+            if (SupportedCultures.Length > 0)
             {
-                foreach (CultureInfo cu in manager.SupportedCultures)
+                foreach (CultureInfo cu in SupportedCultures)
                 {
                     comLanguages.Items.Add(cu.DisplayName);
                     if (cu.TwoLetterISOLanguageName == CultureInfo.CurrentUICulture.TwoLetterISOLanguageName)
@@ -58,7 +82,7 @@ namespace Bluegrams.Application.WPF
             if (MessageBox.Show(Application.Properties.Resources.strRestartNewLang, "", MessageBoxButton.OKCancel, MessageBoxImage.Warning) 
                 == MessageBoxResult.OK)
             {
-                manager.ChangeCulture(manager.SupportedCultures[comLanguages.SelectedIndex]);
+                manager.ChangeCulture(SupportedCultures[comLanguages.SelectedIndex]);
             }
         }
 

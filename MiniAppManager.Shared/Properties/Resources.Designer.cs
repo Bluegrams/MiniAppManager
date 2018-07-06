@@ -116,7 +116,7 @@ namespace Bluegrams.Application.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update Available.
+        ///   Looks up a localized string similar to Update.
         /// </summary>
         public static string strNewUpdateTitle {
             get {
@@ -125,7 +125,8 @@ namespace Bluegrams.Application.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All unsaved changed will be lost after restart. Continue?.
+        ///   Looks up a localized string similar to All unsaved changed will be lost after restart.
+        ///Continue?.
         /// </summary>
         public static string strRestartNewLang {
             get {

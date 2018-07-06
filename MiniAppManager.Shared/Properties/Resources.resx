@@ -121,7 +121,8 @@
     <value>Published under </value>
   </data>
   <data name="strRestartNewLang" xml:space="preserve">
-    <value>All unsaved changed will be lost after restart. Continue?</value>
+    <value>All unsaved changed will be lost after restart.
+Continue?</value>
   </data>
   <data name="strTitle" xml:space="preserve">
     <value>About</value>
@@ -143,6 +144,6 @@
 Would you like to download it now?</value>
   </data>
   <data name="strNewUpdateTitle" xml:space="preserve">
-    <value>Update Available</value>
+    <value>Update</value>
   </data>
 </root>

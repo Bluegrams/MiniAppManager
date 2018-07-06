@@ -128,5 +128,18 @@ namespace Bluegrams.Application.WPF.Properties {
                 this["CheckedUpdate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsProviderAttribute(typeof(Bluegrams.Application.VariableSettingsProvider))]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Topmost {
+            get {
+                return ((bool)(this["Topmost"]));
+            }
+            set {
+                this["Topmost"] = value;
+            }
+        }
     }
 }

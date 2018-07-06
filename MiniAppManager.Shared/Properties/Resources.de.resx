@@ -124,7 +124,8 @@
     <value>Über</value>
   </data>
   <data name="strRestartNewLang" xml:space="preserve">
-    <value>Beim Neustart gehen nicht gespeicherte Änderungen verloren. Fortsetzen?</value>
+    <value>Beim Neustart gehen nicht gespeicherte Änderungen verloren.
+Fortsetzen?</value>
   </data>
   <data name="lblDeveloper_Content" xml:space="preserve">
     <value>Entwickler</value>
@@ -143,6 +144,6 @@
 Möchten Sie diese jetzt installieren?</value>
   </data>
   <data name="strNewUpdateTitle" xml:space="preserve">
-    <value>Update verfügbar</value>
+    <value>Aktualisieren</value>
   </data>
 </root>

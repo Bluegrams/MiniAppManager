@@ -4,6 +4,7 @@ using System.Collections;
 
 namespace Bluegrams.Application.Properties
 {
+    // Not used for settings since v.0.4. Remains for compability.
     internal class SharedSettings : ApplicationSettingsBase
     {
 
