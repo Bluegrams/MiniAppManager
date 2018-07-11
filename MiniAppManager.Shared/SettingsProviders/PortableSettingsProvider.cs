@@ -110,10 +110,10 @@ namespace Bluegrams.Application
                 xmlDoc.Save(ApplicationSettingsFile);
             } catch { }
         }
-
-        private string getXmlValue(XDocument xmlDoc, string scope, SettingsProperty prop)
+        
+        private object getXmlValue(XDocument xmlDoc, string scope, SettingsProperty prop)
         {
-            string result = "";
+            object result = null;
             if (!IsUserScoped(prop))
                 return result;
             //determine the location of the settings property
@@ -124,12 +124,27 @@ namespace Bluegrams.Application
             // retrieve the value or set to default if available
             if (xmlSettings != null && xmlSettings.Element(scope) != null && xmlSettings.Element(scope).Element(prop.Name) != null)
             {
-                var reader = xmlSettings.Element(scope).Element(prop.Name).CreateReader();
-                reader.MoveToContent();
-                result = reader.ReadInnerXml();
+                using (var reader = xmlSettings.Element(scope).Element(prop.Name).CreateReader())
+                {
+                    reader.MoveToContent();
+
+                    switch (prop.SerializeAs)
+                    {
+                        case SettingsSerializeAs.Xml:
+                            result = reader.ReadInnerXml();
+                            break;
+                        case SettingsSerializeAs.Binary:
+                            result = reader.ReadInnerXml();
+                            result = Convert.FromBase64String(result as string);
+                            break;
+                        default:
+                            result = reader.ReadElementContentAsString();
+                            break;
+                    }
+                }
             }
-            else if (prop.DefaultValue != null)
-                result = prop.DefaultValue.ToString();
+            else
+                result = prop.DefaultValue;
             return result;
         }
 
