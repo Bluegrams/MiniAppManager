@@ -125,6 +125,15 @@ namespace Bluegrams.Application.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No new updates available..
+        /// </summary>
+        public static string strNoNewUpdate {
+            get {
+                return ResourceManager.GetString("strNoNewUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All unsaved changed will be lost after restart.
         ///Continue?.
         /// </summary>

@@ -166,10 +166,15 @@ Public Class MiniAppManager
         checkOutOfBorders()
     End Sub
 
-    Private Sub MiniAppManager_CheckForUpdatesCompleted(sender As Object, e As EventArgs)
-        If UpdateNotifyMode = UpdateNotifyMode.Never Then Return
+    Private Sub MiniAppManager_CheckForUpdatesCompleted(sender As Object, e As UpdateCheckEventArgs)
+        If UpdateNotifyMode = UpdateNotifyMode.IncludeNegativeResult AndAlso Not UpdateAvailable Then
+            MessageBox.Show(parent, Properties.Resources.strNoNewUpdate, Properties.Resources.strNewUpdateTitle)
+            Return
+        ElseIf Not e.Successful OrElse UpdateNotifyMode = UpdateNotifyMode.Never Then
+            Return
+        End If
         Dim newerVersion = New Version(LatestUpdate.Version) > New Version(My.Settings.CheckedUpdate)
-        If (UpdateAvailable And (UpdateNotifyMode = UpdateNotifyMode.Always Or newerVersion)) Then
+        If (UpdateAvailable And (UpdateNotifyMode < 2 Or newerVersion)) Then
             If (MessageBox.Show(parent,
                     String.Format(Application.Properties.Resources.strNewUpdate, AppInfo.ProductName, LatestUpdate.Version),
                     Application.Properties.Resources.strNewUpdateTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes) Then

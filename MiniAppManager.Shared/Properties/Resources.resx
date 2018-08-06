@@ -146,4 +146,7 @@ Would you like to download it now?</value>
   <data name="strNewUpdateTitle" xml:space="preserve">
     <value>Update</value>
   </data>
+  <data name="strNoNewUpdate" xml:space="preserve">
+    <value>No new updates available.</value>
+  </data>
 </root>

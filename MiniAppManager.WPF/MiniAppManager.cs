@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Bluegrams.Application.Properties;
 
 namespace Bluegrams.Application.WPF
 {
@@ -170,15 +171,20 @@ namespace Bluegrams.Application.WPF
             checkOutOfBorders();
         }
 
-        private void MiniAppManager_CheckForUpdatesCompleted(object sender, EventArgs e)
+        private void MiniAppManager_CheckForUpdatesCompleted(object sender, UpdateCheckEventArgs e)
         {
-            if (UpdateNotifyMode == UpdateNotifyMode.Never) return;
+            if (UpdateNotifyMode == UpdateNotifyMode.IncludeNegativeResult && !UpdateAvailable)
+            {
+                MessageBox.Show(Parent, Resources.strNoNewUpdate, Resources.strNewUpdateTitle);
+                return;
+            }
+            else if (!e.Successful || UpdateNotifyMode == UpdateNotifyMode.Never) return;
             bool newerVersion = new Version(LatestUpdate.Version) > new Version(Properties.Settings.Default.CheckedUpdate);
-            if (UpdateAvailable && (UpdateNotifyMode == UpdateNotifyMode.Always || newerVersion))
+            if (UpdateAvailable && ((int)UpdateNotifyMode < 2 || newerVersion))
             {
                 if (MessageBox.Show(Parent,
-                    String.Format(Application.Properties.Resources.strNewUpdate, AppInfo.ProductName, LatestUpdate.Version),
-                    Application.Properties.Resources.strNewUpdateTitle, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                    String.Format(Resources.strNewUpdate, AppInfo.ProductName, LatestUpdate.Version),
+                    Resources.strNewUpdateTitle, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                 {
                     Process.Start(LatestUpdate.DownloadLink);
                 }

@@ -174,9 +174,9 @@ namespace Bluegrams.Application
             WebClient client = new WebClient();
             try
             {
+                client.OpenReadCompleted += Client_OpenReadCompleted;
                 client.OpenReadAsync(new Uri(url));
-                client.OpenReadCompleted += Client_OpenReadCompleted;       
-            } catch { }
+            } catch (Exception ex) { updateCheckFailed(ex); }
         }
 
         private void Client_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
@@ -188,11 +188,22 @@ namespace Bluegrams.Application
                 {
                     this.LatestUpdate = (AppUpdate)serializer.Deserialize(str);
                 }
-                UpdateAvailable = new Version(LatestUpdate.Version) > new Version(AppInfo.Version);
-                UpdateCheckSuccessful = true;
-                if (CheckForUpdatesCompleted != null)
-                    CheckForUpdatesCompleted(this, new UpdateCheckEventArgs());
-            } catch { }
+            }
+            catch (Exception ex)
+            {
+                updateCheckFailed(ex);
+                return;
+            }
+            UpdateAvailable = new Version(LatestUpdate.Version) > new Version(AppInfo.Version);
+            UpdateCheckSuccessful = true;
+            CheckForUpdatesCompleted?.Invoke(this, new UpdateCheckEventArgs(true, LatestUpdate));
+        }
+
+        private void updateCheckFailed(Exception ex)
+        {
+            LatestUpdate = null;
+            UpdateAvailable = false;
+            CheckForUpdatesCompleted?.Invoke(this, new UpdateCheckEventArgs(false, null, ex));
         }
 
         protected void Upgrade()

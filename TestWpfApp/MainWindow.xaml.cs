@@ -4,6 +4,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Bluegrams.Application;
 using Bluegrams.Application.WPF;
+using System.Diagnostics;
 
 namespace TestWpfApp
 {
@@ -66,7 +67,10 @@ namespace TestWpfApp
             // This event is fired when update checking has finished.
             manager.CheckForUpdatesCompleted += delegate (object s, UpdateCheckEventArgs args)
             {
-                System.Diagnostics.Debug.WriteLine("Update check completed.");
+                Debug.WriteLine("Update check completed.");
+                if (!args.Successful)
+                    Debug.WriteLine("Update check failed!");
+                else Debug.WriteLine($"Found version: {args.Update.Version}.");
             };
             // Tell the manager to check for updates at the given URL. An XML file 
             // containing a serialized AppUpdate object is expected at that location.

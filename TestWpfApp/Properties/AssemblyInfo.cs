@@ -29,5 +29,5 @@ using Bluegrams.Application.Attributes;
     ResourceDictionaryLocation.SourceAssembly
 )]
 
-[assembly: AssemblyVersion("0.4.0.18188")]
-[assembly: AssemblyFileVersion("0.4.0.18188")]
+[assembly: AssemblyVersion("0.4.0.18220")]
+[assembly: AssemblyFileVersion("0.4.0.18220")]

@@ -146,4 +146,7 @@ Möchten Sie diese jetzt installieren?</value>
   <data name="strNewUpdateTitle" xml:space="preserve">
     <value>Aktualisieren</value>
   </data>
+  <data name="strNoNewUpdate" xml:space="preserve">
+    <value>Keine neuen Updates verfügbar.</value>
+  </data>
 </root>
