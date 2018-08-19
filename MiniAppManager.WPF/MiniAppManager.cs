@@ -196,7 +196,7 @@ namespace Bluegrams.Application.WPF
         private void checkOutOfBorders()
         {
             Rect windowRect = new Rect(Parent.Left, Parent.Top, 
-                                       Parent.Left + Parent.Width, Parent.Top + Parent.Height);
+                                       Parent.Width, Parent.Height);
             Rect screenRect = 
                 new Rect(fromPhysical(SystemParameters.VirtualScreenLeft, SystemParameters.VirtualScreenTop),
                                        fromPhysical(SystemParameters.VirtualScreenLeft + SystemParameters.VirtualScreenWidth, 
