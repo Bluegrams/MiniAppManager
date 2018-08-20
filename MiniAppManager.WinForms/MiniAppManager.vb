@@ -153,7 +153,6 @@ Public Class MiniAppManager
     Private Sub parent_Load(sender As Object, e As EventArgs)
         MyBase.Parent_Loaded()
         parent.Location = My.Settings.Location
-        parent.TopMost = My.Settings.Topmost
         If sizeable Then
             Try
                 If My.Settings.Size.Width <> -1 Then parent.Size = My.Settings.Size
@@ -217,7 +216,6 @@ Public Class MiniAppManager
     Private Sub parent_FormClosing(sender As Object, e As EventArgs)
         MyBase.Parent_Closing()
         My.Settings.Location = savedLocation
-        My.Settings.Topmost = parent.TopMost
         If sizeable Then
             My.Settings.Size = savedSize
             My.Settings.WindowState = savedWindowState
@@ -248,8 +246,7 @@ Public Class MiniAppManager
     ''' Shows an 'About' box with application information.
     ''' </summary>
     Public Overrides Sub ShowAboutBox()
-        Dim info = New InfoWindow(Me, ProductImage)
-        info.ShowDialog()
+        ShowAboutBox(ProductImage)
     End Sub
 
     ''' <summary>
@@ -258,6 +255,7 @@ Public Class MiniAppManager
     ''' <param name="icon">The product icon of the application.</param>
     Public Overloads Sub ShowAboutBox(icon As Bitmap)
         Dim info = New InfoWindow(Me, icon)
+        info.TopMost = parent.TopMost
         info.ShowDialog()
     End Sub
 #End Region

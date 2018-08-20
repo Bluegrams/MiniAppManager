@@ -151,7 +151,6 @@ namespace Bluegrams.Application.WPF
             base.Parent_Loaded();
             Parent.Left = Properties.Settings.Default.Left;
             Parent.Top = Properties.Settings.Default.Top;
-            Parent.Topmost = Properties.Settings.Default.Topmost;
             if (sizeable)
             {
                 try
@@ -247,7 +246,6 @@ namespace Bluegrams.Application.WPF
             base.Parent_Closing();
             Properties.Settings.Default.Left = savedLeft;
             Properties.Settings.Default.Top = savedTop;
-            Properties.Settings.Default.Topmost = Parent.Topmost;
             if (sizeable)
             {
                 Properties.Settings.Default.Width = savedWidth;
@@ -262,11 +260,7 @@ namespace Bluegrams.Application.WPF
         /// <summary>
         /// Shows an 'About' box with application information.
         /// </summary>
-        public override void ShowAboutBox()
-        {
-            InfoWindow info = new InfoWindow(this, ProductImage);
-            info.ShowDialog();
-        }
+        public override void ShowAboutBox() => ShowAboutBox(ProductImage);
 
         /// <summary>
         /// Shows an 'About' box with application information.
@@ -275,6 +269,7 @@ namespace Bluegrams.Application.WPF
         public void ShowAboutBox(ImageSource icon)
         {
             InfoWindow info = new InfoWindow(this, icon);
+            info.Topmost = Parent.Topmost;
             info.ShowDialog();
         }
 

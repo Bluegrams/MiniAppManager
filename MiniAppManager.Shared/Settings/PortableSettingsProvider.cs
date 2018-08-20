@@ -94,7 +94,10 @@ namespace Bluegrams.Application
                 SettingsPropertyValue value = new SettingsPropertyValue(setting);
                 value.IsDirty = false;
                 //Set serialized value to xml element from file. This will be deserialized by SettingsPropertyValue when needed.
-                value.SerializedValue = getXmlValue(xmlDoc, XmlConvert.EncodeLocalName((string)context["GroupName"]), setting);
+                var loadedValue = getXmlValue(xmlDoc, XmlConvert.EncodeLocalName((string)context["GroupName"]), setting);
+                if (loadedValue != null)
+                    value.SerializedValue = loadedValue;
+                else value.PropertyValue = null;
                 values.Add(value);
             }
             return values;
@@ -109,7 +112,12 @@ namespace Bluegrams.Application
             }
             try
             {
-                xmlDoc.Save(ApplicationSettingsFile);
+                // Make sure that special chars such as '\r\n' are preserved by replacing them with char entities.
+                using (var writer = XmlWriter.Create(ApplicationSettingsFile,
+                    new XmlWriterSettings() { NewLineHandling = NewLineHandling.Entitize, Indent=true }))
+                {
+                    xmlDoc.Save(writer);
+                }
             } catch { }
         }
         
@@ -129,7 +137,6 @@ namespace Bluegrams.Application
                 using (var reader = xmlSettings.Element(scope).Element(prop.Name).CreateReader())
                 {
                     reader.MoveToContent();
-
                     switch (prop.SerializeAs)
                     {
                         case SettingsSerializeAs.Xml:
