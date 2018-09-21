@@ -140,21 +140,22 @@ Public Class MiniAppManager
             System.Threading.Thread.CurrentThread.CurrentUICulture = culture
             System.Threading.Thread.CurrentThread.CurrentCulture = culture
         End If
-        sizeable = (parent.FormBorderStyle = FormBorderStyle.Sizable)
         AddHandler parent.Load, AddressOf parent_Load
         AddHandler parent.FormClosing, AddressOf parent_FormClosing
         AddHandler parent.Move, AddressOf parent_Move
-        If sizeable Then
-            AddHandler parent.Resize, AddressOf parent_Resize
-        End If
     End Sub
 
 #Region "Parent Events"
     Private Sub parent_Load(sender As Object, e As EventArgs)
         MyBase.Parent_Loaded()
+        sizeable = (parent.FormBorderStyle = FormBorderStyle.Sizable) OrElse AlwaysTrackResize
+        If sizeable Then
+            AddHandler parent.Resize, AddressOf parent_Resize
+        End If
         parent.Location = My.Settings.Location
         If sizeable Then
             Try
+                savedSize = parent.Size
                 If My.Settings.Size.Width <> -1 Then parent.Size = My.Settings.Size
                 parent.WindowState = My.Settings.WindowState
             Catch
@@ -166,14 +167,14 @@ Public Class MiniAppManager
     End Sub
 
     Private Sub MiniAppManager_CheckForUpdatesCompleted(sender As Object, e As UpdateCheckEventArgs)
-        If UpdateNotifyMode = UpdateNotifyMode.IncludeNegativeResult AndAlso Not UpdateAvailable Then
+        If UpdateNotifyMode = UpdateNotifyMode.IncludeNegativeResult AndAlso Not e.NewVersion Then
             MessageBox.Show(parent, Properties.Resources.strNoNewUpdate, Properties.Resources.strNewUpdateTitle)
             Return
         ElseIf Not e.Successful OrElse UpdateNotifyMode = UpdateNotifyMode.Never Then
             Return
         End If
         Dim newerVersion = New Version(LatestUpdate.Version) > New Version(My.Settings.CheckedUpdate)
-        If (UpdateAvailable And (UpdateNotifyMode < 2 Or newerVersion)) Then
+        If (e.NewVersion And (UpdateNotifyMode < 2 Or newerVersion)) Then
             If (MessageBox.Show(parent,
                     String.Format(Application.Properties.Resources.strNewUpdate, AppInfo.ProductName, LatestUpdate.Version),
                     Application.Properties.Resources.strNewUpdateTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes) Then

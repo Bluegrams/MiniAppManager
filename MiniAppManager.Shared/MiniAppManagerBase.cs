@@ -19,12 +19,8 @@ namespace Bluegrams.Application
         /// <summary>
         /// Indicates that a new update is available.
         /// </summary>
+        [Obsolete("Please use properties of UpdateCheckEventArgs instead.")]
         public bool UpdateAvailable { get; private set; }
-        /// <summary>
-        /// Indicates whether a check for new updates took place.
-        /// </summary>
-        [Obsolete]
-        public bool UpdateCheckSuccessful { get; private set; }
         /// <summary>
         /// Sets how the standard update notification should be shown after checking for updates.
         /// </summary>
@@ -33,6 +29,10 @@ namespace Bluegrams.Application
         /// If set to true, the manager checks for '/portable' or '--portable' option on startup to run in portable mode.
         /// </summary>
         public bool PortableModeArgEnabled { get; set; }
+        /// <summary>
+        /// If set true, also saves/ restores the window's sizes when it is not marked as resizable.
+        /// </summary>
+        public bool AlwaysTrackResize { get; set; }
 
         /// <summary>
         /// Static property indicating whether the app manager instance is in portable mode.
@@ -136,22 +136,12 @@ namespace Bluegrams.Application
         /// </summary>
         /// <param name="propertyName">The name of the property to add.</param>
         /// <param name="serializeAs">Specifically sets how the property should be serialized.</param>
-        public void AddManagedProperty(string propertyName, SettingsSerializeAs serializeAs)
-        {
-            managedSettings.Add(propertyName);
-            CustomSettings.Default.AddSetting(parent.GetType().GetProperty(propertyName), serializeAs, null);
-        }
-
-        /// <summary>
-        /// Adds a public property of the managed window to the managed properties.
-        /// </summary>
-        /// <param name="propertyName">The name of the property to add.</param>
-        /// <param name="serializeAs">Specifically sets how the property should be serialized.</param>
         /// <param name="defaultValue">The default value to use if no saved value is found.</param>
-        public void AddManagedProperty(string propertyName, SettingsSerializeAs serializeAs, object defaultValue)
+        /// <param name="roamed">Specifies if this setting should be roamed.</param>
+        public void AddManagedProperty(string propertyName, SettingsSerializeAs serializeAs, object defaultValue = null, bool roamed = false)
         {
             managedSettings.Add(propertyName);
-            CustomSettings.Default.AddSetting(parent.GetType().GetProperty(propertyName), serializeAs, defaultValue);
+            CustomSettings.Default.AddSetting(parent.GetType().GetProperty(propertyName), serializeAs, defaultValue, roamed);
         }
 
         /// <summary>
@@ -195,7 +185,6 @@ namespace Bluegrams.Application
                 return;
             }
             UpdateAvailable = new Version(LatestUpdate.Version) > new Version(AppInfo.Version);
-            UpdateCheckSuccessful = true;
             CheckForUpdatesCompleted?.Invoke(this, new UpdateCheckEventArgs(true, LatestUpdate));
         }
 
@@ -206,6 +195,9 @@ namespace Bluegrams.Application
             CheckForUpdatesCompleted?.Invoke(this, new UpdateCheckEventArgs(false, null, ex));
         }
 
+        /// <summary>
+        /// Upgrades all managed settings.
+        /// </summary>
         protected void Upgrade()
         {
             Properties.SharedSettings.Default.Upgrade();

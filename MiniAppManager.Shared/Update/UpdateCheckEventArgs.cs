@@ -13,6 +13,11 @@ namespace Bluegrams.Application
         public bool Successful { get; private set; }
 
         /// <summary>
+        /// True if the version of the retrieved updated is higher than the current app version, false otherwise.
+        /// </summary>
+        public bool NewVersion { get; private set; }
+
+        /// <summary>
         /// The retrieved update information.
         /// </summary>
         public AppUpdate Update { get; private set; }
@@ -29,6 +34,8 @@ namespace Bluegrams.Application
         {
             Successful = success;
             Update = update;
+            if (update != null && ex == null)
+                NewVersion = new Version(update.Version) > new Version(AppInfo.Version);
             UpdateCheckException = ex;
         }
     }

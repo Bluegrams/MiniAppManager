@@ -44,7 +44,7 @@ namespace Bluegrams.Application
         /// Adds a settings property.
         /// </summary>
         /// <param name="propInfo">The property info of the property to add.</param>
-        internal void AddSetting(PropertyInfo propInfo) => AddSetting(propInfo, getSerializeAs(propInfo.PropertyType), null);
+        internal void AddSetting(PropertyInfo propInfo) => AddSetting(propInfo, getSerializeAs(propInfo.PropertyType));
 
         /// <summary>
         /// Adds a settings property.
@@ -52,14 +52,18 @@ namespace Bluegrams.Application
         /// <param name="propInfo">The property info of the property to add.</param>
         /// <param name="serializeAs">The serialization mode of the property.</param>
         /// <param name="defaultValue">The default value of the property.</param>
-        internal void AddSetting(PropertyInfo propInfo, SettingsSerializeAs serializeAs, object defaultValue)
+        /// <param name="roamed">Specifies if this setting should be roamed.</param>
+        internal void AddSetting(PropertyInfo propInfo, SettingsSerializeAs serializeAs, object defaultValue = null, bool roamed = false)
         {
             SettingsProperty settingsProp = new SettingsProperty(propInfo.Name);
             settingsProp.PropertyType = propInfo.PropertyType;
             settingsProp.Provider = provider;
             settingsProp.Attributes.Add(typeof(UserScopedSettingAttribute), new UserScopedSettingAttribute());
-            settingsProp.Attributes.Add(typeof(SettingsManageabilityAttribute),
-                new SettingsManageabilityAttribute(SettingsManageability.Roaming));
+            if (roamed)
+            {
+                settingsProp.Attributes.Add(typeof(SettingsManageabilityAttribute),
+                    new SettingsManageabilityAttribute(SettingsManageability.Roaming));
+            }
             settingsProp.SerializeAs = serializeAs;
             settingsProp.DefaultValue = defaultValue;
             SettingsPropertyValue val = new SettingsPropertyValue(settingsProp);

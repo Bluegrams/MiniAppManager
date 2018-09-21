@@ -137,24 +137,25 @@ namespace Bluegrams.Application.WPF
                 System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
                 System.Threading.Thread.CurrentThread.CurrentCulture = culture;
             }
-            sizeable = Parent.ResizeMode == ResizeMode.CanResize;
             Parent.Loaded += Parent_Loaded;
             Parent.Closing += Parent_Closing;
             Parent.LocationChanged += Parent_LocationChanged; ;
-            if (sizeable)
-                Parent.SizeChanged += Parent_SizeChanged;
+
         }
 
         #region "Parent Events"
         private void Parent_Loaded(object sender, RoutedEventArgs e)
         {
             base.Parent_Loaded();
+            sizeable = Parent.ResizeMode == ResizeMode.CanResize || AlwaysTrackResize;
+            if (sizeable) Parent.SizeChanged += Parent_SizeChanged;
             Parent.Left = Properties.Settings.Default.Left;
             Parent.Top = Properties.Settings.Default.Top;
             if (sizeable)
             {
                 try
                 {
+                    savedWidth = Parent.Width; savedHeight = Parent.Height;
                     if ((int)Properties.Settings.Default.Width != -1)
                         Parent.Width = Properties.Settings.Default.Width;
                     if ((int)Properties.Settings.Default.Height != -1)
@@ -172,14 +173,14 @@ namespace Bluegrams.Application.WPF
 
         private void MiniAppManager_CheckForUpdatesCompleted(object sender, UpdateCheckEventArgs e)
         {
-            if (UpdateNotifyMode == UpdateNotifyMode.IncludeNegativeResult && !UpdateAvailable)
+            if (UpdateNotifyMode == UpdateNotifyMode.IncludeNegativeResult && !e.NewVersion)
             {
                 MessageBox.Show(Parent, Resources.strNoNewUpdate, Resources.strNewUpdateTitle);
                 return;
             }
             else if (!e.Successful || UpdateNotifyMode == UpdateNotifyMode.Never) return;
             bool newerVersion = new Version(LatestUpdate.Version) > new Version(Properties.Settings.Default.CheckedUpdate);
-            if (UpdateAvailable && ((int)UpdateNotifyMode < 2 || newerVersion))
+            if (e.NewVersion && ((int)UpdateNotifyMode < 2 || newerVersion))
             {
                 if (MessageBox.Show(Parent,
                     String.Format(Resources.strNewUpdate, AppInfo.ProductName, LatestUpdate.Version),

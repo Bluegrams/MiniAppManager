@@ -1,5 +1,11 @@
 # MiniAppManager Changelog
 
+#### v.0.4.1 (2018-10)
+- **Fixed:** A few bugs in `PortableSettingsProvider`.
+- **Fixed:** Saving/ Restoring of size for non-resizable windows.
+- **Changed:** Moved more properties to `UpdateCheckEventArgs`.
+- **Changed:** Custom settings now not roamed by default.
+
 ### v.0.4.0 (2018-07)
 - **New:** Information for about box now all specified by assembly attributes.
 - **New:** New readable settings format for custom settings properties.
