@@ -9,9 +9,8 @@ namespace Bluegrams.Application
     /// </summary>
     public enum UpdateNotifyMode
     {
-        Always = 0,
-        IncludeNegativeResult = 1,
-        IfNewer = 2,
+        IfNewUpdate = 0,
+        Always = 1,
         Never = 3
     }
 }

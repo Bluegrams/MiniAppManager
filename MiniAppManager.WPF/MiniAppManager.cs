@@ -2,10 +2,12 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Bluegrams.Application.Properties;
+using Bluegrams.Application.Update;
 
 namespace Bluegrams.Application.WPF
 {
@@ -83,7 +85,7 @@ namespace Bluegrams.Application.WPF
         {
             Parent = parent;
             SupportedCultures = new CultureInfo[0];
-            this.CheckForUpdatesCompleted += MiniAppManager_CheckForUpdatesCompleted;
+            setCulture();
         }
 
         /// <summary>
@@ -115,11 +117,22 @@ namespace Bluegrams.Application.WPF
             ProductImage = image;
             ProductColor = color;
             SupportedCultures = new CultureInfo[0];
-            this.CheckForUpdatesCompleted += MiniAppManager_CheckForUpdatesCompleted;
+            setCulture();
+        }
+
+        private void setCulture()
+        {
+            if (!String.IsNullOrEmpty(Properties.Settings.Default.Culture))
+            {
+                var culture = new System.Globalization.CultureInfo(Properties.Settings.Default.Culture);
+                System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
+                System.Threading.Thread.CurrentThread.CurrentCulture = culture;
+            }
         }
 
         /// <summary>
-        /// Initializes the app manager. (This method should be called before the window is initialized.)
+        /// Sets up the automatic saving of the window state and custom properties.
+        /// (This method should be called before the window is initialized.)
         /// </summary>
         public override void Initialize()
         {
@@ -130,12 +143,6 @@ namespace Bluegrams.Application.WPF
                 base.Upgrade();
                 Properties.Settings.Default.Updated = true;
                 Properties.Settings.Default.Save();
-            }
-            if (!String.IsNullOrEmpty(Properties.Settings.Default.Culture))
-            {
-                var culture = new System.Globalization.CultureInfo(Properties.Settings.Default.Culture);
-                System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
-                System.Threading.Thread.CurrentThread.CurrentCulture = culture;
             }
             Parent.Loaded += Parent_Loaded;
             Parent.Closing += Parent_Closing;
@@ -169,28 +176,6 @@ namespace Bluegrams.Application.WPF
                 }
             }
             checkOutOfBorders();
-        }
-
-        private void MiniAppManager_CheckForUpdatesCompleted(object sender, UpdateCheckEventArgs e)
-        {
-            if (UpdateNotifyMode == UpdateNotifyMode.IncludeNegativeResult && !e.NewVersion)
-            {
-                MessageBox.Show(Parent, Resources.strNoNewUpdate, Resources.strNewUpdateTitle);
-                return;
-            }
-            else if (!e.Successful || UpdateNotifyMode == UpdateNotifyMode.Never) return;
-            bool newerVersion = new Version(LatestUpdate.Version) > new Version(Properties.Settings.Default.CheckedUpdate);
-            if (e.NewVersion && ((int)UpdateNotifyMode < 2 || newerVersion))
-            {
-                if (MessageBox.Show(Parent,
-                    String.Format(Resources.strNewUpdate, AppInfo.ProductName, LatestUpdate.Version),
-                    Resources.strNewUpdateTitle, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-                {
-                    Process.Start(LatestUpdate.DownloadLink);
-                }
-                Properties.Settings.Default.CheckedUpdate = LatestUpdate.Version;
-                Properties.Settings.Default.Save();
-            }
         }
 
         private void checkOutOfBorders()
@@ -254,6 +239,50 @@ namespace Bluegrams.Application.WPF
                 Properties.Settings.Default.WindowState = savedWindowState;
             }
             Properties.Settings.Default.Save();
+        }
+        #endregion
+
+        #region "Update Check"
+
+        /// <summary>
+        /// This method is invoked after a check for updates is completed.
+        /// </summary>
+        protected override void OnCheckForUpdatesCompleted(UpdateCheckEventArgs e)
+        {
+            base.OnCheckForUpdatesCompleted(e);
+            if (UpdateNotifyMode == UpdateNotifyMode.Never)
+                return;
+            bool always = UpdateNotifyMode == UpdateNotifyMode.Always;
+            System.Diagnostics.Debug.WriteLine("Mode:" + always);
+            if (e.NewVersion)
+            {
+                Properties.Settings.Default.CheckedUpdate = e.Update.Version;
+                Properties.Settings.Default.Save();
+            }
+            if (e.Successful && e.NewVersion)
+            {
+                UpdateWindow updateWindow = new UpdateWindow(e.NewVersion, e.Update);
+                updateWindow.Owner = Parent;
+                if (updateWindow.ShowDialog().GetValueOrDefault())
+                {
+                    string path = Task.Run(async () => await UpdateChecker.DownloadUpdate(e.Update)).Result;
+                    if (path != null)
+                    {
+                        if (System.IO.Path.GetExtension(path) == ".msi")
+                            UpdateChecker.ApplyMsiUpdate(path);
+                        else UpdateChecker.ShowUpdateDownload(path);
+                    }
+                    else
+                    {
+                        MessageBox.Show(Parent, Resources.Box_UpdateFailed, Resources.Box_UpdateFailed_Title,
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+            else if (always)
+            {
+                MessageBox.Show(Parent, Resources.Box_NoNewUpdate, Resources.strSoftwareUpdate);
+            }
         }
         #endregion
 

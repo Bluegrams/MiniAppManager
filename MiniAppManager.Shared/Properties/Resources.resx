@@ -117,36 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="strLicense" xml:space="preserve">
-    <value>Published under </value>
-  </data>
-  <data name="strRestartNewLang" xml:space="preserve">
+  <data name="InfoWindow_RestartNewLang" xml:space="preserve">
     <value>All unsaved changed will be lost after restart.
 Continue?</value>
   </data>
-  <data name="strTitle" xml:space="preserve">
+  <data name="strAbout" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="lblDeveloper_Content" xml:space="preserve">
+  <data name="strDeveloper" xml:space="preserve">
     <value>Developer</value>
   </data>
-  <data name="butRestart_Content" xml:space="preserve">
+  <data name="strRestart" xml:space="preserve">
     <value>Restart</value>
   </data>
-  <data name="lblLicense_Content" xml:space="preserve">
+  <data name="strLicense" xml:space="preserve">
     <value>License</value>
   </data>
-  <data name="grpLanguage_Header" xml:space="preserve">
+  <data name="strAppLanguage" xml:space="preserve">
     <value>Application Language</value>
+  </data>
+  <data name="UpdateWindow_Header" xml:space="preserve">
+    <value>A new version of {0} is available!</value>
+  </data>
+  <data name="strUpdate" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="Box_NoNewUpdate" xml:space="preserve">
+    <value>No new updates available.</value>
+  </data>
+  <data name="strRemindLater" xml:space="preserve">
+    <value>Remind me later</value>
+  </data>
+  <data name="strSoftwareUpdate" xml:space="preserve">
+    <value>Software Update</value>
+  </data>
+  <data name="Box_UpdateFailed" xml:space="preserve">
+    <value>Downloading updates failed.
+You may try again later or consider updating manually.</value>
+  </data>
+  <data name="Box_UpdateFailed_Title" xml:space="preserve">
+    <value>Software Update - Error</value>
+  </data>
+  <data name="UpdateWindow_Version" xml:space="preserve">
+    <value>Version {0} was released on {1}. You have version {2}.</value>
+  </data>
+  <data name="UpdateWindow_WhatsNew" xml:space="preserve">
+    <value>What's new in version {0}:</value>
   </data>
   <data name="strNewUpdate" xml:space="preserve">
     <value>A new version of {0} is available: v.{1}.
 Would you like to download it now?</value>
-  </data>
-  <data name="strNewUpdateTitle" xml:space="preserve">
-    <value>Update</value>
-  </data>
-  <data name="strNoNewUpdate" xml:space="preserve">
-    <value>No new updates available.</value>
   </data>
 </root>

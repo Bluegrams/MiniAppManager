@@ -88,7 +88,7 @@ Public Class MiniAppManager
         MyBase.New(parent, portable)
         Me.parent = parent
         SupportedCultures = New CultureInfo() {}
-        AddHandler Me.CheckForUpdatesCompleted, AddressOf MiniAppManager_CheckForUpdatesCompleted
+        setCulture()
     End Sub
 
     ''' <summary>
@@ -121,11 +121,20 @@ Public Class MiniAppManager
         ProductColor = color
         ProductImage = image
         SupportedCultures = New CultureInfo() {}
-        AddHandler Me.CheckForUpdatesCompleted, AddressOf MiniAppManager_CheckForUpdatesCompleted
+        setCulture()
+    End Sub
+
+    Private Sub setCulture()
+        If Not String.IsNullOrEmpty(My.Settings.Culture) Then
+            Dim culture = New System.Globalization.CultureInfo(My.Settings.Culture)
+            System.Threading.Thread.CurrentThread.CurrentUICulture = culture
+            System.Threading.Thread.CurrentThread.CurrentCulture = culture
+        End If
     End Sub
 
     ''' <summary>
-    ''' Initializes the app manager. (This method should be called before the window is initialized.)
+    ''' Sets up the automatic saving of the window state And custom properties.
+    ''' (This method should be called before the window Is initialized.)
     ''' </summary>
     Public Overrides Sub Initialize()
         MyBase.Initialize()
@@ -134,11 +143,6 @@ Public Class MiniAppManager
             MyBase.Upgrade()
             My.Settings.Updated = True
             My.Settings.Save()
-        End If
-        If Not String.IsNullOrEmpty(My.Settings.Culture) Then
-            Dim culture = New System.Globalization.CultureInfo(My.Settings.Culture)
-            System.Threading.Thread.CurrentThread.CurrentUICulture = culture
-            System.Threading.Thread.CurrentThread.CurrentCulture = culture
         End If
         AddHandler parent.Load, AddressOf parent_Load
         AddHandler parent.FormClosing, AddressOf parent_FormClosing
@@ -164,25 +168,6 @@ Public Class MiniAppManager
             End Try
         End If
         checkOutOfBorders()
-    End Sub
-
-    Private Sub MiniAppManager_CheckForUpdatesCompleted(sender As Object, e As UpdateCheckEventArgs)
-        If UpdateNotifyMode = UpdateNotifyMode.IncludeNegativeResult AndAlso Not e.NewVersion Then
-            MessageBox.Show(parent, Properties.Resources.strNoNewUpdate, Properties.Resources.strNewUpdateTitle)
-            Return
-        ElseIf Not e.Successful OrElse UpdateNotifyMode = UpdateNotifyMode.Never Then
-            Return
-        End If
-        Dim newerVersion = New Version(LatestUpdate.Version) > New Version(My.Settings.CheckedUpdate)
-        If (e.NewVersion And (UpdateNotifyMode < 2 Or newerVersion)) Then
-            If (MessageBox.Show(parent,
-                    String.Format(Application.Properties.Resources.strNewUpdate, AppInfo.ProductName, LatestUpdate.Version),
-                    Application.Properties.Resources.strNewUpdateTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes) Then
-                Process.Start(LatestUpdate.DownloadLink)
-            End If
-            My.Settings.CheckedUpdate = LatestUpdate.Version
-            My.Settings.Save()
-        End If
     End Sub
 
     Private Sub checkOutOfBorders()
@@ -222,6 +207,29 @@ Public Class MiniAppManager
             My.Settings.WindowState = savedWindowState
         End If
         My.Settings.Save()
+    End Sub
+#End Region
+
+#Region "Update Check"
+
+    Protected Overrides Sub OnCheckForUpdatesCompleted(e As UpdateCheckEventArgs)
+        MyBase.OnCheckForUpdatesCompleted(e)
+        If UpdateNotifyMode = UpdateNotifyMode.Never Then Exit Sub
+        Dim always As Boolean = UpdateNotifyMode = UpdateNotifyMode.Always
+        If e.NewVersion Then
+            My.Settings.CheckedUpdate = e.Update.Version
+            My.Settings.Save()
+        End If
+        If e.Successful AndAlso e.NewVersion Then
+            If MessageBox.Show(parent,
+                   String.Format(Application.Properties.Resources.strNewUpdate, AppInfo.ProductName, e.Update.Version),
+                   Application.Properties.Resources.strSoftwareUpdate, MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+                Process.Start(e.Update.DownloadLink)
+            End If
+        ElseIf always Then
+            MessageBox.Show(parent, Application.Properties.Resources.Box_NoNewUpdate,
+                            Application.Properties.Resources.strSoftwareUpdate)
+        End If
     End Sub
 #End Region
 

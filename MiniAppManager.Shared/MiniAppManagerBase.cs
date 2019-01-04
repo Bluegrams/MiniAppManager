@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Net;
-using System.IO;
-using System.Xml.Serialization;
 using System.Configuration;
 using System.Collections;
+using Bluegrams.Application.Update;
 
 namespace Bluegrams.Application
 {
@@ -16,6 +14,7 @@ namespace Bluegrams.Application
     {
         private object parent;
         private List<string> managedSettings;
+
         /// <summary>
         /// Indicates that a new update is available.
         /// </summary>
@@ -28,6 +27,7 @@ namespace Bluegrams.Application
         /// <summary>
         /// If set to true, the manager checks for '/portable' or '--portable' option on startup to run in portable mode.
         /// </summary>
+        [Obsolete]
         public bool PortableModeArgEnabled { get; set; }
         /// <summary>
         /// If set true, also saves/ restores the window's sizes when it is not marked as resizable.
@@ -62,7 +62,13 @@ namespace Bluegrams.Application
         /// <summary>
         /// Information about the latest update of the application.
         /// </summary>
+        [Obsolete]
         public AppUpdate LatestUpdate { get; private set; }
+
+        /// <summary>
+        /// The URL where to look for information about updates.
+        /// </summary>
+        public string UpdateCheckUrl { get; set; }
 
         /// <summary>
         /// The settings of the manager.
@@ -83,15 +89,17 @@ namespace Bluegrams.Application
         {
             this.parent = parent;
             PortableMode = portable;
-            UpdateNotifyMode = UpdateNotifyMode.IfNewer;
+            UpdateNotifyMode = UpdateNotifyMode.IfNewUpdate;
             managedSettings = new List<string>();
         }
 
         /// <summary>
-        /// Initializes the app manager. (This method should be called before the window is initialized.)
+        /// Sets up the automatic saving of the window state and custom properties.
+        /// (This method should be called before the window is initialized.)
         /// </summary>
         public virtual void Initialize()
         {
+            // To be removed
             if (PortableModeArgEnabled)
             {
                 string[] args = Environment.GetCommandLineArgs();
@@ -155,44 +163,32 @@ namespace Bluegrams.Application
         }
 
         /// <summary>
+        /// Checks for update information.
+        /// </summary>
+        public void CheckForUpdates()
+        {
+            UpdateChecker.CheckForUpdates(UpdateCheckUrl, OnCheckForUpdatesCompleted);
+        }
+
+        /// <summary>
         /// Checks for update information at the given URL (which should provide a serialized AppUpdate object).
         /// </summary>
         /// <param name="url">The URL to check.</param>
+        [Obsolete("Use UpdateCheckUrl property")]
         public void CheckForUpdates(string url)
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            WebClient client = new WebClient();
-            try
-            {
-                client.OpenReadCompleted += Client_OpenReadCompleted;
-                client.OpenReadAsync(new Uri(url));
-            } catch (Exception ex) { updateCheckFailed(ex); }
+            UpdateCheckUrl = url;
+            UpdateChecker.CheckForUpdates(url, OnCheckForUpdatesCompleted);
         }
 
-        private void Client_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
+        /// <summary>
+        /// This method is invoked after a check for updates is completed.
+        /// </summary>
+        protected virtual void OnCheckForUpdatesCompleted(UpdateCheckEventArgs e)
         {
-            try
-            {
-                XmlSerializer serializer = new XmlSerializer(typeof(AppUpdate));
-                using (Stream str = e.Result)
-                {
-                    this.LatestUpdate = (AppUpdate)serializer.Deserialize(str);
-                }
-            }
-            catch (Exception ex)
-            {
-                updateCheckFailed(ex);
-                return;
-            }
-            UpdateAvailable = new Version(LatestUpdate.Version) > new Version(AppInfo.Version);
-            CheckForUpdatesCompleted?.Invoke(this, new UpdateCheckEventArgs(true, LatestUpdate));
-        }
-
-        private void updateCheckFailed(Exception ex)
-        {
-            LatestUpdate = null;
-            UpdateAvailable = false;
-            CheckForUpdatesCompleted?.Invoke(this, new UpdateCheckEventArgs(false, null, ex));
+            LatestUpdate = e.Update;
+            UpdateAvailable = e.NewVersion;
+            CheckForUpdatesCompleted?.Invoke(this, e);
         }
 
         /// <summary>

@@ -61,43 +61,72 @@ namespace Bluegrams.Application.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Restart.
+        ///   Looks up a localized string similar to No new updates available..
         /// </summary>
-        public static string butRestart_Content {
+        public static string Box_NoNewUpdate {
             get {
-                return ResourceManager.GetString("butRestart_Content", resourceCulture);
+                return ResourceManager.GetString("Box_NoNewUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading updates failed.
+        ///You may try again later or consider updating manually..
+        /// </summary>
+        public static string Box_UpdateFailed {
+            get {
+                return ResourceManager.GetString("Box_UpdateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Software Update - Error.
+        /// </summary>
+        public static string Box_UpdateFailed_Title {
+            get {
+                return ResourceManager.GetString("Box_UpdateFailed_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All unsaved changed will be lost after restart.
+        ///Continue?.
+        /// </summary>
+        public static string InfoWindow_RestartNewLang {
+            get {
+                return ResourceManager.GetString("InfoWindow_RestartNewLang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string strAbout {
+            get {
+                return ResourceManager.GetString("strAbout", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Application Language.
         /// </summary>
-        public static string grpLanguage_Header {
+        public static string strAppLanguage {
             get {
-                return ResourceManager.GetString("grpLanguage_Header", resourceCulture);
+                return ResourceManager.GetString("strAppLanguage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Developer.
         /// </summary>
-        public static string lblDeveloper_Content {
+        public static string strDeveloper {
             get {
-                return ResourceManager.GetString("lblDeveloper_Content", resourceCulture);
+                return ResourceManager.GetString("strDeveloper", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to License.
-        /// </summary>
-        public static string lblLicense_Content {
-            get {
-                return ResourceManager.GetString("lblLicense_Content", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Published under .
         /// </summary>
         public static string strLicense {
             get {
@@ -116,39 +145,65 @@ namespace Bluegrams.Application.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remind me later.
+        /// </summary>
+        public static string strRemindLater {
+            get {
+                return ResourceManager.GetString("strRemindLater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart.
+        /// </summary>
+        public static string strRestart {
+            get {
+                return ResourceManager.GetString("strRestart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Software Update.
+        /// </summary>
+        public static string strSoftwareUpdate {
+            get {
+                return ResourceManager.GetString("strSoftwareUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update.
         /// </summary>
-        public static string strNewUpdateTitle {
+        public static string strUpdate {
             get {
-                return ResourceManager.GetString("strNewUpdateTitle", resourceCulture);
+                return ResourceManager.GetString("strUpdate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No new updates available..
+        ///   Looks up a localized string similar to A new version of {0} is available!.
         /// </summary>
-        public static string strNoNewUpdate {
+        public static string UpdateWindow_Header {
             get {
-                return ResourceManager.GetString("strNoNewUpdate", resourceCulture);
+                return ResourceManager.GetString("UpdateWindow_Header", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All unsaved changed will be lost after restart.
-        ///Continue?.
+        ///   Looks up a localized string similar to Version {0} was released on {1}. You have version {2}..
         /// </summary>
-        public static string strRestartNewLang {
+        public static string UpdateWindow_Version {
             get {
-                return ResourceManager.GetString("strRestartNewLang", resourceCulture);
+                return ResourceManager.GetString("UpdateWindow_Version", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About.
+        ///   Looks up a localized string similar to What&apos;s new in version {0}:.
         /// </summary>
-        public static string strTitle {
+        public static string UpdateWindow_WhatsNew {
             get {
-                return ResourceManager.GetString("strTitle", resourceCulture);
+                return ResourceManager.GetString("UpdateWindow_WhatsNew", resourceCulture);
             }
         }
     }

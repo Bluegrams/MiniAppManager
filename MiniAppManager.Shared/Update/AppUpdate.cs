@@ -23,8 +23,23 @@ namespace Bluegrams.Application
         public string DownloadLink { get; set; }
 
         /// <summary>
+        /// The name the downloaded file should have.
+        /// </summary>
+        public string DownloadFileName { get; set; }
+
+        /// <summary>
         /// Some notes to the latest version.
         /// </summary>
         public string VersionNotes { get; set; }
+
+        /// <summary>
+        /// The release date of the update.
+        /// </summary>
+        public DateTime ReleaseDate { get; set; }
+
+        /// <summary>
+        /// The MD5 hash of the downloaded file.
+        /// </summary>
+        public string MD5Hash { get; set; }
     }
 }

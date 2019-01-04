@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="Settings\VariableSettingsProvider.cs" />
     <Compile Include="Types\RGBColor.cs" />
+    <Compile Include="Update\UpdateChecker.cs" />
     <Compile Include="Update\UpdateCheckEventArgs.cs" />
     <Compile Include="Update\UpdateNotifyMode.cs" />
   </ItemGroup>
@@ -85,6 +86,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Bluegrams.Application.Properties</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

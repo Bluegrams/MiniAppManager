@@ -68,21 +68,21 @@ Friend Class InfoWindow
     End Sub
 
     Private Sub butChangeLang_Click(sender As Object, e As EventArgs) Handles butChangeLang.Click
-        If MessageBox.Show(Properties.Resources.strRestartNewLang, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) = DialogResult.OK Then
+        If MessageBox.Show(Properties.Resources.InfoWindow_RestartNewLang, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) = DialogResult.OK Then
             manager.ChangeCulture(SupportedCultures(comLang.SelectedIndex))
         End If
     End Sub
 
     Private Sub InitializeText()
-        Me.Text = String.Format("{1} {0}", AppInfo.ProductName, Properties.Resources.strTitle)
+        Me.Text = String.Format("{1} {0}", AppInfo.ProductName, Properties.Resources.strAbout)
         lblTitle.Text = AppInfo.ProductName
         lblName.Text = AppInfo.Title
-        lblCompanyText.Text = Properties.Resources.lblDeveloper_Content
+        lblCompanyText.Text = Properties.Resources.strDeveloper
         lblCompany.Text = AppInfo.Company
         lblVersionText.Text = "Version"
         lblVersion.Text = " " & AppInfo.Version
         lblCopyright.Text = AppInfo.Copyright
-        lblLicenseText.Text = Properties.Resources.lblLicense_Content
+        lblLicenseText.Text = Properties.Resources.strLicense
         If Not String.IsNullOrEmpty(ProductLicense.Description) Then
             lnkLicense.Text = ProductLicense.Description
             lnkLicense.Links.Add(0, lnkLicense.Text.Length, ProductLicense.Url)
@@ -92,9 +92,9 @@ Friend Class InfoWindow
         End If
         lnkWebsite.Text = ProductWebsite.Description
         lnkWebsite.Links.Add(0, lnkWebsite.Text.Length, ProductWebsite.Url)
-        butChangeLang.Text = Properties.Resources.butRestart_Content
-        grpLanguages.Text = Properties.Resources.grpLanguage_Header
-        butUpdate.Text = Application.Properties.Resources.strNewUpdateTitle
+        butChangeLang.Text = Properties.Resources.strRestart
+        grpLanguages.Text = Properties.Resources.strAppLanguage
+        butUpdate.Text = Properties.Resources.strUpdate
     End Sub
 
     Private Sub InfoWindow_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -104,7 +104,7 @@ Friend Class InfoWindow
     End Sub
 
     Private Sub butUpdate_Click(sender As Object, e As EventArgs) Handles butUpdate.Click
-        Process.Start(manager.LatestUpdate.DownloadLink)
+        manager.CheckForUpdates()
     End Sub
 
     Private Sub lnkWebsite_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebsite.LinkClicked, lnkLicense.LinkClicked

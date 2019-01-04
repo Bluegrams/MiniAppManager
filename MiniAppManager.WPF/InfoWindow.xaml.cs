@@ -49,7 +49,7 @@ namespace Bluegrams.Application.WPF
                 this.Icon = icon;
                 brdIcon.Background = new SolidColorBrush(Colors.Transparent);
             }
-            this.Title = Bluegrams.Application.Properties.Resources.strTitle + " " + Title;
+            this.Title = Bluegrams.Application.Properties.Resources.strAbout + " " + Title;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -79,7 +79,7 @@ namespace Bluegrams.Application.WPF
 
         private void butRestart_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show(Application.Properties.Resources.strRestartNewLang, "", MessageBoxButton.OKCancel, MessageBoxImage.Warning) 
+            if (MessageBox.Show(Application.Properties.Resources.InfoWindow_RestartNewLang, "", MessageBoxButton.OKCancel, MessageBoxImage.Warning) 
                 == MessageBoxResult.OK)
             {
                 manager.ChangeCulture(SupportedCultures[comLanguages.SelectedIndex]);
@@ -94,7 +94,7 @@ namespace Bluegrams.Application.WPF
 
         private void butUpdate_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(manager.LatestUpdate.DownloadLink);
+            manager.CheckForUpdates();
         }
     }
 }
