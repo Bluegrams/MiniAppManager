@@ -5,6 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded" Closing="Window_Closing">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+    </Window.Resources>
     <StackPanel>
         <Label Content="{Binding Path=Left}" ContentStringFormat="Saved Left: {0}"/>
         <Label Content="{Binding Path=Top}" ContentStringFormat="Saved Top: {0}"/>
@@ -21,6 +26,9 @@
             <TextBox x:Name="txtRoamed" Width="150" VerticalContentAlignment="Center"/>
         </WrapPanel>
         <Label x:Name="lblCount"/>
-        <Button x:Name="butAbout" Click="butAbout_Click" Content="Show 'About' Box" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Button x:Name="butAbout" Click="butAbout_Click" Content="Show 'About' Box"
+                VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Button x:Name="butCheckUpdates" Click="butCheckUpdates_Click" Content="Check for Updates"
+                VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </StackPanel>
 </Window>

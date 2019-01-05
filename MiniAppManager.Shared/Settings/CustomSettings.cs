@@ -44,7 +44,12 @@ namespace Bluegrams.Application
         /// Adds a settings property.
         /// </summary>
         /// <param name="propInfo">The property info of the property to add.</param>
-        internal void AddSetting(PropertyInfo propInfo) => AddSetting(propInfo, getSerializeAs(propInfo.PropertyType));
+        /// <param name="defaultValue">The default value of the property.</param>
+        /// <param name="roamed">Specifies if this setting should be roamed.</param>
+        internal void AddSetting(PropertyInfo propInfo, object defaultValue = null, bool roamed = false)
+        {
+            AddSetting(propInfo, getSerializeAs(propInfo.PropertyType), defaultValue, roamed);
+        }
 
         /// <summary>
         /// Adds a settings property.

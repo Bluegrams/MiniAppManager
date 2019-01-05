@@ -133,10 +133,12 @@ namespace Bluegrams.Application
         /// Adds a public property of the managed window to the managed properties.
         /// </summary>
         /// <param name="propertyName">The name of the property to add.</param>
-        public void AddManagedProperty(string propertyName)
+        /// <param name="defaultValue">The default value to use if no saved value is found.</param>
+        /// <param name="roamed">Specifies if this setting should be roamed.</param>
+        public void AddManagedProperty(string propertyName, object defaultValue = null, bool roamed = false)
         {
             managedSettings.Add(propertyName);
-            CustomSettings.Default.AddSetting(parent.GetType().GetProperty(propertyName));
+            CustomSettings.Default.AddSetting(parent.GetType().GetProperty(propertyName), defaultValue, roamed);
         }
 
         /// <summary>

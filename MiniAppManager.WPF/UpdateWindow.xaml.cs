@@ -16,6 +16,9 @@ namespace Bluegrams.Application.WPF
             txtVersion.Text = String.Format(Application.Properties.Resources.UpdateWindow_Version,
                 update.Version, update.ReleaseDate.ToShortDateString(), AppInfo.Version);
             txtWhatsNew.Text = String.Format(Application.Properties.Resources.UpdateWindow_WhatsNew, update.Version);
+            if (String.IsNullOrWhiteSpace(update.VersionNotes))
+                stackVersionNotes.Visibility = Visibility.Collapsed;
+            else stackVersionNotes.Visibility = Visibility.Visible;
         }
 
         private void Submit_Click(object sender, RoutedEventArgs e)

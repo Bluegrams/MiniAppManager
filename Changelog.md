@@ -1,5 +1,10 @@
 # MiniAppManager Changelog
 
+#### v.0.4.2 (2019-01) (WPF only)
+- **New:** New update check with update window.
+- **Changed:** Cleaned up `UpdateNotifyMode` (breaking).
+- **Changed:** Moved `PortableSettingsProvider` to separate package.
+
 #### v.0.4.1 (2018-10)
 - **Fixed:** A few bugs in `PortableSettingsProvider`.
 - **Fixed:** Saving/ Restoring of size for non-resizable windows.

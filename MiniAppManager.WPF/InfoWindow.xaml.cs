@@ -74,7 +74,13 @@ namespace Bluegrams.Application.WPF
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             if (!String.IsNullOrEmpty(e.Uri.OriginalString))
-                Process.Start(e.Uri.OriginalString);
+            {
+                try
+                {
+                    Process.Start(e.Uri.OriginalString);
+                }
+                catch { /* Silently fail */ }
+            }
         }
 
         private void butRestart_Click(object sender, RoutedEventArgs e)

@@ -109,7 +109,10 @@ Friend Class InfoWindow
 
     Private Sub lnkWebsite_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebsite.LinkClicked, lnkLicense.LinkClicked
         If Not String.IsNullOrEmpty(e.Link.LinkData.ToString()) Then
-            Process.Start(e.Link.LinkData)
+            Try
+                Process.Start(e.Link.LinkData)
+            Catch 'Silently fail
+            End Try
         End If
     End Sub
 
