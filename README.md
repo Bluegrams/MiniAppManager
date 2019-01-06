@@ -1,6 +1,11 @@
-# MiniAppManager
+﻿# MiniAppManager
 [![NuGet](https://img.shields.io/nuget/v/MiniAppManager.WPF.svg?label=nuget+for+WPF&colorB=004880)](https://www.nuget.org/packages/MiniAppManager.WPF/)
 [![NuGet](https://img.shields.io/nuget/v/MiniAppManager.WinForms.svg?label=nuget+for+WinForms&colorB=004880)](https://www.nuget.org/packages/MiniAppManager.WinForms/)
+
+⚠️ _WARNING: This library is under developement with frequent (sometimes breaking) changes.  
+		Probably you don't want to use it (yet)._ ⚠️
+
+**NOTE: PortableSettingsProvider has moved to https://github.com/bluegrams/SettingsProviders.**
 
 Automatically saves a window's state, makes settings portable, checks for updates
 and adds a simple 'About' box to your WinForms or WPF application.
