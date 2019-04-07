@@ -1,8 +1,5 @@
 ﻿# MiniAppManager
 
-[![NuGet](https://img.shields.io/nuget/v/MiniAppManager.WPF.svg?label=nuget+for+WPF&colorB=004880)](https://www.nuget.org/packages/MiniAppManager.WPF/)
-[![NuGet](https://img.shields.io/nuget/v/MiniAppManager.WinForms.svg?label=nuget+for+WinForms&colorB=004880)](https://www.nuget.org/packages/MiniAppManager.WinForms/)
-
 **NOTE: PortableSettingsProvider has moved to https://github.com/bluegrams/SettingsProviders.**
 
 ⚠️ _WARNING: This project is under development with frequent (sometimes breaking) changes._

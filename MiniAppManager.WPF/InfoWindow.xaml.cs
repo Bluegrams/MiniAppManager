@@ -12,28 +12,13 @@ namespace Bluegrams.Application.WPF
     {
         private MiniAppManager manager;
 
-        public Link ProductWebsite
-        {
-            get { return AppInfo.ProductWebsite ?? manager.ProductWebsite; }
-        }
-
-        public Link ProductLicense
-        {
-            get { return AppInfo.ProductLicense ?? manager.ProductLicense; }
-        }
-
         public Color ProductColor
         {
             get
             {
-                if (AppInfo.ProductColor == null) return manager.ProductColor;
+                if (AppInfo.ProductColor == null) return Colors.DarkGray;
                 else return (Color)AppInfo.ProductColor;
             }
-        }
-
-        public CultureInfo[] SupportedCultures
-        {
-            get { return AppInfo.SupportedCultures ?? manager.SupportedCultures; }
         }
 
         internal InfoWindow(MiniAppManager manager, ImageSource icon)
@@ -54,9 +39,9 @@ namespace Bluegrams.Application.WPF
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (SupportedCultures.Length > 0)
+            if (AppInfo.SupportedCultures.Length > 0)
             {
-                foreach (CultureInfo cu in SupportedCultures)
+                foreach (CultureInfo cu in AppInfo.SupportedCultures)
                 {
                     comLanguages.Items.Add(cu.DisplayName);
                     if (cu.TwoLetterISOLanguageName == CultureInfo.CurrentUICulture.TwoLetterISOLanguageName)
@@ -88,7 +73,7 @@ namespace Bluegrams.Application.WPF
             if (MessageBox.Show(Application.Properties.Resources.InfoWindow_RestartNewLang, "", MessageBoxButton.OKCancel, MessageBoxImage.Warning) 
                 == MessageBoxResult.OK)
             {
-                manager.ChangeCulture(SupportedCultures[comLanguages.SelectedIndex]);
+                manager.ChangeCulture(AppInfo.SupportedCultures[comLanguages.SelectedIndex]);
             }
         }
 

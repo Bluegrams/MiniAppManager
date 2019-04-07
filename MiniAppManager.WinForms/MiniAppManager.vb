@@ -1,6 +1,5 @@
 ﻿Imports System.Windows.Forms
 Imports System.Drawing
-Imports System.Globalization
 Imports System.Configuration
 
 ''' <summary>
@@ -13,19 +12,6 @@ Public Class MiniAppManager
     Private savedSize As Size
     Private savedLocation As Point
     Private savedWindowState As FormWindowState
-
-    ''' <summary>
-    ''' The color used for the title of the 'About' box.
-    ''' </summary>
-    ''' <returns></returns>
-    <Obsolete("Please use assembly attributes instead.")>
-    Public Property ProductColor As Color
-    ''' <summary>
-    ''' The icon of the project used for the 'About' box.
-    ''' </summary>
-    ''' <returns></returns>
-    <Obsolete("Please specify icon when showing About box instead.")>
-    Public Property ProductImage As Bitmap
 
     ''' <summary>
     ''' The settings of the manager.
@@ -41,86 +27,10 @@ Public Class MiniAppManager
     ''' Creates a New instance of MiniAppManager
     ''' </summary>
     ''' <param name="parent">The parent window of the manager. (Project's main window.)</param>
-    Sub New(parent As Form)
-        Me.New(parent, False)
-    End Sub
-
-    ''' <summary>
-    ''' Creates a New instance of MiniAppManager
-    ''' </summary>
-    ''' <param name="parent">The parent window of the manager. (Project's main window.)</param>
-    ''' <param name="color">The color used for the title of the 'About' box.</param>
-    <Obsolete>
-    Sub New(parent As Form, color As Color)
-        Me.New(parent, color, Nothing)
-    End Sub
-
-    ''' <summary>
-    ''' Creates a New instance of MiniAppManager
-    ''' </summary>
-    ''' <param name="parent">The parent window of the manager. (Project's main window.)</param>
-    ''' <param name="color">The color used for the title of the 'About' box.</param>
-    ''' <param name="image">The icon of the project used for the 'About' box.</param>
-    <Obsolete>
-    Sub New(parent As Form, color As Color, image As Image)
-        Me.New(parent, color, image, New Link(""), New Link(""))
-    End Sub
-
-    ''' <summary>
-    ''' Creates a New instance of MiniAppManager
-    ''' </summary>
-    ''' <param name="parent">The parent window of the manager. (Project's main window.)</param>
-    ''' <param name="color">The color used for the title of the 'About' box.</param>
-    ''' <param name="image">The icon of the project used for the 'About' box.</param>
-    ''' <param name="website">The project's website shown in the 'About' box.</param>
-    ''' <param name="license">A link to the license, under which the project Is published.</param>
-    <Obsolete>
-    Sub New(parent As Form, color As Color, image As Image, website As Link, license As Link)
-        Me.New(parent, False, color, image, website, license)
-    End Sub
-
-    ''' <summary>
-    ''' Creates a New instance of MiniAppManager
-    ''' </summary>
-    ''' <param name="parent">The parent window of the manager. (Project's main window.)</param>
     ''' <param name="portable">Indicates whether the manager should be run in portable mode.</param>
-    Sub New(parent As Form, portable As Boolean)
+    Sub New(parent As Form, Optional portable As Boolean = False)
         MyBase.New(parent, portable)
         Me.parent = parent
-        SupportedCultures = New CultureInfo() {}
-        setCulture()
-    End Sub
-
-    ''' <summary>
-    ''' Creates a New instance of MiniAppManager
-    ''' </summary>
-    ''' <param name="parent">The parent window of the manager. (Project's main window.)</param>
-    ''' <param name="portable">Indicates whether the manager should be run in portable mode.</param>
-    ''' <param name="color">The color used for the title of the 'About' box.</param>
-    ''' <param name="image">The icon of the project used for the 'About' box.</param>
-    <Obsolete>
-    Sub New(parent As Form, portable As Boolean, color As Color, image As Image)
-        Me.New(parent, portable, color, image, New Link(""), New Link(""))
-    End Sub
-
-    ''' <summary>
-    ''' Creates a New instance of MiniAppManager
-    ''' </summary>
-    ''' <param name="parent">The parent window of the manager. (Project's main window.)</param>
-    ''' <param name="portable">Indicates whether the manager should be run in portable mode.</param>
-    ''' <param name="color">The color used for the title of the 'About' box.</param>
-    ''' <param name="image">The icon of the project used for the 'About' box.</param>
-    ''' <param name="website">The project's website shown in the 'About' box.</param>
-    ''' <param name="license">A link to the license, under which the project Is published.</param>
-    <Obsolete>
-    Sub New(parent As Form, portable As Boolean, color As Color, image As Image, website As Link, license As Link)
-        MyBase.New(parent, portable)
-        Me.parent = parent
-        ProductWebsite = website
-        ProductLicense = license
-        ProductColor = color
-        ProductImage = image
-        SupportedCultures = New CultureInfo() {}
         setCulture()
     End Sub
 
@@ -255,7 +165,7 @@ Public Class MiniAppManager
     ''' Shows an 'About' box with application information.
     ''' </summary>
     Public Overrides Sub ShowAboutBox()
-        ShowAboutBox(ProductImage)
+        ShowAboutBox(Nothing)
     End Sub
 
     ''' <summary>

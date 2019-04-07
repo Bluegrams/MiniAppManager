@@ -25,11 +25,6 @@ namespace Bluegrams.Application
         /// </summary>
         public UpdateNotifyMode UpdateNotifyMode { get; set; }
         /// <summary>
-        /// If set to true, the manager checks for '/portable' or '--portable' option on startup to run in portable mode.
-        /// </summary>
-        [Obsolete]
-        public bool PortableModeArgEnabled { get; set; }
-        /// <summary>
         /// If set true, also saves/ restores the window's sizes when it is not marked as resizable.
         /// </summary>
         public bool AlwaysTrackResize { get; set; }
@@ -43,27 +38,6 @@ namespace Bluegrams.Application
         /// Occurs when a made check for updates is completed.
         /// </summary>
         public event EventHandler<UpdateCheckEventArgs> CheckForUpdatesCompleted;
-
-        /// <summary>
-        /// The project's website shown in the 'About' box.
-        /// </summary>
-        [Obsolete("Please use assembly attributes instead.")]
-        public Link ProductWebsite { get; set; }
-        /// <summary>
-        /// A link to the license, under which the project is published.
-        /// </summary>
-        [Obsolete("Please use assembly attributes instead.")]
-        public Link ProductLicense { get; set; }
-        /// <summary>
-        /// A list containing cultures supported by the application.
-        /// </summary>
-        [Obsolete("Please use assembly attributes instead.")]
-        public CultureInfo[] SupportedCultures { get; set; }
-        /// <summary>
-        /// Information about the latest update of the application.
-        /// </summary>
-        [Obsolete]
-        public AppUpdate LatestUpdate { get; private set; }
 
         /// <summary>
         /// The URL where to look for information about updates.
@@ -97,18 +71,7 @@ namespace Bluegrams.Application
         /// Sets up the automatic saving of the window state and custom properties.
         /// (This method should be called before the window is initialized.)
         /// </summary>
-        public virtual void Initialize()
-        {
-            // To be removed
-            if (PortableModeArgEnabled)
-            {
-                string[] args = Environment.GetCommandLineArgs();
-                if (Array.IndexOf(args, "/portable") >= 0 || Array.IndexOf(args, "--portable") >= 0)
-                {
-                    PortableMode = true;
-                }
-            }
-        }
+        public virtual void Initialize() { }
 
         /// <summary>
         /// Shows an 'About' box with application information.
@@ -173,22 +136,10 @@ namespace Bluegrams.Application
         }
 
         /// <summary>
-        /// Checks for update information at the given URL (which should provide a serialized AppUpdate object).
-        /// </summary>
-        /// <param name="url">The URL to check.</param>
-        [Obsolete("Use UpdateCheckUrl property")]
-        public void CheckForUpdates(string url)
-        {
-            UpdateCheckUrl = url;
-            UpdateChecker.CheckForUpdates(url, OnCheckForUpdatesCompleted);
-        }
-
-        /// <summary>
         /// This method is invoked after a check for updates is completed.
         /// </summary>
         protected virtual void OnCheckForUpdatesCompleted(UpdateCheckEventArgs e)
         {
-            LatestUpdate = e.Update;
             UpdateAvailable = e.NewVersion;
             CheckForUpdatesCompleted?.Invoke(this, e);
         }

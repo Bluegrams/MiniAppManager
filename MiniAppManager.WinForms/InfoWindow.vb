@@ -8,31 +8,13 @@ Friend Class InfoWindow
     Private manager As MiniAppManager
     Private resources, main_resources As ResourceManager
 
-    Private ReadOnly Property ProductWebsite As Link
-        Get
-            Return If(AppInfo.ProductWebsite, manager.ProductWebsite)
-        End Get
-    End Property
-
-    Private ReadOnly Property ProductLicense As Link
-        Get
-            Return If(AppInfo.ProductLicense, manager.ProductLicense)
-        End Get
-    End Property
-
     Private ReadOnly Property ProductColor As Color
         Get
             If IsNothing(AppInfo.ProductColor) Then
-                Return manager.ProductColor
+                Return Color.DarkGray
             Else
                 Return CType(AppInfo.ProductColor, Color)
             End If
-        End Get
-    End Property
-
-    Private ReadOnly Property SupportedCultures As CultureInfo()
-        Get
-            Return If(AppInfo.SupportedCultures, manager.SupportedCultures)
         End Get
     End Property
 
@@ -51,8 +33,8 @@ Friend Class InfoWindow
     End Sub
 
     Private Sub BlueInfoWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If SupportedCultures.Length > 0 Then
-            For Each cu As CultureInfo In SupportedCultures
+        If AppInfo.SupportedCultures.Length > 0 Then
+            For Each cu As CultureInfo In AppInfo.SupportedCultures
                 comLang.Items.Add(cu.DisplayName)
                 If cu.TwoLetterISOLanguageName = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName Then
                     comLang.SelectedIndex = comLang.Items.Count - 1
@@ -69,7 +51,7 @@ Friend Class InfoWindow
 
     Private Sub butChangeLang_Click(sender As Object, e As EventArgs) Handles butChangeLang.Click
         If MessageBox.Show(Properties.Resources.InfoWindow_RestartNewLang, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) = DialogResult.OK Then
-            manager.ChangeCulture(SupportedCultures(comLang.SelectedIndex))
+            manager.ChangeCulture(AppInfo.SupportedCultures(comLang.SelectedIndex))
         End If
     End Sub
 
@@ -83,15 +65,15 @@ Friend Class InfoWindow
         lblVersion.Text = " " & AppInfo.Version
         lblCopyright.Text = AppInfo.Copyright
         lblLicenseText.Text = Properties.Resources.strLicense
-        If Not String.IsNullOrEmpty(ProductLicense.Description) Then
-            lnkLicense.Text = ProductLicense.Description
-            lnkLicense.Links.Add(0, lnkLicense.Text.Length, ProductLicense.Url)
+        If Not String.IsNullOrEmpty(AppInfo.ProductLicense.Description) Then
+            lnkLicense.Text = AppInfo.ProductLicense.Description
+            lnkLicense.Links.Add(0, lnkLicense.Text.Length, AppInfo.ProductLicense.Url)
         Else
             lblLicenseText.Visible = False
             lnkLicense.Visible = False
         End If
-        lnkWebsite.Text = ProductWebsite.Description
-        lnkWebsite.Links.Add(0, lnkWebsite.Text.Length, ProductWebsite.Url)
+        lnkWebsite.Text = AppInfo.ProductWebsite.Description
+        lnkWebsite.Links.Add(0, lnkWebsite.Text.Length, AppInfo.ProductWebsite.Url)
         butChangeLang.Text = Properties.Resources.strRestart
         grpLanguages.Text = Properties.Resources.strAppLanguage
         butUpdate.Text = Properties.Resources.strUpdate

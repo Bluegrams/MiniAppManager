@@ -69,13 +69,15 @@
             <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Source={x:Static local:AppInfo.Copyright}}"/>
             <Label Grid.Row="4" Grid.Column="0" Content="{Binding Source={x:Static sp:Resources.strLicense}}"/>
             <Label Grid.Row="4" Grid.Column="1">
-                <Hyperlink NavigateUri="{Binding Path=ProductLicense.Url}" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock Text="{Binding Path=ProductLicense.Description}"/>
+                <Hyperlink NavigateUri="{Binding Source={x:Static local:AppInfo.ProductLicense}, Path=Url}"
+                           RequestNavigate="Hyperlink_RequestNavigate">
+                    <TextBlock Text="{Binding Source={x:Static local:AppInfo.ProductLicense}, Path=Description}"/>
                 </Hyperlink>
             </Label>
             <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
-                <Hyperlink NavigateUri="{Binding Path=ProductWebsite.Url}" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock Text="{Binding Path=ProductWebsite.Description}"/>
+                <Hyperlink NavigateUri="{Binding Source={x:Static local:AppInfo.ProductWebsite}, Path=Url}"
+                           RequestNavigate="Hyperlink_RequestNavigate">
+                    <TextBlock Text="{Binding Source={x:Static local:AppInfo.ProductWebsite}, Path=Description}"/>
                 </Hyperlink>
             </Label>
         </Grid>

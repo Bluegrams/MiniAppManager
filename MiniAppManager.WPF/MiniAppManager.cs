@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Bluegrams.Application.Properties;
 using Bluegrams.Application.Update;
 
@@ -25,16 +24,6 @@ namespace Bluegrams.Application.WPF
         /// The managed parent window.
         /// </summary>
         public Window Parent { get; private set; }
-        /// <summary>
-        /// The color used for the title of the 'About' box.
-        /// </summary>
-        [Obsolete("Please use assembly attributes instead.")]
-        public Color ProductColor { get; set; }
-        /// <summary>
-        /// The icon of the project used for the 'About' box.
-        /// </summary>
-        [Obsolete("Please specify icon when showing About box instead.")]
-        public BitmapSource ProductImage { get; set; }
 
         /// <summary>
         /// The settings of the manager.
@@ -45,78 +34,10 @@ namespace Bluegrams.Application.WPF
         /// Creates a new instance of MiniAppManager
         /// </summary>
         /// <param name="parent">The parent window of the manager. (Project's main window.)</param>
-        public MiniAppManager(Window parent) : this(parent, false) { }
-
-        /// <summary>
-        /// Creates a new instance of MiniAppManager
-        /// </summary>
-        /// <param name="parent">The parent window of the manager. (Project's main window.)</param>
-        /// <param name="color">The color used for the title of the 'About' box.</param>
-        [Obsolete]
-        public MiniAppManager(Window parent, Color color) : this(parent, color, null) { }
-
-        /// <summary>
-        /// Creates a new instance of MiniAppManager
-        /// </summary>
-        /// <param name="parent">The parent window of the manager. (Project's main window.)</param>
-        /// <param name="color">The color used for the title of the 'About' box.</param>
-        /// <param name="image">The icon of the project used for the 'About' box.</param>
-        [Obsolete]
-        public MiniAppManager(Window parent, Color color, BitmapSource image) : this(parent, color, image, new Link(""), new Link("")) { }
-
-        /// <summary>
-        /// Creates a new instance of MiniAppManager
-        /// </summary>
-        /// <param name="parent">The parent window of the manager. (Project's main window.)</param>
-        /// <param name="color">The color used for the title of the 'About' box.</param>
-        /// <param name="image">The icon of the project used for the 'About' box.</param>
-        /// <param name="website">The project's website shown in the 'About' box.</param>
-        /// <param name="license">A link to the license, under which the project is published.</param>
-        [Obsolete]
-        public MiniAppManager(Window parent, Color color, BitmapSource image, Link website, Link license) : this(parent, false, color, image, website, license)
-        { }
-
-        /// <summary>
-        /// Creates a new instance of MiniAppManager
-        /// </summary>
-        /// <param name="parent">The parent window of the manager. (Project's main window.)</param>
         /// <param name="portable">Indicates whether the manager should be run in portable mode.</param>
-        public MiniAppManager(Window parent, bool portable) : base(parent, portable)
+        public MiniAppManager(Window parent, bool portable = false) : base(parent, portable)
         {
             Parent = parent;
-            SupportedCultures = new CultureInfo[0];
-            setCulture();
-        }
-
-        /// <summary>
-        /// Creates a new instance of MiniAppManager
-        /// </summary>
-        /// <param name="parent">The parent window of the manager. (Project's main window.)</param>
-        /// <param name="portable">Indicates whether the manager should be run in portable mode.</param>
-        /// <param name="color">The color used for the title of the 'About' box.</param>
-        /// <param name="image">The icon of the project used for the 'About' box.</param>
-        [Obsolete]
-        public MiniAppManager(Window parent, bool portable, Color color, BitmapSource image) : this(parent, portable, color, image, new Link(""), new Link(""))
-        { }
-
-        /// <summary>
-        /// Creates a new instance of MiniAppManager
-        /// </summary>
-        /// <param name="parent">The parent window of the manager. (Project's main window.)</param>
-        /// <param name="portable">Indicates whether the manager should be run in portable mode.</param>
-        /// <param name="color">The color used for the title of the 'About' box.</param>
-        /// <param name="image">The icon of the project used for the 'About' box.</param>
-        /// <param name="website">The project's website shown in the 'About' box.</param>
-        /// <param name="license">A link to the license, under which the project is published.</param>
-        [Obsolete]
-        public MiniAppManager(Window parent, bool portable, Color color, BitmapSource image, Link website, Link license) : base(parent, portable)
-        {
-            Parent = parent;
-            ProductLicense = license;
-            ProductWebsite = website;
-            ProductImage = image;
-            ProductColor = color;
-            SupportedCultures = new CultureInfo[0];
             setCulture();
         }
 
@@ -290,7 +211,7 @@ namespace Bluegrams.Application.WPF
         /// <summary>
         /// Shows an 'About' box with application information.
         /// </summary>
-        public override void ShowAboutBox() => ShowAboutBox(ProductImage);
+        public override void ShowAboutBox() => ShowAboutBox(null);
 
         /// <summary>
         /// Shows an 'About' box with application information.

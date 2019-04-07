@@ -141,10 +141,6 @@
   <data name="lnkWebsite.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
   </data>
-  <data name="lnkWebsite.Text" xml:space="preserve">
-    <value></value>
-    <comment>@Invariant</comment>
-  </data>
   <data name="lnkWebsite.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
@@ -361,10 +357,6 @@
   <data name="lnkLicense.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
   </data>
-  <data name="lnkLicense.Text" xml:space="preserve">
-    <value></value>
-    <comment>@Invariant</comment>
-  </data>
   <data name="lnkLicense.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
@@ -395,10 +387,6 @@
   <data name="butUpdate.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="butUpdate.Text" xml:space="preserve">
-    <value></value>
-    <comment>@Invariant</comment>
-  </data>
   <data name="butUpdate.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -425,10 +413,6 @@
   </data>
   <data name="lblVersion.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
-  </data>
-  <data name="lblVersion.Text" xml:space="preserve">
-    <value></value>
-    <comment>@Invariant</comment>
   </data>
   <data name="lblVersion.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
@@ -510,10 +494,6 @@
   </data>
   <data name="splitter.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
-  </data>
-  <data name="splitter.Text" xml:space="preserve">
-    <value></value>
-    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;splitter.Name" xml:space="preserve">
     <value>splitter</value>
