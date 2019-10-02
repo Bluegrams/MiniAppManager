@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<AppUpdate>
-  <Version>1.1</Version>
-  <DownloadLink>https://github.com/bluegrams/MiniAppManager/releases</DownloadLink>
-  <VersionNotes>Some release notes for this version.</VersionNotes>
-  <ReleaseDate>2019-01-01</ReleaseDate>
-  <MD5Hash></MD5Hash>
-</AppUpdate>
